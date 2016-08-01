@@ -7,6 +7,7 @@
     "babyparse": "^0.4.3",
     "jsts": "^1.1.0",
     "levenshtein": "^1.0.5",
+    "mathjs": "^3.3.0",
     "nopt": "^3.0.3",
     "request": "^2.60.0",
     "togeojson": "^0.12.2",

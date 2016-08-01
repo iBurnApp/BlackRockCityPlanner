@@ -6,3 +6,4 @@ require('./GeoTest.js');
 require('./GridTest.js');
 require('./StreetsTest');
 require('./PolygonTest');
+require('./ToiletParserTest');

@@ -6,7 +6,6 @@ var dmz = require('./dmz.js');
 var fs = require('fs');
 
 var nopt = require("nopt")
-  , Stream = require("stream").Stream
   , path = require("path")
   , knownOpts = {
     "file" : path,
