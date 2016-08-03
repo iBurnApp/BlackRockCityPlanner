@@ -48,7 +48,7 @@ art.map(function(item) {
 });
 
 if (parsed.out) {
-    fs.writeFile(parsed.out, JSON.stringify(result), function(err) {});
+    fs.writeFile(parsed.out, JSON.stringify(result, null, 4), function(err) {});
 } else {
     console.log(JSON.stringify(result));
 }
