@@ -1,3 +1,4 @@
+require('./CampAPITest');
 require('./ArtGeocodeTest');
 require('./GeocoderTest');
 require('./UtilsTest');

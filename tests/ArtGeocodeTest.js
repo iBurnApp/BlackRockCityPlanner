@@ -50,10 +50,10 @@ test('geocodingArtStringJSON', function(t) {
 				var testError = {};
 				testError.id = item.uid;
 				testError.locationString = item.location.string;
-				testError.calculatedDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,point,'miles')),2);
+				testError.calculatedDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,point,'miles')));
 				testError.theirDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,realPoint,'miles')));
-				testError.ourBearing = turf.bearing(centerPoint,point);
-				testError.theirBearing = turf.bearing(centerPoint,realPoint);
+				testError.ourBearing = turf.bearing(centerPoint,point).toFixed(2);
+				testError.theirBearing = turf.bearing(centerPoint,realPoint).toFixed(2);
 				testError.timeString = Utils.degreesToTime(testError.theirBearing,layout.bearing);
 				
 				ultraFailed.push(testError);
@@ -67,10 +67,12 @@ test('geocodingArtStringJSON', function(t) {
 	});
 
 	if (ultraFailed.length > 0) {
-		console.log("|id|iBurn Calcluated Distance|Playa Events Calculated Distance|iBurn Calculated Bearing|Playa Events Calculated Bearing|Playa Events Calculated Time|Playa Events API time string|")
+		console.log("|id|Playa Events API time string|iBurn Calculated Bearing (from geocoding string)|Playa Events Calculated Bearing (from API lat/lon)|Playa Events Calculated Time (from API lat/lon)|");
+		console.log("| ------------- | ------------- | ------------- | ------------- | ------------- |");
 	}
 	ultraFailed.forEach(function(item){
-		console.log("|%s|%s|%s|%d|%d|%s|%s|",item.id,item.calculatedDistanceFeet,item.theirDistanceFeet,item.ourBearing,item.theirBearing,item.timeString,item.locationString)
+		//TODO: Need to find a way to round off the bearing correctly
+		console.log("|%s|%s|%d°|%d°|%s|",item.id,item.locationString,item.ourBearing,item.theirBearing,item.timeString)
 	});
 
 	t.end();

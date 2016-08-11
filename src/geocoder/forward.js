@@ -38,13 +38,17 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
     return undefined;
   }
   featureName = featureName.toLowerCase();
-  var features = this.fuzzyMatchFeatures('name',featureName);
+  var features = this.fuzzyMatchFeatures(['name','ref'],featureName);
   var bestGuessFeature = features[0]
+  if(bestGuessFeature === undefined) {
+    return undefined;
+  }
+
   var timeArray = utils.splitTimeString(timeString);
   var hour = parseInt(timeArray[0]);
   var minute = parseInt(timeArray[1]);
   var clock;
-  if (featureName.indexOf("rod") > -1 ||featureName.indexOf("inner") > -1 || featureName.indexOf("66") > -1) {
+  if (featureName.indexOf("rod") > -1 ||featureName.indexOf("inner") > -1 || featureName.indexOf("66") > -1 || featureName.indexOf("center camp") > -1) {
     // We're inside center camp
     clock = new Clock(this.centerCamp,this.cityBearing);
   } else if (bestGuessFeature.geometry.type === "Polygon") {
@@ -65,18 +69,15 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
     var timeRoad = timeArray[0];
     if (timeRoad) {
       var intersection = turf.intersect(timeRoad,bestGuessFeature);
-      return intersection;
+      if (intersection) {
+        return intersection;
+      }
     }
 
     //otherwise we need to create a 'fake' time street and
 
     clock = new Clock(this.centerPoint,this.cityBearing);
   }
-
-
-//Bad hack because when cirucular roads end at the 'intersecting' time street they don't really intersect so we got to fake it by
-//trying raidal roads ever so slightly off 1/20 of a degree. 6:30 & B
-  //Should probably use buffer and then find intersection and center of common polygon
 
   var imaginaryTimeStreet = clock.line(hour,minute,5,'miles');
   var radial = [imaginaryTimeStreet];
@@ -91,19 +92,22 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
   }
 };
 
-Geocoder.prototype.fuzzyMatchFeatures = function(key, value) {
+Geocoder.prototype.fuzzyMatchFeatures = function(keys, value) {
   var features = [];
   //go through all features and pull out matching items for each name
-  this.features.map(function(item){
-    var geoName = item.properties[key];
-    if (geoName) {
-      geoName=geoName.toLowerCase();
-      var largestNameLength = Math.max(geoName.length, value.length);
-      var match = (largestNameLength - new leven(geoName, value).distance) / largestNameLength;
-      if (match > 0.6) {
-        features.push(item);
+  this.features.forEach(function(item){
+    keys.forEach(function(key){
+      var geoName = item.properties[key];
+      if (geoName) {
+        geoName=geoName.toLowerCase();
+        var largestNameLength = Math.max(geoName.length, value.length);
+        var match = (largestNameLength - new leven(geoName, value).distance) / largestNameLength;
+        if (match > 0.6) {
+          features.push(item);
+        }
       }
-    }
+    });
+    
   });
   return features;
 }
