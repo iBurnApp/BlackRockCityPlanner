@@ -1,4 +1,4 @@
-## 2015 Scripts
+## Black Rock City Planner [![Build Status](https://travis-ci.org/Burning-Man-Earth/BlackRockCityPlanner.svg?branch=master)](https://travis-ci.org/Burning-Man-Earth/BlackRockCityPlanner)
 
 ### Geo Data Generator
 

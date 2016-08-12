@@ -45,7 +45,7 @@ test("geocode",function(t){
         turf.point([ -119.212253,  40.778853],{address:"5:30 & Ballyhoo"}), //Normal time street and circlular street
         turf.point([ -119.2139388, 40.7787117],{address:"Rod's Road @ 4:30"}), // Special center camp addresss, time starts from center camp Center
         turf.point([ -119.2145218, 40.7922306],{address:"9:00 Plaza @ 1:00"}), // Special case time starts from plaza
-        turf.point([ -119.2146657, 40.7814833],{address:"Center Camp Plaza @ 9:15"})
+        turf.point([ -119.2144238, 40.7812450],{address:"Center Camp Plaza @ 9:15"})
     ];
 
     testSearches.forEach(function(item){

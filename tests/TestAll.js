@@ -1,3 +1,5 @@
+require('./CampAPITest');
+require('./ArtGeocodeTest');
 require('./GeocoderTest');
 require('./UtilsTest');
 require('./TimeTest.js');
