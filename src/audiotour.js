@@ -12,7 +12,7 @@ var nopt = require("nopt"),
         "f": ["--file"], // art.json file
         "a": ["--audio"], // audio tour mp3 files directory
         "o": ["--out"], // outfile for art.json
-        "b": ["--base"] // base URL for audio URLs ending with '/' e.g. https://iburn-data.iburnapp.com/ 
+        "b": ["--base"] // base URL for audio URLs ending with '/' e.g. https://iburn-data.iburnapp.com/2016/audio_tour/ 
     },
     parsed = nopt(knownOpts, shortHands, process.argv, 2);
 
@@ -23,6 +23,7 @@ var audio_dir = parsed.audio_dir;
 console.log('audio_dir ' + audio_dir);
 var file_names = fs.readdirSync(parsed.audio_dir);
 var key_name = "audio_tour_url";
+var count = 0;
 
 var result = [];
 art.map(function(item) {
@@ -32,9 +33,12 @@ art.map(function(item) {
         var audio_tour_url = base_url + filename;
         item[key_name] = audio_tour_url;
         console.log('audio tour for ' + item.name + ': ' + audio_tour_url);
+        count++;
     }
     result.push(item);
 });
+
+console.log('count: ' + count);
 
 if (parsed.out) {
     fs.writeFile(parsed.out, JSON.stringify(result, null, 4), function(err) {});
