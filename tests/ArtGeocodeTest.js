@@ -1,7 +1,7 @@
 var test = require('tape');
 var turf = require('turf');
-var Geocoder = require('../src/Geocoder/geocoder');
-var Parser = require('../src/Geocoder/geocodeParser.js');
+var Geocoder = require('../src/geocoder/geocoder');
+var Parser = require('../src/geocoder/geocodeParser.js');
 var Utils = require('../src/utils');
 
 var artJSON = require('./new-2015-art.json');
