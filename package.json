@@ -10,7 +10,7 @@
     "mathjs": "^3.3.0",
     "nopt": "^3.0.3",
     "request": "^2.60.0",
-    "togeojson": "^0.12.2",
+    "togeojson": "^0.14.2",
     "turf": "^2.0.2",
     "turf-difference": "^2.0.0",
     "turf-meta": "^1.0.2",
