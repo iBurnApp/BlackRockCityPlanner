@@ -18,8 +18,8 @@ Geocoder.prototype.forwardAsString = function(locationString) {
   return resultStr;
 };
 
-Geocoder.prototype.forward = function(locationString) {
-  return this.forwardCoder.geocode(locationString);
+Geocoder.prototype.forward = function(string,string1) {
+  return this.forwardCoder.geocode(string,string1);
 };
 
 Geocoder.prototype.forwardTimeDistance = function(time, distance, units)

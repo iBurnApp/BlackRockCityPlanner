@@ -42,19 +42,36 @@ test("geocode",function(t){
     var coder = new Geocoder(layout2015);
 
     var testSearches = [
-        turf.point([ -119.212253,  40.778853],{address:"5:30 & Ballyhoo"}), //Normal time street and circlular street
-        turf.point([ -119.2139388, 40.7787117],{address:"Rod's Road @ 4:30"}), // Special center camp addresss, time starts from center camp Center
-        turf.point([ -119.2145218, 40.7922306],{address:"9:00 Plaza @ 1:00"}), // Special case time starts from plaza
-        turf.point([ -119.2144238, 40.7812450],{address:"Center Camp Plaza @ 9:15"})
+        turf.point([ -119.212253,  40.778853],{first:"5:30",second:"Ballyhoo",type:"&"}),
+        turf.point([ -119.212253,  40.778853],{first:"5:30", second:"B",type:"&"}), //Normal time street and circlular street
+        turf.point([ -119.212253,  40.778853],{first:"B",second:"5:30",type:"&"}),
+        turf.point([ -119.2139388, 40.7787117],{first:"Rod's Road",second:"4:30",type:"@"}), // Special center camp addresss, time starts from center camp Center
+        turf.point([ -119.2145218, 40.7922306],{first:"9:00 Plaza",second:"1:00",type:"@"}), // Special case time starts from plaza
+        turf.point([ -119.2144238, 40.7812450],{first:"Center Camp Plaza",second:"9:15",type:"@"})
     ];
 
     testSearches.forEach(function(item){
-        var intersection = coder.forward(item.properties.address);
-        t.ok(intersection, "Checking valid intersection returned for: "+item.properties.address);
-        distanceDifference = turf.distance(item,intersection);
-        t.ok(distanceDifference < 0.001, "Intersection should be close "+distanceDifference+ " "+JSON.stringify(intersection));
+        var fullAddressString = item.properties.first+" "+item.properties.type+" "+item.properties.second;
+        var fullStringIntersection = coder.forward(fullAddressString);
+        var twoStringIntersection = coder.forward(item.properties.first,item.properties.second);
+
+        t.ok(fullStringIntersection, "Checking valid intersection returned for: "+item.properties);
+        t.ok(fullStringIntersection, "Checking valid intersection returned for: "+item.properties);
+
+        var fullStringDistance = turf.distance(item,fullStringIntersection);
+        var twoStringDistace = turf.distance(item,twoStringIntersection);
+        
+        t.ok(fullStringDistance < 0.001, "Full string intersection should be close "+fullStringDistance+ " "+JSON.stringify(fullStringIntersection));
+        t.ok(twoStringDistace < 0.001, "Two string intersection should be close "+twoStringDistace+ " "+JSON.stringify(twoStringIntersection));
+
     });
 
+    t.end();
+});
+
+test('parseTimeTest',function(t){
+    t.equal(Parser.parseTimeString("11:30"),"11:30","Parseing 11:30");
+    t.notOk(Parser.parseTimeString("800"),"Do not parse numbers as time");
     t.end();
 });
 

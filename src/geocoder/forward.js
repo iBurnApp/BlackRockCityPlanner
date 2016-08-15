@@ -130,12 +130,12 @@ function intersectingPoints(features1,features2) {
   return intersections;
 }
 
-Geocoder.prototype.geocode = function(locationString) {
-  if (locationString in this.hardcodedLocations) {
-    return this.hardcodedLocations[locationStirng];
+Geocoder.prototype.geocode = function(locationString1,locationString2) {
+  if (locationString1 in this.hardcodedLocations) {
+    return this.hardcodedLocations[locationString1];
   } else {
     var coder = this;
-    var result = Parser.parse(locationString);
+    var result = Parser.parse(locationString1,locationString2);
     if(result.distance >= 0){
 
       return coder.timeDistanceToLatLon(result.time,utils.feetToMiles(result.distance),'miles');
