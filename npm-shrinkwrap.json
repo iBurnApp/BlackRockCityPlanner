@@ -428,9 +428,9 @@
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.7.3.tgz"
     },
     "mathjs": {
-      "version": "3.3.0",
-      "from": "mathjs@latest",
-      "resolved": "https://registry.npmjs.org/mathjs/-/mathjs-3.3.0.tgz"
+      "version": "3.4.1",
+      "from": "mathjs@3.4.1",
+      "resolved": "https://registry.npmjs.org/mathjs/-/mathjs-3.4.1.tgz"
     },
     "mime-db": {
       "version": "1.23.0",
