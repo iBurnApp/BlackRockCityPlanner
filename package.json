@@ -18,10 +18,11 @@
     "xls-to-json": "^0.3.2"
   },
   "devDependencies": {
+    "tap": "^6.3.2",
     "tape": "^4.5.1"
   },
   "scripts": {
-    "test": "tape tests/testAll.js"
+    "test": "tap tests/*.js --cov"
   },
   "author": "",
   "license": "ISC",
