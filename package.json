@@ -12,7 +12,7 @@
     "request": "^2.60.0",
     "togeojson": "^0.14.2",
     "turf": "^3.0.14",
-    "turf-difference": "^2.0.0",
+    "turf-difference": "^3.0.12",
     "turf-meta": "^1.0.2",
     "turf-multilinestring": "^1.0.2",
     "xls-to-json": "^0.3.2"
