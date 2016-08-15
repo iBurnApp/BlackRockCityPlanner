@@ -151,7 +151,7 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var fence = Fence.fence(this.layoutFile).features[0];
 
     //Create Straight segment
-    var longSix = turf.linestring([this.layoutFile.center.geometry.coordinates,this.grid.clock.point(6,0,5,'miles').geometry.coordinates])
+    var longSix = turf.lineString([this.layoutFile.center.geometry.coordinates,this.grid.clock.point(6,0,5,'miles').geometry.coordinates])
     var intersectionPoint = turf.intersect(fence,longSix);
     var splitPoint = turf.destination(intersectionPoint,entranceRoadLength,this.layoutFile.bearing,'miles');
     var segments = [[intersectionPoint.geometry.coordinates,splitPoint.geometry.coordinates]];
@@ -160,10 +160,10 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var bearing1 = this.layoutFile.bearing + entranceRoadAngle/2;
     var bearing2 = this.layoutFile.bearing - entranceRoadAngle/2;
     //temp roads to find intersections;
-    var entrance1 = turf.linestring([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing1,'miles').geometry.coordinates]);
-    var entrance2 = turf.linestring([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,'miles').geometry.coordinates]);
+    var entrance1 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing1,'miles').geometry.coordinates]);
+    var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,'miles').geometry.coordinates]);
     //most outer street
-    var outerStreet = turf.filter(this.getArcStreets(),'ref','l').features[0];
+    var outerStreet = Utils.filter(this.getArcStreets().features,'ref','l')[0];
     var intersectionPoint1 = turf.intersect(outerStreet,entrance1);
     var intersectionPoint2 = turf.intersect(outerStreet,entrance2);
     var bearing1 = turf.bearing(this.layoutFile.center,intersectionPoint1);
@@ -195,7 +195,7 @@ StreetPlanner.prototype.getArcStreets = function() {
         },this)
         var lineString;
         if (points.length === 1) {
-            lineString = turf.linestring(points[0]);
+            lineString = turf.lineString(points[0]);
         } else {
             lineString = turf.multilinestring(points);
         }
@@ -205,7 +205,7 @@ StreetPlanner.prototype.getArcStreets = function() {
     },this);
 
 
-    return turf.featurecollection(features);
+    return turf.featureCollection(features);
 };
 
 StreetPlanner.prototype.getRadialStreets = function() {
@@ -232,7 +232,7 @@ StreetPlanner.prototype.getRadialStreets = function() {
             },this);
             var lineString;
             if (points.length === 1) {
-                lineString = turf.linestring(points[0]);
+                lineString = turf.lineString(points[0]);
             } else {
                 lineString = turf.multilinestring(points);
             }
@@ -244,7 +244,7 @@ StreetPlanner.prototype.getRadialStreets = function() {
             features.push(lineString);
         },this)
     },this);
-    return turf.featurecollection(features);
+    return turf.featureCollection(features);
 };
 
 StreetPlanner.prototype.getAirportRoad = function() {
@@ -263,8 +263,8 @@ StreetPlanner.prototype.getAirportRoad = function() {
         points.push(turf.point(coordinate));
     });
 
-    var nearest = turf.nearest(startPoint,turf.featurecollection(points));
-    return turf.linestring([startPoint.geometry.coordinates,nearest.geometry.coordinates],{
+    var nearest = turf.nearest(startPoint,turf.featureCollection(points));
+    return turf.lineString([startPoint.geometry.coordinates,nearest.geometry.coordinates],{
         'ref': 'airport',
         'name': 'Airport Road'
     })
@@ -278,7 +278,7 @@ StreetPlanner.prototype.getAllCityStreets = function() {
     features.push(this.entranceRoad);
     features.push(this.getAirportRoad());
 
-    return turf.featurecollection(features);
+    return turf.featureCollection(features);
 }
 
 module.exports = StreetPlanner;

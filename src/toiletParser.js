@@ -95,7 +95,7 @@ ToiletParser.prototype.polygons = function(layoutParser) {
     var features = this.toiletsInfo.map(function(toilet){
         return toiletGeoJSON(layoutParser,this.width,this.height,toilet);
     },this);
-    return turf.featurecollection(features);
+    return turf.featureCollection(features);
 };
 
 ToiletParser.prototype.points = function(layoutParser) {
@@ -103,7 +103,7 @@ ToiletParser.prototype.points = function(layoutParser) {
     var points = polygons.features.map(function(square){
        return turf.centroid(square);
     });
-    return turf.featurecollection(points);
+    return turf.featureCollection(points);
 }
 
 module.exports = ToiletParser;

@@ -9,11 +9,11 @@ var reverseGeocoder = function(cityCenter,centerCampCenter,cityBearing,polygons,
   this.arcStreets = this.streets.filter(function(item){
     return item.properties.type !== 'radial';
   });
-  this.centerPlaza = turf.filter(polygons,'ref','centerPlaza').features[0];
-  this.cafe = turf.filter(polygons,'ref','cafe').features[0];
-  this.innerPlaya = turf.filter(polygons,'ref','innerPlaya').features[0];
-  this.outerPlaya = turf.filter(polygons,'ref','outerPlaya').features[0];
-  this.streetsArea = turf.filter(polygons,'ref','streets').features[0];
+  this.centerPlaza = utils.filter(polygons.features,'ref','centerPlaza')[0];
+  this.cafe = utils.filter(polygons.features,'ref','cafe')[0];
+  this.innerPlaya = utils.filter(polygons.features,'ref','innerPlaya')[0];
+  this.outerPlaya = utils.filter(polygons.features,'ref','outerPlaya')[0];
+  this.streetsArea = utils.filter(polygons.features,'ref','streets')[0];
 };
 
 reverseGeocoder.prototype.geocode = function(lat, lon) {
@@ -57,7 +57,7 @@ var streetResult = function(point,features) {
     if(item.geometry.type === 'MultiLineString') {
       var linesList = [];
       item.geometry.coordinates.map(function(coords){
-        var line = turf.linestring(coords,item.properties);
+        var line = turf.lineString(coords,item.properties);
         linesList.push(line);
       });
       result = streetResult(point,linesList);

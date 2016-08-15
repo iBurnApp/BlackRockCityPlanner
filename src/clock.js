@@ -42,7 +42,7 @@ Clock.prototype.pointFromDegrees = function(compassDegrees,distance,units) {
 
 Clock.prototype.line = function(hour,minute,distance,units) {
   var point = this.point(hour, minute, distance, units);
-  return turf.linestring([this.center.geometry.coordinates,point.geometry.coordinates]);
+  return turf.lineString([this.center.geometry.coordinates,point.geometry.coordinates]);
 };
 
 Clock.arcDegrees = function(startBearing,endBearing,bearingFrequency) {

@@ -12,6 +12,12 @@ var bearingInDegrees = function(hour,minute, noonBearing) {
   return compassDegrees;
 };
 
+var filter = function(features,key,value) {
+  return features.filter(function(item){
+    return item.properties[key] === value;
+  });
+};
+
   // -180 to 180
 var  timeToCompassDegrees = function(hour, minute, cityBearing) {
     var clockDegrees = .5*(60*(parseInt(hour)%12)+parseInt(minute))
@@ -105,5 +111,6 @@ module.exports = {
   bearingCompare: bearingCompare,
   splitTimeString:splitTimeString,
   cutStreets: cutStreets,
-  distanceFromCenter: distanceFromCenter
+  distanceFromCenter: distanceFromCenter,
+  filter: filter
 };

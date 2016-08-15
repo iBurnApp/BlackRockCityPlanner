@@ -15,11 +15,11 @@ exports.fence = function(jsonFile) {
     bearing += 360/5;
   }
 
-  var collection = turf.featurecollection(points);
+  var collection = turf.featureCollection(points);
   var polygon = turf.convex(collection);
-  var ls = turf.linestring(polygon.geometry.coordinates[0],{
+  var ls = turf.lineString(polygon.geometry.coordinates[0],{
     'ref':'fence',
     'name':"Fence"
   })
-  return turf.featurecollection([ls]);
+  return turf.featureCollection([ls]);
 }

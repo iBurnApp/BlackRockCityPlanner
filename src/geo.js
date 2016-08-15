@@ -12,7 +12,7 @@ var arc = function(center, distance, units, startBearing, endBearing, bearingFre
     var onlyCoordinates = points.map(function (item) {
         return item.geometry.coordinates;
     })
-    return turf.linestring(onlyCoordinates)
+    return turf.lineString(onlyCoordinates)
 }
 
 var arcPoints = function(center, distance, units, startBearing, endBearing, bearingFrequency) {

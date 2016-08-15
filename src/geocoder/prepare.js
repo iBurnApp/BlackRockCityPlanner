@@ -19,7 +19,7 @@ module.exports = function(layoutFile) {
   var features = [streetsArea,innerPlaya,outerPlaya]
   features = features.concat(centerPolygons);
 
-  var fc = turf.featurecollection(features);
+  var fc = turf.featureCollection(features);
 
   //Streets without time, airport, entrance
   var allStreets = streetPlanner.getAllCityStreets();
@@ -34,7 +34,7 @@ module.exports = function(layoutFile) {
     "centerCamp":centerCampCenter,
     "bearing":layoutFile.bearing,
     "reversePolygons":fc,
-    "reverseStreets":turf.featurecollection(st),
+    "reverseStreets":turf.featureCollection(st),
     "forwardPolygons":polygons.allPolygons(streetPlanner),
     "forwardStreets":allStreets
   }

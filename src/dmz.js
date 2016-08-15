@@ -15,7 +15,7 @@ module.exports.frontArc = function(layout) {
   var line = streets.generateArcStreet(layout.center,distance,segments,5);
 
   line.properties.type = "other";
-  return turf.linestring(line.geometry.coordinates[0],line.properties);
+  return turf.lineString(line.geometry.coordinates[0],line.properties);
 }
 
 module.exports.area = function(layout) {
@@ -46,6 +46,6 @@ module.exports.toilets = function(layout) {
   var toilet1 = turf.point(backArc[0],properties);
   var toilet2 = turf.point(backArc[backArc.length-1],properties);
 
-  return turf.featurecollection([toilet1,toilet2]);
+  return turf.featureCollection([toilet1,toilet2]);
 
 }

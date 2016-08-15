@@ -280,13 +280,13 @@ exports.fence = function(jsonFile) {
     bearing += 360/5;
   }
 
-  var collection = turf.featurecollection(points);
+  var collection = turf.featureCollection(points);
   var polygon = turf.convex(collection);
-  var ls = turf.linestring(polygon.geometry.coordinates[0],{
+  var ls = turf.lineString(polygon.geometry.coordinates[0],{
     'ref':'fence',
     'name':"Fence"
   })
-  return turf.featurecollection([ls]);
+  return turf.featureCollection([ls]);
 }
 
 },{"./utils.js":143,"turf":21}],3:[function(require,module,exports){
@@ -348,7 +348,7 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
 
     var end = turf.destination(start, 5, bearing, 'miles');
 
-    var imaginaryTimeStreet = turf.linestring([start.geometry.coordinates,end.geometry.coordinates]);
+    var imaginaryTimeStreet = turf.lineString([start.geometry.coordinates,end.geometry.coordinates]);
     radial.push(imaginaryTimeStreet);
   }
 
@@ -571,7 +571,7 @@ module.exports = function(layoutFile) {
   var features = [streetsArea,innerPlaya,outerPlaya]
   features = features.concat(centerPolygons);
 
-  var fc = turf.featurecollection(features);
+  var fc = turf.featureCollection(features);
 
   //Streets without time, airport, entrance
   var s = streets.allStreets(layoutFile);
@@ -579,7 +579,7 @@ module.exports = function(layoutFile) {
     return !(item.properties.type === 'time' || item.properties.ref === 'airport' || item.properties.ref === 'entrance');
   });
 
-  s = turf.featurecollection(st);
+  s = turf.featureCollection(st);
 
   var centerCampCenter = points.centerCampCenter(layoutFile);
 
@@ -651,7 +651,7 @@ var streetResult = function(point,features) {
     if(item.geometry.type === 'MultiLineString') {
       var linesList = [];
       item.geometry.coordinates.map(function(coords){
-        var line = turf.linestring(coords,item.properties);
+        var line = turf.lineString(coords,item.properties);
         linesList.push(line);
       });
       result = streetResult(point,linesList);
@@ -48117,7 +48117,7 @@ operations.count = count;
 * var aggregated = turf.aggregate(
 *   polygons, points, aggregations);
 *
-* var result = turf.featurecollection(
+* var result = turf.featureCollection(
 *   points.features.concat(aggregated.features));
 *
 * //=result
@@ -53662,7 +53662,7 @@ module.exports = function(layer) {
  *  turf.point([-75.534, 39.123], {name: 'Location C'})
  * ];
  *
- * var fc = turf.featurecollection(features);
+ * var fc = turf.featureCollection(features);
  *
  * //=fc
  */
@@ -54101,7 +54101,7 @@ var featurecollection = require('turf-featurecollection');
  *  [-122.520217, 45.535693]
  * ]]);
  * poly2.properties.fill = '#00f';
- * var polygons = turf.featurecollection([poly1, poly2]);
+ * var polygons = turf.featureCollection([poly1, poly2]);
  *
  * var intersection = turf.intersect(poly1, poly2);
  *
@@ -55235,13 +55235,13 @@ function lineIntersects(line1StartX, line1StartY, line1EndX, line1EndY, line2Sta
  * @return {LineString} a LineString feature
  * @throws {Error} if no coordinates are passed
  * @example
- * var linestring1 = turf.linestring([
+ * var linestring1 = turf.lineString([
  *	[-21.964416, 64.148203],
  *	[-21.956176, 64.141316],
  *	[-21.93901, 64.135924],
  *	[-21.927337, 64.136673]
  * ]);
- * var linestring2 = turf.linestring([
+ * var linestring2 = turf.lineString([
  *	[-21.929054, 64.127985],
  *	[-21.912918, 64.134726],
  *	[-21.916007, 64.141016],
@@ -57585,7 +57585,7 @@ var inside = require('turf-inside');
  * var randomPoints = turf.random('point', 30, {
  *   bbox: bbox
  * });
- * var both = turf.featurecollection(
+ * var both = turf.featureCollection(
  *   triangleGrid.features.concat(randomPoints.features));
  *
  * //=both
@@ -58409,7 +58409,7 @@ exports.plazas = function(jsonFile) {
     }
     features.push(buffer);
   })
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 }
 
 exports.portals = function(jsonFile) {
@@ -58476,7 +58476,7 @@ exports.portals = function(jsonFile) {
     features.push(result);
 
   });
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 }
 
 exports.centerCampPolygons = function(jsonFile) {
@@ -58501,14 +58501,14 @@ exports.centerCampPolygons = function(jsonFile) {
   //Create hole for cafe
   plaza.geometry.coordinates.push(cafe.geometry.coordinates[0]);
 
-  return turf.featurecollection([cafe,plaza]);
+  return turf.featureCollection([cafe,plaza]);
 }
 
 exports.allPolygons = function(jsonFile) {
   var plazas = exports.plazas(jsonFile);
   var portals = exports.portals(jsonFile);
   var camp = exports.centerCampPolygons(jsonFile);
-  var allAreas = turf.featurecollection(plazas.features.concat(camp.features));
+  var allAreas = turf.featureCollection(plazas.features.concat(camp.features));
 
   var newPortals  = [];
   portals.features.map(function(portal){
@@ -58584,7 +58584,7 @@ exports.cityOutline = function(jsonFile) {
   var plazas = exports.plazas(jsonFile);
   var portals = exports.portals(jsonFile);
   var camp = exports.centerCampPolygons(jsonFile);
-  var a = turf.featurecollection(plazas.features.concat(camp.features));
+  var a = turf.featureCollection(plazas.features.concat(camp.features));
 
   var newPortals  = [];
   portals.features.map(function(portal){
@@ -58607,7 +58607,7 @@ exports.cityOutline = function(jsonFile) {
   })
 
 
-  return turf.featurecollection([outline]);
+  return turf.featureCollection([outline]);
 }
 
 },{"./fence.js":2,"./points.js":140,"./streets.js":142,"./utils.js":143,"jsts":9,"turf":21,"turf-difference":14,"turf-meta":19,"turf-multilinestring":20}],142:[function(require,module,exports){
@@ -58635,7 +58635,7 @@ exports.circularStreets = function(jsonFile) {
     circleStreetsFeatures.push(multiLineString);
   });
 
-  return turf.featurecollection(circleStreetsFeatures);
+  return turf.featureCollection(circleStreetsFeatures);
 }
 
 exports.radialStreets = function(jsonFile) {
@@ -58665,7 +58665,7 @@ exports.radialStreets = function(jsonFile) {
     });
 
   });
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 }
 
 exports.entranceRoad = function(jsonFile) {
@@ -58674,7 +58674,7 @@ exports.entranceRoad = function(jsonFile) {
   var entranceRoadAngle= jsonFile.entrance_road.angle;
   var entranceRoadSplitDistance = utils.feetToMiles(jsonFile.entrance_road.distance);
   var f = fence.fence(jsonFile);
-  var longSix = turf.linestring([cityCenter.geometry.coordinates,turf.destination(cityCenter,5,utils.timeToCompassDegrees("6","00",cityBearing),'miles').geometry.coordinates])
+  var longSix = turf.lineString([cityCenter.geometry.coordinates,turf.destination(cityCenter,5,utils.timeToCompassDegrees("6","00",cityBearing),'miles').geometry.coordinates])
   var iPoint = turf.intersect(f.features[0],longSix);
   var endPoint = turf.destination(iPoint,entranceRoadSplitDistance,utils.timeToCompassDegrees("12","00",cityBearing),'miles');
   var lines = [[iPoint.geometry.coordinates,endPoint.geometry.coordinates]]
@@ -58682,8 +58682,8 @@ exports.entranceRoad = function(jsonFile) {
   var bearing1 = cityBearing + entranceRoadAngle/2;
   var bearing2 = cityBearing - entranceRoadAngle/2;
 
-  var entrance1 = turf.linestring([endPoint.geometry.coordinates,turf.destination(endPoint,1,bearing1,'miles').geometry.coordinates]);
-  var entrance2 = turf.linestring([endPoint.geometry.coordinates,turf.destination(endPoint,1,bearing2,'miles').geometry.coordinates]);
+  var entrance1 = turf.lineString([endPoint.geometry.coordinates,turf.destination(endPoint,1,bearing1,'miles').geometry.coordinates]);
+  var entrance2 = turf.lineString([endPoint.geometry.coordinates,turf.destination(endPoint,1,bearing2,'miles').geometry.coordinates]);
 
   var outerStreet = turf.filter(exports.circularStreets(jsonFile),'ref','l').features[0];
   outerStreet.geometry.type = 'Polygon';
@@ -58704,7 +58704,7 @@ exports.entranceRoad = function(jsonFile) {
 
 exports.rodRoad = function(centerCenterCamp, distance, units) {
   var rodRoad = utils.createArc(centerCenterCamp, distance, units, 0, 360, 5);
-  rodRoad = turf.linestring(rodRoad.geometry.coordinates[0]);
+  rodRoad = turf.lineString(rodRoad.geometry.coordinates[0]);
   rodRoad.properties = {
     "name": "Rod's Road",
     "ref": "rod"
@@ -58729,7 +58729,7 @@ exports.centerCampStreets = function(jsonFile) {
   var plazaRadius = jsonFile.center_camp.cafe_plaza_radius;
   var plazaRoadRadius = utils.feetToMiles(cafeRadius+ (plazaRadius-cafeRadius)/2.0);
   var plazaRoad = utils.createArc(ccc, plazaRoadRadius, 'miles', 0, 360, 5);
-  plazaRoad = turf.linestring(plazaRoad.geometry.coordinates[0],{
+  plazaRoad = turf.lineString(plazaRoad.geometry.coordinates[0],{
     "ref": "centerCampPlazaRoad",
     "name": "Inner Circle"
   });
@@ -58743,14 +58743,14 @@ exports.centerCampStreets = function(jsonFile) {
   var aStreet = circleStreet(jsonFile.center,jsonFile.bearing, distance, 'miles', aInfo.segments, aInfo.ref, aInfo.name);
 
   var pts = turf.intersect(aStreet, rr);
-  var a1 = turf.linestring([ccc.geometry.coordinates,pts.geometry.coordinates[0]],aStreet.properties);
-  var a2 = turf.linestring([ccc.geometry.coordinates,pts.geometry.coordinates[1]],aStreet.properties);
+  var a1 = turf.lineString([ccc.geometry.coordinates,pts.geometry.coordinates[0]],aStreet.properties);
+  var a2 = turf.lineString([ccc.geometry.coordinates,pts.geometry.coordinates[1]],aStreet.properties);
 
   //cut roads with plaza road
   var plazaPolygon = turf.polygon([plazaRoad.geometry.coordinates]);
 
-  a1 = turf.linestring(utils.cutStreets(a1,plazaPolygon).coordinates,a1.properties);
-  a2 = turf.linestring(utils.cutStreets(a2,plazaPolygon).coordinates,a2.properties);
+  a1 = turf.lineString(utils.cutStreets(a1,plazaPolygon).coordinates,a1.properties);
+  a2 = turf.lineString(utils.cutStreets(a2,plazaPolygon).coordinates,a2.properties);
 
   //Route 66
   a1Bearing = turf.bearing(turf.point(a1.geometry.coordinates[0]),turf.point(a1.geometry.coordinates[1]));
@@ -58785,7 +58785,7 @@ exports.centerCampStreets = function(jsonFile) {
 
   routeSS = turf.multilinestring(utils.cutStreets(routeSS,portal).coordinates,routeSS.properties);
 
-  return turf.featurecollection([rr, plazaRoad, a1, a2,routeSS]);
+  return turf.featureCollection([rr, plazaRoad, a1, a2,routeSS]);
 }
 
 exports.allStreets = function(jsonFile) {
@@ -58837,7 +58837,7 @@ exports.allStreets = function(jsonFile) {
         }
       });
 
-      var airportRoad = turf.linestring([startPoint.geometry.coordinates,winningPoint.geometry.coordinates],{
+      var airportRoad = turf.lineString([startPoint.geometry.coordinates,winningPoint.geometry.coordinates],{
         'ref': 'airport',
         'name': 'Airport Road'
       })
@@ -58849,7 +58849,7 @@ exports.allStreets = function(jsonFile) {
   var eRoad = exports.entranceRoad(jsonFile);
   features.push(eRoad);
 
-  return turf.featurecollection(features)
+  return turf.featureCollection(features)
 }
 
 //Takes in cStreet item keys: distance, segments, ref, name, city_center, units
@@ -58982,7 +58982,7 @@ function createArc(center, distance, units, startBearing, endBearing, bearingFre
     }
   }
 
-  return turf.linestring(points);
+  return turf.lineString(points);
 }
 
 function cutStreets(street,polygon) {

@@ -99,7 +99,7 @@ CenterCampStreetPlanner.prototype.getRodRoad = function() {
         "name": "Rod's Road",
         "ref": "rod"
     };
-    return turf.linestring(points,properties);
+    return turf.lineString(points,properties);
 };
 
 CenterCampStreetPlanner.prototype.centerCampPlazaCenterlineDistance = function() {
@@ -115,7 +115,7 @@ CenterCampStreetPlanner.prototype.getCenterCampPlazaCenterline = function() {
         "ref": "centerCampPlazaRoad",
         "name": "Inner Circle"
     };
-    return turf.linestring(points,properties);
+    return turf.lineString(points,properties);
 };
 
 CenterCampStreetPlanner.prototype.getARoad = function() {
@@ -167,7 +167,7 @@ CenterCampStreetPlanner.prototype.getAllStreets = function() {
     features.push(this.getARoad());
     features.push(this.getCenterCampPlazaCenterline());
     features.push(this.getRodRoad());
-    return turf.featurecollection(features);
+    return turf.featureCollection(features);
 }
 
 module.exports = CenterCampStreetPlanner;

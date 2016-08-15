@@ -10,8 +10,8 @@ test('creating an arc', function(t){
     t.equal(result.geometry.coordinates.length,2,"Generated two segments");
     t.equal(result.geometry.coordinates[0].length,181,"genearted 211 points");
     t.equal(result.geometry.coordinates[1].length,181,"genearted 211 points");
-    var arc1 = turf.linestring(result.geometry.coordinates[0]);
-    var arc2 = turf.linestring(result.geometry.coordinates[1]);
+    var arc1 = turf.lineString(result.geometry.coordinates[0]);
+    var arc2 = turf.lineString(result.geometry.coordinates[1]);
     var distance1 = turf.lineDistance(arc1,'miles');
     var distance2 = turf.lineDistance(arc2,'miles');
     var error = Math.abs(distance1-distance2);

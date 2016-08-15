@@ -62,7 +62,7 @@ var generateArcStreets = function(layoutFile,frequency,filter) {
     };
     features.push(multiLineString);
   });
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 };
 
 // Segments need to be in degrees

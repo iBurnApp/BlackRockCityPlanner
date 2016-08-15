@@ -44,8 +44,8 @@ exports.streetsArea = function(streetPlanner) {
   var points = []
 
   var arcStreets = streetPlanner.getArcStreets();
-  var esplanade = turf.filter(arcStreets,'ref','esplanade').features[0];
-  var lStreet = turf.filter(arcStreets,'ref','l').features[0];
+  var esplanade = utils.filter(arcStreets.features,'ref','esplanade')[0];
+  var lStreet = utils.filter(arcStreets.features,'ref','l')[0];
 
   turf.meta.coordEach(lStreet,function(point){
     points.push(point);
@@ -93,7 +93,7 @@ exports.plazas = function(streetPlanner) {
     }
     features.push(polygon);
   })
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 }
 
 exports.portals = function(streetPlanner) {
@@ -104,8 +104,8 @@ exports.portals = function(streetPlanner) {
   var distanceLookup = streetPlanner.streetLookup;
 
   var cityStreets = streetPlanner.getAllCityStreets();
-  var esplanade = turf.filter(cityStreets,"ref","esplanade").features[0];
-  var rodRoad = turf.filter(cityStreets,"ref","rod").features[0];
+  var esplanade = utils.filter(cityStreets.features,"ref","esplanade")[0];
+  var rodRoad = utils.filter(cityStreets.features,"ref","rod")[0];
   rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
 
   var features = [];
@@ -160,7 +160,7 @@ exports.portals = function(streetPlanner) {
     features.push(result);
 
   });
-  return turf.featurecollection(features);
+  return turf.featureCollection(features);
 };
 
 exports.centerCampPolygons = function(streetPlanner) {
@@ -187,14 +187,14 @@ exports.centerCampPolygons = function(streetPlanner) {
   //Create hole for cafe
   plaza.geometry.coordinates.push(cafe.geometry.coordinates[0]);
 
-  return turf.featurecollection([cafe,plaza]);
+  return turf.featureCollection([cafe,plaza]);
 }
 
 exports.allPolygons = function(streetPlanner) {
   var plazas = exports.plazas(streetPlanner);
   var portals = exports.portals(streetPlanner);
   var camp = exports.centerCampPolygons(streetPlanner);
-  var allAreas = turf.featurecollection(plazas.features.concat(camp.features));
+  var allAreas = turf.featureCollection(plazas.features.concat(camp.features));
 
   var newPortals  = [];
   portals.features.forEach(function(portal){
@@ -270,9 +270,9 @@ exports.cityOutline = function(streetPlanner) {
   var plazas = exports.plazas(streetPlanner);
   var portals = exports.portals(streetPlanner);
   var camp = exports.centerCampPolygons(streetPlanner);
-  var cafe = turf.filter(camp,'ref','cafe').features[0];
-  var centerCampPlaza = turf.filter(camp,'ref','centerPlaza').features[0];
-  var centerCampPortal = turf.filter(portals,'ref','6portal').features[0];
+  var cafe = utils.filter(camp.features,'ref','cafe')[0];
+  var centerCampPlaza = utils.filter(camp.features,'ref','centerPlaza')[0];
+  var centerCampPortal = utils.filter(portals.features,'ref','6portal')[0];
   var newPortal = turf.difference(centerCampPortal,cafe);
   //remove old portal and add new one back on
   var index = portals.features.indexOf(centerCampPortal);
@@ -282,12 +282,12 @@ exports.cityOutline = function(streetPlanner) {
   portals.features.push(newPortal);
   var allFeatures = plazas.features.concat(portals.features)
   allFeatures.push(centerCampPlaza);
-  var allFeatureCollection = turf.featurecollection(allFeatures);
+  var allFeatureCollection = turf.featureCollection(allFeatures);
 
   allFeatureCollection.features.forEach(function(item){
     outline = turf.union(outline,item);
   })
 
 
-  return turf.featurecollection([outline]);
+  return turf.featureCollection([outline]);
 }

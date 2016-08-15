@@ -57,7 +57,7 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
     var featureCenter = turf.centroid(bestGuessFeature);
     var bearing = turf.bearing(featureCenter,this.centerPoint);
     clock = new Clock(featureCenter,bearing);
-    bestGuessFeature = turf.linestring(bestGuessFeature.geometry.coordinates[0],bestGuessFeature.properties);
+    bestGuessFeature = turf.lineString(bestGuessFeature.geometry.coordinates[0],bestGuessFeature.properties);
   }
   else {
     // Normal city center and radial time street
