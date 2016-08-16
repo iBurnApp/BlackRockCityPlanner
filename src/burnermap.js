@@ -1,26 +1,52 @@
-xls = require("xls-to-json");
+var Geocoder = require('./geocoder/geocoder.js');
 
 var nopt = require("nopt")
-  , Stream = require("stream").Stream
   , path = require("path")
   , knownOpts = {
+    "file":path,
+    "api": path,
     "burnermap" : path,
     "out": path
   }
   , shortHands = {
-     "b" : ["--burnermap"],
-     "o" : ["--out"]
+    "f" : ["--file"],
+    "a" : ["--api"],
+    "b" : ["--burnermap"],
+    "o" : ["--out"]
    }
   , parsed = nopt(knownOpts, shortHands, process.argv, 2)
 
+  var aJson = require(parsed.api);
+  var layoutFile = require(parsed.file);
+  var bJson = require(parsed.burnermap);
 
-xls({
-    input: parsed.burnermap,  // input xls
-    output: parsed.out // output json
-  }, function(err, result) {
-    if(err) {
-      console.error(err);
-    } else {
-      console.log(result);
-    }
-  });
+  var combineBurnerMap = function(layout,apiJSON,burnerJSON) {
+    var geocoder = new Geocoder(layout);
+    var burnermapDict = {};
+    burnerJSON.camps.forEach(function(burnerCamp){
+      if (burnerCamp.apiID.length > 0 && burnerCamp.adClock !== "?:??") {
+        var geoLocation = geocoder.forward(burnerCamp.adClock,burnerCamp.adRing);
+        location = {
+          string: burnerCamp.adClock + " & " + burnerCamp.adRing
+        }
+        if (geoLocation) {
+          location.gps_longitude = geoLocation.geometry.coordinates[0];
+          location.gps_latitude = geoLocation.geometry.coordinates[1];
+        } else {
+          //console.log(burnerCamp);
+        }
+        burnermapDict[burnerCamp.apiID] = location;
+      }
+      
+    });
+    return apiJSON.map(function(camp){
+      var location = burnermapDict[camp.uid];
+      if (location) {
+        camp.location = location
+      }
+      return camp;
+    });
+  }
+
+var result = combineBurnerMap(layoutFile,aJson,bJson);
+console.log(JSON.stringify(result,null,4));
