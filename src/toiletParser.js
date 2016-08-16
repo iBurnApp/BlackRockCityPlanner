@@ -71,6 +71,7 @@ var toiletGeoJSON = function(layoutParser, width, height, toilet) {
             break;
     };
     var boxJSON = boxGeoJSON(width.toMiles(),height.toMiles(),centerPoint,bearing,'miles');
+    boxJSON.properties['ref'] = 'toilet';
     return boxJSON;
 };
 
@@ -100,8 +101,10 @@ ToiletParser.prototype.polygons = function(layoutParser) {
 
 ToiletParser.prototype.points = function(layoutParser) {
     var polygons = this.polygons(layoutParser);
-    var points = polygons.features.map(function(square){
-       return turf.centroid(square);
+    var points = polygons.features.map(function(rect){
+        var point = turf.centroid(rect);
+        point.properties['ref'] = 'toilet';
+        return point;
     });
     return turf.featureCollection(points);
 }

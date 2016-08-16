@@ -25,7 +25,9 @@ var layoutParser = new LayoutParser(layoutJSON);
 var toiletParser = new ToiletParser(toiletJSON);
 
 var output = toiletParser.polygons(layoutParser);
-//var points = toiletParser.points(layoutParser);
+var points = toiletParser.points(layoutParser);
+
+output.features = output.features.concat(points.features);
 
 
 if (parsed.out) {
