@@ -4,7 +4,7 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 
 ### Geo Data Generator
 
-#### What We can create:
+#### What we can create:
  - The centerlines of all the streets inside the fence.
  - The trash fence pentagon.
  - All the plazas and portals.
@@ -40,4 +40,4 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 - toilet layout file: path to the [toilet layout file](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/layouts/toilet.json).
 - output file: (optional) The output GeoJSON destination. Here are results for [2016](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/geo/toilets.geojson)
 
-### [Geocoder](geocoder/readme.md)
+### [Geocoder](src/geocoder/readme.md)
