@@ -40,4 +40,10 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 - toilet layout file: path to the [toilet layout file](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/layouts/toilet.json).
 - output file: (optional) The output GeoJSON destination. Here are results for [2016](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/geo/toilets.geojson)
 
+#### API
+
+This geocodes the a string in an API JSON file and outputs full API result + lat/lon.
+
+`node src/api.js -l [layout file] -f [API JSON] -k [key string to geocode] -o [output file]`
+
 ### [Geocoder](src/geocoder/readme.md)
