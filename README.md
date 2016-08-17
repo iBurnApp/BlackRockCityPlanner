@@ -1,34 +1,43 @@
 ## Black Rock City Planner [![Build Status](https://travis-ci.org/Burning-Man-Earth/BlackRockCityPlanner.svg?branch=master)](https://travis-ci.org/Burning-Man-Earth/BlackRockCityPlanner)
 
+This is a collection of command line tools and scripts that generate [GeoJSON](http://geojson.org/). The GeoJSON is then used in the [iBurn](https://iburnapp.com/) app.
+
 ### Geo Data Generator
+
+#### What We can create:
+ - The centerlines of all the streets inside the fence.
+ - The trash fence pentagon.
+ - All the plazas and portals.
+ - An outline of all the streets at proper width combined with plazas and portals (used for good looking rendereing).
+ - Toilets as points or polygons
+
+#### What we can't create:
+ - Gate Road
+ - Camp polygons (can geocode addresses).
+ - Art locations (can geocode addresses).
+ - Locations of important POI like first-aid, ranger and ice.
+ - Airport 
+
+#### Install
 
 `npm install` or `npm install -g`
 
-`node layout.js -f [layoutfile] -o [outputfile] -t [type]`
+#### Use
 
-or
+##### Streets
 
-`layout -f [layoutfile] -o [outputfile] -t [type]`
+`node src/layout.js -f [layout file] -o [output file] -t [type]`
 
-- layoutfile: path to the layoutfile like ../../data/2015/geo/layout.json
-- outputfile: (optional) The output goejson destination
-- type: streets, polygons, outline, fence
+- layout file: path to the [layout file](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data). Use the latest year to see the proper format.
+- output file: (optional) The output GeoJSON destination. Results from [2016](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data/2016/geo)
+- type: `streets`, `polygons`, `outline`, `fence`
 
-### Preparing Unofficial Map
+##### Toilets
 
-The goal here is to take the names from the Unofficial Map and get the PlayaEvents Camp `id`. And then get the results of the matching into a usable format.
+`node src/toilet.js -f [layout file] -t [toilet layout file] -o [output file]`
 
-`node match.js -w [wiki file path (geojson from the kml)] -h [hardcoded name lookup file path] -p [PlayaEvents API JSON file path] -o [path to output file]`
-
-### Preparing BurnerMap
-
-Need to manually manipulate the JSON keys to match what is expected. Similar to
-PlayaEvents Camps keys, `name, address, id`. There also may be some other manual changes to get the street names closer to what is in the layout.json.
-
-### Merging Data Sources
-
-After the two unofficial are prepared they can be merged with PlayaEvents Camp JSON.
-
-`node unofficial.js -p [PlayaEvents JSON file path] -l [Layout file path] -u [first unofficial prepared source file path] -u [second unofficial prepared source file path] -o [output file path]`
+- layout file: path to the [layout file](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data). Use the latest year to see the proper format.
+- toilet layout file: path to the [toilet layout file](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/layouts/toilet.json).
+- output file: (optional) The output GeoJSON destination. Here are results for [2016](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/geo/toilets.geojson)
 
 ### [Geocoder](geocoder/readme.md)
