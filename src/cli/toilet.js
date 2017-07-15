@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
-var ToiletParser = require('./toiletParser');
-var LayoutParser = require('./layoutParser');
+var Generate = require('../generate.js')
 var fs = require('fs');
 
 var nopt = require("nopt")
@@ -21,14 +20,7 @@ var nopt = require("nopt")
 var layoutJSON = require(parsed.file);
 var toiletJSON = require(parsed.toilet);
 
-var layoutParser = new LayoutParser(layoutJSON);
-var toiletParser = new ToiletParser(toiletJSON);
-
-var output = toiletParser.polygons(layoutParser);
-var points = toiletParser.points(layoutParser);
-
-output.features = output.features.concat(points.features);
-
+var output = Generate.generateToilets(layoutJSON,toiletJSON);
 
 if (parsed.out) {
     fs.writeFile(parsed.out, JSON.stringify(output,null,4), function(err) {});

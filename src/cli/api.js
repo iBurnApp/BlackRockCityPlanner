@@ -1,4 +1,4 @@
-var Geocoder = require("./geocoder/geocoder.js");
+var Geocoder = require("../geocoder/geocoder.js");
 var fs = require('fs');
 var turf = require('turf');
 
