@@ -26,6 +26,13 @@ var coder = new Geocoder(layout);
 
 var result = [];
 art.map(function(item) {
+    for (var i in item) {
+        if (item[i] === null || item[i] === undefined) {
+            // test[i] === undefined is probably not very useful here
+            delete item[i];
+         }
+    }
+
     if (item[key]) {
         var point = coder.forward(item[key]);
         if (point) {
@@ -42,6 +49,8 @@ art.map(function(item) {
             console.log('could not geocode ' + item.name + ': ' + item[key]);
         }
     } else {
+        delete item[key];
+        delete item.location;
         console.log('missing key: ' + item.name);
     }
     result.push(item);

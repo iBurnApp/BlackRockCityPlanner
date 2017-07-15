@@ -1,8 +1,8 @@
 {
-  "name": "iburn-data",
+  "name": "brcp",
   "version": "1.0.0",
   "description": "A basic geocoder for burning man",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
     "babyparse": "^0.4.3",
     "jsts": "^1.1.0",
@@ -26,8 +26,5 @@
   },
   "author": "",
   "license": "ISC",
-  "preferGlobal": true,
-  "bin": {
-    "layout": "./layout.js"
-  }
+  "preferGlobal": true
 }

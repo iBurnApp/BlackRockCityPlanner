@@ -33,7 +33,7 @@ var nopt = require("nopt")
           location.gps_longitude = geoLocation.geometry.coordinates[0];
           location.gps_latitude = geoLocation.geometry.coordinates[1];
         } else {
-          //console.log(burnerCamp);
+          console.log(burnerCamp.name+": "+burnerCamp.adClock + " & " + burnerCamp.adRing);
         }
         burnermapDict[burnerCamp.apiID] = location;
       }
@@ -49,4 +49,4 @@ var nopt = require("nopt")
   }
 
 var result = combineBurnerMap(layoutFile,aJson,bJson);
-console.log(JSON.stringify(result,null,4));
+//console.log(JSON.stringify(result,null,4));

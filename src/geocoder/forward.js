@@ -136,10 +136,10 @@ Geocoder.prototype.geocode = function(locationString1,locationString2) {
   } else {
     var coder = this;
     var result = Parser.parse(locationString1,locationString2);
-    if(result.distance >= 0){
+    if(result && result.distance >= 0){
 
       return coder.timeDistanceToLatLon(result.time,utils.feetToMiles(result.distance),'miles');
-    } else {
+    } else if (result) {
       return coder.streetIntersectionToLatLon(result.time,result.feature);
     }
   }
