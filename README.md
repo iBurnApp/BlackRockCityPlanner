@@ -24,6 +24,10 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 
 #### Use
 
+##### Generate all the files at once
+
+`node src/cli/generate_all.js -d [SOMETHING]/iBurn-Data/data/2017`
+
 ##### Streets
 
 `node src/layout.js -f [layout file] -o [output file] -t [type]`
