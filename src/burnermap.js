@@ -36,7 +36,7 @@ var nopt = require("nopt")
           location.gps_longitude = geoLocation.geometry.coordinates[0];
           location.gps_latitude = geoLocation.geometry.coordinates[1];
         } else {
-          console.log("Failed: " + burnerCamp.name+": " + burnerCamp.adClock + " & " + burnerCamp.adRing);
+          console.log("BurnerMap Failed: " + burnerCamp.name+": " + burnerCamp.adClock + " & " + burnerCamp.adRing);
         }
         burnermapDict[burnerCamp.apiID] = location;
       }
@@ -47,6 +47,16 @@ var nopt = require("nopt")
       var location = burnermapDict[camp.uid];
       if (location) {
         camp.burnermap_location = location
+      }
+      // Also geocode official camp address if it hasn't been done already
+      if (camp.location.intersection && camp.location.frontage) {
+        var campGPS = geocoder.forward(camp.location.intersection, camp.location.frontage);
+        if (campGPS) {
+          camp.location.gps_longitude = campGPS.geometry.coordinates[0];
+          camp.location.gps_latitude = campGPS.geometry.coordinates[1];
+        } else {
+          console.log("Official Failed: " + camp.name +": " + camp.location.intersection + " & " +  camp.location.frontage);
+        }
       }
       return camp;
     });
