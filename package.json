@@ -10,7 +10,7 @@
     "levenshtein": "^1.0.5",
     "mathjs": "^5.0.0",
     "nopt": "^4.0.1",
-    "request": "^2.81.0",
+    "request": "^2.87.0",
     "turf": "^3.0.14",
     "turf-difference": "^3.0.12",
     "turf-meta": "^3.0.12",
