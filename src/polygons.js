@@ -45,7 +45,7 @@ exports.streetsArea = function(streetPlanner) {
 
   var arcStreets = streetPlanner.getArcStreets();
   var esplanade = utils.filter(arcStreets.features,'ref','esplanade')[0];
-  var lStreet = utils.filter(arcStreets.features,'ref','l')[0];
+  var lStreet = utils.filter(arcStreets.features,'ref','k')[0];
 
   turf.meta.coordEach(lStreet,function(point){
     points.push(point);
