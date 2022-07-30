@@ -26,7 +26,7 @@ var parseDistanceString = function(distanceString) {
 
 var parseFeatureString = function(featureString) {
   //featureRegEx captures streets A-L Rod's road and plazas when they begin the string and are followed by ' &' or are at the end
-  var featureRegEx = new RegExp("(^[a-l|rod|p].*)|(^.*plaza.*$)");
+  var featureRegEx = new RegExp("(^[a-l|rod|p].*)|(^.*plaza.*$)|(^.*portal.*$)");
   var featureArray = featureRegEx.exec(featureString)
   var feature;
   if (featureArray != null && featureArray.length > 0) {
@@ -58,7 +58,7 @@ var parse = function(string1,string2) {
 
   var string = string1.trim()
   string = string.toLowerCase()
-  
+
 
   var split = string.split(/(?: @|&)/);
   if (split.length > 1) {
@@ -91,7 +91,7 @@ var parse = function(string1,string2) {
 };
 
 var parseFeatures = function(feature1,feature2) {
-    var result1 = parse(feature1); 
+    var result1 = parse(feature1);
     var result2 = parse(feature2);
     for (var key in result2) {
       if (result2[key]) {

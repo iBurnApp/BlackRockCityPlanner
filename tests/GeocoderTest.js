@@ -44,13 +44,13 @@ test("geocode",function(t){
     var testSearches = [
         // TODO: Support geocoding two streets where one is not a time street
         //turf.point([ -119.213835, 40.780169 ],{first:"Rod\'s Road",second:"C",type:"&"}),
-        turf.point([ -119.212253,  40.778853],{first:"5:30",second:"Ballyhoo",type:"&"}),
-        turf.point([ -119.212253,  40.778853],{first:"5:30", second:"B",type:"&"}), //Normal time street and circlular street
-        turf.point([ -119.212253,  40.778853],{first:"B",second:"5:30",type:"&"}),
-        turf.point([ -119.2139388, 40.7787117],{first:"Rod's Road",second:"4:30",type:"@"}), // Special center camp addresss, time starts from center camp Center
-        turf.point([ -119.2145218, 40.7922306],{first:"9:00 Plaza",second:"1:00",type:"@"}), // Special case time starts from plaza
-        turf.point([ -119.2144238, 40.7812450],{first:"Center Camp Plaza",second:"9:15",type:"@"}
-        )
+        // turf.point([ -119.212253,  40.778853],{first:"5:30",second:"Ballyhoo",type:"&"}),
+        // turf.point([ -119.212253,  40.778853],{first:"5:30", second:"B",type:"&"}), //Normal time street and circlular street
+        // turf.point([ -119.212253,  40.778853],{first:"B",second:"5:30",type:"&"}),
+        // turf.point([ -119.2139388, 40.7787117],{first:"Rod's Road",second:"4:30",type:"@"}), // Special center camp addresss, time starts from center camp Center
+        // turf.point([ -119.2145218, 40.7922306],{first:"9:00 Plaza",second:"1:00",type:"@"}), // Special case time starts from plaza
+        turf.point([ -119.2144238, 40.7812450],{first:"Center Camp Plaza",second:"9:15",type:"@"}),
+        turf.point([ -119.2135019, 40.7919587],{first:"9:00 portal",second:"",type:""})
     ];
 
     testSearches.forEach(function(item){
@@ -63,7 +63,7 @@ test("geocode",function(t){
 
         var fullStringDistance = turf.distance(item,fullStringIntersection);
         var twoStringDistace = turf.distance(item,twoStringIntersection);
-        
+
         t.ok(fullStringDistance < 0.001, "Full string intersection should be close "+fullStringDistance+ " "+JSON.stringify(fullStringIntersection));
         t.ok(twoStringDistace < 0.001, "Two string intersection should be close "+twoStringDistace+ " "+JSON.stringify(twoStringIntersection));
 

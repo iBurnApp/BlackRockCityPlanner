@@ -26,7 +26,7 @@ Geocoder.prototype.addFeatures = function(features) {
 
 //units must be 'miles', 'kilometers', 'degrees', 'radians'
 Geocoder.prototype.timeDistanceToLatLon = function(time, distance, units) {
-  
+
   var compassDegrees = utils.timeStringToCompassDegress(time, this.cityBearing);
 
   var destination = turf.destination(this.centerPoint, distance, compassDegrees, units);
@@ -93,23 +93,32 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
 };
 
 Geocoder.prototype.fuzzyMatchFeatures = function(keys, value) {
-  var features = [];
+  var results = [];
   //go through all features and pull out matching items for each name
   this.features.forEach(function(item){
+    item.properties.match = null
     keys.forEach(function(key){
       var geoName = item.properties[key];
       if (geoName) {
         geoName=geoName.toLowerCase();
         var largestNameLength = Math.max(geoName.length, value.length);
-        var match = (largestNameLength - new leven(geoName, value).distance) / largestNameLength;
-        if (match > 0.6) {
-          features.push(item);
+        var match = (new leven(geoName, value).distance) / largestNameLength;
+        if (match < 0.4) {
+          if (item.properties.hasOwnProperty(match) && item.properties.match < match) {
+            return;
+          }
+          item.properties.match = match;
+          results.push(item);
         }
       }
     });
-    
   });
-  return features;
+
+  results.sort(function(first,second) {
+    return first.properties.match < second.properties.match;
+  });
+
+  return results;
 }
 
 function intersectingPoints(features1,features2) {
