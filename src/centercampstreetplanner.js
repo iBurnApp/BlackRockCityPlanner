@@ -96,7 +96,7 @@ CenterCampStreetPlanner.prototype.getRodRoad = function() {
     //This should do the trick
     points.push(points[0]);
     var properties = {
-        "name": "Rod's Road",
+        "name": this.centerCampInfo.rod_road_name,
         "ref": "rod"
     };
     return turf.lineString(points,properties);
