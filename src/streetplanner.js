@@ -163,12 +163,12 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var entrance1 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing1,'miles').geometry.coordinates]);
     var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,'miles').geometry.coordinates]);
     //most outer street
-    var outerStreet = Utils.filter(this.getArcStreets().features,'ref','l')[0];
+    var outerStreet = Utils.filter(this.getArcStreets().features,'ref','k')[0];
     var intersectionPoint1 = turf.intersect(outerStreet,entrance1);
     var intersectionPoint2 = turf.intersect(outerStreet,entrance2);
     var bearing1 = turf.bearing(this.layoutFile.center,intersectionPoint1);
     var bearing2 = turf.bearing(this.layoutFile.center,intersectionPoint2);
-    var distance = this.streetLookup['l']
+    var distance = this.streetLookup['k']
     this.grid.saveWithBearing(bearing1,distance,intersectionPoint1.geometry.coordinates);
     this.grid.saveWithBearing(bearing2,distance,intersectionPoint2.geometry.coordinates);
 
