@@ -1,4 +1,4 @@
-var turf  = require('turf');
+var turf  = require('@turf/turf');
 var Utils = require('./utils.js');
 
 function timeCompare(firstHour,firstMinute, secondBearing) {

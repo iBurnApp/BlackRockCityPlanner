@@ -1,6 +1,6 @@
-var turf = require('turf');
+var turf = require('@turf/turf');
 var utils = require('./utils.js');
-turf.difference = require('turf-difference');
+turf.difference = require('@turf/difference');
 turf.meta = require('turf-meta');
 var jsts = require("jsts");
 var streets = require('./streets.js');

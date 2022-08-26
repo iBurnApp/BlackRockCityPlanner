@@ -3,7 +3,7 @@ var Clock = require('./clock');
 var Streets = require('./streets');
 var Geo = require('./geo');
 var Grid = require('./grid');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,rodRoadintersections,ARoadName,portalAngle) {
     this.center = centerCampCenter;

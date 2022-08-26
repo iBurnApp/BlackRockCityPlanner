@@ -1,7 +1,7 @@
 var Clock = require('./clock.js');
 var Time = require('./time.js');
 var Utils = require('./utils.js');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 /**
  * This is a grid for calculating points at Black Rock City using hour, minute, and distance.

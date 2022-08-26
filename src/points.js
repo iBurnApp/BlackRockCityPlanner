@@ -1,4 +1,4 @@
-var turf = require('turf');
+var turf = require('@turf/turf');
 var utils = require('./utils.js');
 
 exports.centerCampCenter = function(jsonFile) {
