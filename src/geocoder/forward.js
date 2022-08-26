@@ -114,8 +114,8 @@ Geocoder.prototype.fuzzyMatchFeatures = function(keys, value) {
     });
   });
 
-  results.sort(function(first,second) {
-    return first.properties.match < second.properties.match;
+  results.sort(function(first, second) {
+    return first.properties.match - second.properties.match;
   });
 
   return results;
