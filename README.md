@@ -30,15 +30,15 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 
 ##### Streets
 
-`node src/layout.js -f [layout file] -o [output file] -t [type]`
+`node src/cli/layout.js -f [layout file] -o [output file] -t [type]`
 
 - layout file: path to the [layout file](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data). Use the latest year to see the proper format.
 - output file: (optional) The output GeoJSON destination. Results from [2016](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data/2016/geo)
-- type: `streets`, `polygons`, `outline`, `fence`
+- type: `streets`, `polygons`, `outline`, `fence`, `dmz`
 
 ##### Toilets
 
-`node src/toilet.js -f [layout file] -t [toilet layout file] -o [output file]`
+`node src/cli/toilet.js -f [layout file] -t [toilet layout file] -o [output file]`
 
 - layout file: path to the [layout file](https://github.com/Burning-Man-Earth/iBurn-Data/tree/master/data). Use the latest year to see the proper format.
 - toilet layout file: path to the [toilet layout file](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/layouts/toilet.json).
