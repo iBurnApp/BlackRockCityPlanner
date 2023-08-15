@@ -34,7 +34,8 @@ art.map(function(item) {
     }
 
     if (item[key]) {
-        var point = coder.forward(item[key]);
+        var item_val = item[key].replace(" None None","")
+        var point = coder.forward(item_val);
         if (point) {
             var lat = point.geometry.coordinates[1];
             var lon = point.geometry.coordinates[0];
