@@ -96,7 +96,7 @@ Geocoder.prototype.fuzzyMatchFeatures = function(keys, value) {
   var results = [];
   //go through all features and pull out matching items for each name
   this.features.forEach(function(item){
-    item.properties.match = null
+    item.properties.match = Infinity
     keys.forEach(function(key){
       var geoName = item.properties[key];
       if (geoName) {
@@ -104,7 +104,7 @@ Geocoder.prototype.fuzzyMatchFeatures = function(keys, value) {
         var largestNameLength = Math.max(geoName.length, value.length);
         var match = (new leven(geoName, value).distance) / largestNameLength;
         if (match < 0.4) {
-          if (item.properties.hasOwnProperty(match) && item.properties.match < match) {
+          if (item.properties.hasOwnProperty(key) && item.properties.match < match) {
             return;
           }
           item.properties.match = match;

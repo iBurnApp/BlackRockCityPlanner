@@ -15,5 +15,5 @@ global.reverseGeocode = function(coder, lat, lon) {
 }
 
 global.forwardGeocode = function(coder, locationString) {
-  return coder.forward(locationString);
+  return coder.forward(locationString.replace(" None None",""));
 }
