@@ -47,7 +47,6 @@ CenterCampStreetPlanner.prototype.generateRodRoad = function () {
     },this);
 };
 
-
 CenterCampStreetPlanner.prototype.generateCenterCampCenterline = function () {
     var distance = Utils.feetToMiles(this.centerCampPlazaCenterlineDistance());
     var points = Geo.arcPoints(this.center,distance,'miles',0,360,this.frequency);
@@ -163,10 +162,10 @@ CenterCampStreetPlanner.prototype.get66Road = function() {
 
 CenterCampStreetPlanner.prototype.getAllStreets = function() {
     var features = [];
-    features.push(this.get66Road());
+    // features.push(this.get66Road());
     features.push(this.getARoad());
     features.push(this.getCenterCampPlazaCenterline());
-    features.push(this.getRodRoad());
+    // features.push(this.getRodRoad());
     return turf.featureCollection(features);
 }
 

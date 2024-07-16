@@ -105,8 +105,8 @@ exports.portals = function(streetPlanner) {
 
   var cityStreets = streetPlanner.getAllCityStreets();
   var esplanade = utils.filter(cityStreets.features,"ref","esplanade")[0];
-  var rodRoad = utils.filter(cityStreets.features,"ref","rod")[0];
-  rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
+  // var rodRoad = utils.filter(cityStreets.features,"ref","rod")[0];
+  // rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
 
   var features = [];
   portalsInfoList.forEach(function(item){
@@ -143,15 +143,15 @@ exports.portals = function(streetPlanner) {
     var poly = reader.read(triangle);
     var street;
     var result;
-    if (timeString === "6:00") {
-      //For center camp portal get intersectin of Rod road as polygon and expanded triangle
-      street = reader.read(rodRoad);
-      result = poly.geometry.intersection(street.geometry);
-    } else {
+    // if (timeString === "6:00") {
+    //   //For center camp portal get intersectin of Rod road as polygon and expanded triangle
+    //   street = reader.read(rodRoad);
+    //   result = poly.geometry.intersection(street.geometry);
+    // } else {
       //For all other take convex hull of esplanade (the open playa) and find difference with expanded triangle
       street = reader.read(esplanade);
       result = poly.geometry.difference(street.geometry.convexHull());
-    }
+    // }
 
     var parser = new jsts.io.GeoJSONWriter();
     result = parser.write(result);
