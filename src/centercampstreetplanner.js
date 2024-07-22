@@ -13,12 +13,14 @@ var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,r
     this.ABearingArray = [];
     this.ARoadName = ARoadName;
     this.portalAngle = portalAngle;
-    this.rodRoadintersections.forEach(function(point){
-        if (point.properties.ref === 'a') {
-            var bearing = turf.bearing(this.center,point);
-            this.ABearingArray.push(bearing);
-        }
-    },this);
+    if(this.centerCampInfo.rod_road_distance) {
+        this.rodRoadintersections.forEach(function(point){
+            if (point.properties.ref === 'a') {
+                var bearing = turf.bearing(this.center,point);
+                this.ABearingArray.push(bearing);
+            }
+        },this);
+    }
 
     var minFrequency = 5;
     this.frequency =  360.0/(60.0/minFrequency*12.0);
@@ -26,13 +28,17 @@ var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,r
     this.grid = new Grid(this.center,this.bearing,null,'miles');
 
     // 1. Generate Rod Road
-    this.generateRodRoad();
+    if(this.centerCampInfo.rod_road_distance) {
+        this.generateRodRoad();
+    }
     // 2. Generate Center camp plaza center line
     this.generateCenterCampCenterline();
     // 3. Generate straight A road
     this.generateARoad();
     // 4. Generate Rt 66 roads
-    this.generateRt66();
+    if(this.centerCampInfo.six_six_distance) {
+        this.generateRt66();
+    }
 };
 
 CenterCampStreetPlanner.prototype.generateRodRoad = function () {
@@ -163,10 +169,14 @@ CenterCampStreetPlanner.prototype.get66Road = function() {
 
 CenterCampStreetPlanner.prototype.getAllStreets = function() {
     var features = [];
-    features.push(this.get66Road());
+    if(this.centerCampInfo.six_six_distance) {
+        features.push(this.get66Road());
+    }
     features.push(this.getARoad());
     features.push(this.getCenterCampPlazaCenterline());
-    features.push(this.getRodRoad());
+    if(this.centerCampInfo.rod_road_distance) {
+        features.push(this.getRodRoad());
+    }
     return turf.featureCollection(features);
 }
 

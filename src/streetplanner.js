@@ -41,10 +41,13 @@ var StreetPlanner = function(jsonFile) {
     //Pre calculate All Streets
     // 1. Generate All Arc Streets
     this.generateArcStreets();
-    // 2. Remove Arc Street Points inside Rod's Road
-    this.removePointsInsideRodRoad();
-    // 3. Add Intersection Points with Rod's Road back in
-    var intersections = this.generateRodRoadIntersections();
+
+    if (this.layoutFile.center_camp.rod_road_distance) {
+        // 2. Remove Arc Street Points inside Rod's Road
+        this.removePointsInsideRodRoad();
+        // 3. Add Intersection Points with Rod's Road back in
+        var intersections = this.generateRodRoadIntersections();
+    }
     // 4. Add Radial Streets
     this.generateRadialStreets();
     // 5. Remove Radial Streets piece inside center camp plaza
