@@ -148,6 +148,11 @@ centerCamp.rodRoadPoints = function(center,distance,frequency) {
   return Geo.arc(center,distance,'miles',0,360,frequency)
 };
 
+centerCamp.frontageRoad = function(center, distance, start, end, frequency) {
+  var frequency = 360.0/(60.0/frequency*12.0)
+  return Geo.arc(center,distance,'miles',start,end,frequency)
+}
+
 module.exports = {
   generateArcStreets:generateArcStreets,
   generateArcStreet:generateArcStreet,

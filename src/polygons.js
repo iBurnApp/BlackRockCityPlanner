@@ -1,6 +1,9 @@
 var turf = require('turf');
 var utils = require('./utils.js');
 turf.difference = require('turf-difference');
+turf.lineToPolygon = require('@turf/line-to-polygon').lineToPolygon;
+turf.convex = require('@turf/convex').convex;
+turf.difference = require('@turf/difference').difference;
 turf.meta = require('turf-meta');
 var jsts = require("jsts");
 var streets = require('./streets.js');
@@ -34,6 +37,9 @@ exports.outerPlaya = function(streetPlanner) {
 
 exports.centerCampPolygon = function(streetPlanner) {
   var rodRoad = streetPlanner.centerCampStreetPlanner.getRodRoad()
+  if(!rodRoad) {
+    return null;
+  }
 
   var rodPoly = turf.polygon([rodRoad.geometry.coordinates]);
   return rodPoly;
@@ -105,8 +111,16 @@ exports.portals = function(streetPlanner) {
 
   var cityStreets = streetPlanner.getAllCityStreets();
   var esplanade = utils.filter(cityStreets.features,"ref","esplanade")[0];
+
+  // Use frontage arc or rods road
   var rodRoad = utils.filter(cityStreets.features,"ref","rod")[0];
-  rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
+  if(rodRoad == undefined) {
+    rodRoad =  utils.filter(cityStreets.features,"ref","frontage_arc")[0];
+    rodRoad = turf.lineToPolygon(rodRoad)
+  } else {
+    rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
+  }
+  
 
   var features = [];
   portalsInfoList.forEach(function(item){
@@ -138,24 +152,15 @@ exports.portals = function(streetPlanner) {
     var secondPoint = turf.destination(start,0.5,secondBearing,'miles');
 
     var triangle = turf.polygon([[start.geometry.coordinates,firstPoint.geometry.coordinates,secondPoint.geometry.coordinates,start.geometry.coordinates]]);
-
-    var reader = new jsts.io.GeoJSONReader();
-    var poly = reader.read(triangle);
-    var street;
+    
     var result;
     if (timeString === "6:00") {
-      //For center camp portal get intersectin of Rod road as polygon and expanded triangle
-      street = reader.read(rodRoad);
-      result = poly.geometry.intersection(street.geometry);
+      result = turf.intersect(triangle, rodRoad);
     } else {
       //For all other take convex hull of esplanade (the open playa) and find difference with expanded triangle
-      street = reader.read(esplanade);
-      result = poly.geometry.difference(street.geometry.convexHull());
+      var fc = turf.featureCollection([triangle,turf.convex(esplanade)])
+      result = turf.difference(fc)
     }
-
-    var parser = new jsts.io.GeoJSONWriter();
-    result = parser.write(result);
-    result = turf.polygon(result.coordinates);
     result.properties = properties;
     features.push(result);
 
@@ -273,7 +278,7 @@ exports.cityOutline = function(streetPlanner) {
   var cafe = utils.filter(camp.features,'ref','cafe')[0];
   var centerCampPlaza = utils.filter(camp.features,'ref','centerPlaza')[0];
   var centerCampPortal = utils.filter(portals.features,'ref','6portal')[0];
-  var newPortal = turf.difference(centerCampPortal,cafe);
+  var newPortal = turf.difference(turf.featureCollection([centerCampPortal,cafe]));
   //remove old portal and add new one back on
   var index = portals.features.indexOf(centerCampPortal);
   if (index > -1) {

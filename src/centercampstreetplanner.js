@@ -39,6 +39,10 @@ var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,r
     if(this.centerCampInfo.six_six_distance) {
         this.generateRt66();
     }
+    // 5. Generate Frontage Arc if needed
+    if(this.centerCampInfo.frontage_arc) {
+        this.generateFrontageArc();
+    }
 };
 
 CenterCampStreetPlanner.prototype.generateRodRoad = function () {
@@ -52,6 +56,16 @@ CenterCampStreetPlanner.prototype.generateRodRoad = function () {
         this.grid.saveWithBearing(bearing,miles,point.geometry.coordinates);
     },this);
 };
+
+CenterCampStreetPlanner.prototype.generateFrontageArc = function () {
+    var miles = Utils.feetToMiles(this.centerCampInfo.frontage_arc.distance);
+    var first_points = Geo.arcPoints(this.center,miles,'miles',this.bearing + this.centerCampInfo.frontage_arc.start_angle, 360,this.frequency);
+    var second_points = Geo.arcPoints(this.center,miles,'miles',0, this.bearing + this.centerCampInfo.frontage_arc.end_angle,this.frequency);
+    var points = first_points.concat(second_points)
+    points.forEach(function(point){
+        this.grid.saveWithBearing(point.properties.bearing,point.properties.distance,point.geometry.coordinates);
+    },this);
+}
 
 
 CenterCampStreetPlanner.prototype.generateCenterCampCenterline = function () {
@@ -106,6 +120,18 @@ CenterCampStreetPlanner.prototype.getRodRoad = function() {
         "ref": "rod"
     };
     return turf.lineString(points,properties);
+};
+
+
+CenterCampStreetPlanner.prototype.getFrontageRoad = function() {
+    var miles = Utils.feetToMiles(this.centerCampInfo.frontage_arc.distance);
+    // Assumes arc passes 0 (north)
+    var first_points = this.grid.allPointsAlongDistance(miles, [this.bearing + this.centerCampInfo.frontage_arc.start_angle, 359]);
+    var second_points = this.grid.allPointsAlongDistance(miles, [0, this.bearing + this.centerCampInfo.frontage_arc.end_angle]);
+    var properties = {
+        "ref": "frontage_arc"
+    };
+    return turf.lineString(first_points.concat(second_points),properties);
 };
 
 CenterCampStreetPlanner.prototype.centerCampPlazaCenterlineDistance = function() {
@@ -176,6 +202,9 @@ CenterCampStreetPlanner.prototype.getAllStreets = function() {
     features.push(this.getCenterCampPlazaCenterline());
     if(this.centerCampInfo.rod_road_distance) {
         features.push(this.getRodRoad());
+    }
+    if(this.centerCampInfo.frontage_arc) {
+        features.push(this.getFrontageRoad())
     }
     return turf.featureCollection(features);
 }

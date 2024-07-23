@@ -5,6 +5,10 @@
   "main": "src/index.js",
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
+    "@turf/convex": "^7.0.0",
+    "@turf/difference": "^7.0.0",
+    "@turf/line-to-polygon": "^7.0.0",
+    "@turf/turf": "^7.0.0",
     "babyparse": "^0.4.3",
     "jsts": "^1.6.1",
     "levenshtein": "^1.0.5",
