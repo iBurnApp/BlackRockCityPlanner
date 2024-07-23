@@ -1,6 +1,6 @@
 var Streets = require('../src/streets.js');
 var test = require('tape');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var StreetPlanner = require('../src/streetplanner.js');
 var layout2015 = require('./layout2015.json');
 

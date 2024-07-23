@@ -3,7 +3,7 @@ var Clock = require('./clock');
 var Streets = require('./streets');
 var Geo = require('./geo');
 var Grid = require('./grid');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,rodRoadintersections,ARoadName,portalAngle) {
     this.center = centerCampCenter;
@@ -33,8 +33,11 @@ var CenterCampStreetPlanner = function(centerCampCenter,centerCampInfo,bearing,r
     }
     // 2. Generate Center camp plaza center line
     this.generateCenterCampCenterline();
-    // 3. Generate straight A road
-    this.generateARoad();
+
+    if(this.centerCampInfo.rod_road_distance) {
+        // 3. Generate straight A road
+        this.generateARoad();
+    }
     // 4. Generate Rt 66 roads
     if(this.centerCampInfo.six_six_distance) {
         this.generateRt66();
@@ -110,6 +113,9 @@ CenterCampStreetPlanner.prototype.generateRt66 = function () {
 ////////////////////////////////////////
 
 CenterCampStreetPlanner.prototype.getRodRoad = function() {
+    if(!this.centerCampInfo.rod_road_distance) {
+        return null;
+    }
     var miles = Utils.feetToMiles(this.centerCampInfo.rod_road_distance);
     var points = this.grid.allPointsAlongDistance(miles);
     //All points along distance won't close the loop to create a full circle
@@ -198,7 +204,9 @@ CenterCampStreetPlanner.prototype.getAllStreets = function() {
     if(this.centerCampInfo.six_six_distance) {
         features.push(this.get66Road());
     }
-    features.push(this.getARoad());
+    if(this.centerCampInfo.rod_road_distance) {
+        features.push(this.getARoad());
+    }
     features.push(this.getCenterCampPlazaCenterline());
     if(this.centerCampInfo.rod_road_distance) {
         features.push(this.getRodRoad());

@@ -1,6 +1,6 @@
 var streets = require('./streets.js');
 var utils = require('./utils.js');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var Clock = require('./clock.js');
 
 module.exports.frontArc = function(layout) {

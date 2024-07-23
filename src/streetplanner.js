@@ -3,7 +3,7 @@ var Streets = require('./streets.js');
 var Time = require('./time.js');
 var Clock = require('./clock.js');
 var Utils = require('./utils.js');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var Geo = require('./geo.js');
 var Fence = require('./fence');
 var CenterCampStreetPlanner = require('./centercampstreetplanner.js');
@@ -97,7 +97,7 @@ StreetPlanner.prototype.generateRodRoadIntersections = function() {
     var rodRoad = this.rodRoad();
     var finalIntersections = [];
     arcStreets.features.forEach(function(item){
-        var intersections = turf.intersect(rodRoad,item);
+        var intersections = turf.lineIntersect(rodRoad,item);
         if (intersections) {
             intersections.geometry.coordinates.forEach(function(coordinate){
                 var point =  turf.point(coordinate,{ref:item.properties.ref});
@@ -155,8 +155,8 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
 
     //Create Straight segment
     var longSix = turf.lineString([this.layoutFile.center.geometry.coordinates,this.grid.clock.point(6,0,5,'miles').geometry.coordinates])
-    var intersectionPoint = turf.intersect(fence,longSix);
-    var splitPoint = turf.destination(intersectionPoint,entranceRoadLength,this.layoutFile.bearing,'miles');
+    var intersectionPoint = turf.lineIntersect(fence,longSix).features[0];
+    var splitPoint = turf.destination(intersectionPoint,entranceRoadLength,this.layoutFile.bearing,{units: 'miles'});
     var segments = [[intersectionPoint.geometry.coordinates,splitPoint.geometry.coordinates]];
 
     //Create forked segment
@@ -167,8 +167,8 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,'miles').geometry.coordinates]);
     //most outer street
     var outerStreet = Utils.filter(this.getArcStreets().features,'ref','k')[0];
-    var intersectionPoint1 = turf.intersect(outerStreet,entrance1);
-    var intersectionPoint2 = turf.intersect(outerStreet,entrance2);
+    var intersectionPoint1 = turf.lineIntersect(outerStreet,entrance1).features[0];
+    var intersectionPoint2 = turf.lineIntersect(outerStreet,entrance2).features[0];
     var bearing1 = turf.bearing(this.layoutFile.center,intersectionPoint1);
     var bearing2 = turf.bearing(this.layoutFile.center,intersectionPoint2);
     var distance = this.streetLookup['k']
@@ -266,7 +266,7 @@ StreetPlanner.prototype.getAirportRoad = function() {
         points.push(turf.point(coordinate));
     });
 
-    var nearest = turf.nearest(startPoint,turf.featureCollection(points));
+    var nearest = turf.nearestPoint(startPoint,turf.featureCollection(points));
     return turf.lineString([startPoint.geometry.coordinates,nearest.geometry.coordinates],{
         'ref': 'airport',
         'name': 'Airport Road'

@@ -1,5 +1,5 @@
 var test = require('tape');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var Geocoder = require('../src/geocoder/geocoder');
 var Parser = require('../src/geocoder/geocodeParser.js');
 

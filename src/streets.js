@@ -1,7 +1,6 @@
 var utils = require('./utils.js');
-var turf = require('turf');
+var turf = require('@turf/turf');
 turf.multilinestring = require('turf-multilinestring');
-turf.difference = require('turf-difference');
 var jsts = require("jsts");
 var fence = require('./fence.js');
 var Geo = require('./geo.js')
@@ -147,11 +146,6 @@ centerCamp.rodRoadPoints = function(center,distance,frequency) {
   var frequency = 360.0/(60.0/frequency*12.0)
   return Geo.arc(center,distance,'miles',0,360,frequency)
 };
-
-centerCamp.frontageRoad = function(center, distance, start, end, frequency) {
-  var frequency = 360.0/(60.0/frequency*12.0)
-  return Geo.arc(center,distance,'miles',start,end,frequency)
-}
 
 module.exports = {
   generateArcStreets:generateArcStreets,

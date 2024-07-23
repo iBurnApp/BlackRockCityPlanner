@@ -1,4 +1,4 @@
-var turf = require('turf')
+var turf = require('@turf/turf')
 var polygons = require('../polygons.js');
 var points = require('../points.js');
 var streets = require('../streets.js');

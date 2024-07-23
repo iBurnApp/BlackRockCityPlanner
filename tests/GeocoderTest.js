@@ -2,7 +2,7 @@ var test = require('tape');
 var Geocoder = require('../src/geocoder/geocoder.js');
 var Parser = require('../src/geocoder/geocodeParser.js');
 var layout2015 = require('./layout2015.json');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var dmz = require('../src/dmz.js');
 
 test ('StreetIntersection', function(t) {

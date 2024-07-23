@@ -9,7 +9,7 @@
  */
 var parse = require('babyparse');
 var request = require('request');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 // Links to PlayaEvents City Data API. We'll extract Golden Spike plus Pentagon Coordinates
 // 2014 data

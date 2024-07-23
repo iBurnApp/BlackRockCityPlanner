@@ -1,9 +1,5 @@
-var turf = require('turf');
+var turf = require('@turf/turf');
 var utils = require('./utils.js');
-turf.difference = require('turf-difference');
-turf.lineToPolygon = require('@turf/line-to-polygon').lineToPolygon;
-turf.convex = require('@turf/convex').convex;
-turf.difference = require('@turf/difference').difference;
 turf.meta = require('turf-meta');
 var jsts = require("jsts");
 var streets = require('./streets.js');
@@ -18,7 +14,14 @@ exports.innerPlaya = function(streetPlanner) {
   var linestring = Geo.arc(streetPlanner.layoutFile.center,distance,'miles',0,360,streetPlanner.bearingFrequency);
   var innerPolygon = turf.polygon([linestring.geometry.coordinates]);
 
-  var polygon = turf.difference(innerPolygon,rodPoly);
+  var polygon;
+  if (rodPoly)  {
+    polygon = turf.difference(turf.featureCollection([innerPolygon,rodPoly]));
+  } else {
+    polygon = innerPolygon;
+  }
+
+  
   polygon.properties = {'ref':'innerPlaya','name':'Inner Playa'};
 
   return polygon;
@@ -26,9 +29,13 @@ exports.innerPlaya = function(streetPlanner) {
 
 exports.outerPlaya = function(streetPlanner) {
   var polygon = turf.polygon([fence.fence(streetPlanner.layoutFile).features[0].geometry.coordinates])
-  polygon = turf.difference(polygon,exports.streetsArea(streetPlanner));
-  polygon = turf.difference(polygon,exports.centerCampPolygon(streetPlanner));
-  polygon = turf.difference(polygon,exports.innerPlaya(streetPlanner));
+  polygon = turf.difference(turf.featureCollection([polygon,exports.streetsArea(streetPlanner)]));
+  var centerCampPoly = exports.centerCampPolygon(streetPlanner)
+  if (centerCampPoly) {
+    polygon = turf.difference(turf.featureCollection([polygon,centerCampPoly]));
+  }
+ 
+  polygon = turf.difference(turf.featureCollection([polygon,exports.innerPlaya(streetPlanner)]));
 
   polygon.properties = {'ref':'outerPlaya','name':'Outer Playa'}
 
@@ -67,7 +74,10 @@ exports.streetsArea = function(streetPlanner) {
 
   var poly = turf.polygon([points]);
   var centerCamp = exports.centerCampPolygon(streetPlanner);
-  poly = turf.union(poly,centerCamp);
+  if (centerCamp){
+    poly = turf.union(turf.featureCollection([poly,centerCamp]));
+  }
+  
   poly.properties = {'ref':'streets'}
   return poly
 }
@@ -155,7 +165,7 @@ exports.portals = function(streetPlanner) {
     
     var result;
     if (timeString === "6:00") {
-      result = turf.intersect(triangle, rodRoad);
+      result = turf.intersect(turf.featureCollection([triangle, rodRoad]));
     } else {
       //For all other take convex hull of esplanade (the open playa) and find difference with expanded triangle
       var fc = turf.featureCollection([triangle,turf.convex(esplanade)])
@@ -205,7 +215,7 @@ exports.allPolygons = function(streetPlanner) {
   portals.features.forEach(function(portal){
     var newPortal = portal
     allAreas.features.forEach(function(other){
-      newPortal = turf.difference(newPortal,other);
+      newPortal = turf.difference(turf.featureCollection([newPortal,other]));
     })
     newPortals.push(newPortal);
   });
@@ -239,7 +249,7 @@ exports.streetsOutline = function(streetPlanner) {
     }
     newBuffer.geometry = buffer;
     if (outline) {
-        outline = turf.union(outline,newBuffer);
+        outline = turf.union(turf.featureCollection([outline,newBuffer]));
     } else {
       outline = newBuffer;
     }
@@ -290,7 +300,7 @@ exports.cityOutline = function(streetPlanner) {
   var allFeatureCollection = turf.featureCollection(allFeatures);
 
   allFeatureCollection.features.forEach(function(item){
-    outline = turf.union(outline,item);
+    outline = turf.union(turf.featureCollection([outline,item]));
   })
 
 

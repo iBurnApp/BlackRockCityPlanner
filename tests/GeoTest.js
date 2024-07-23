@@ -1,7 +1,7 @@
 var Geo = require('../src/geo.js');
 var test = require('tape');
 var layout = require('./layout2015.json');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 
 var verifyArc = function(t,arc,coordinatesCount,distanceExpected) {

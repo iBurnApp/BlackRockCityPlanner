@@ -1,7 +1,7 @@
 var Polygons = require('../src/polygons.js');
 var test = require('tape');
 var layout2015 = require('./layout2015.json');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var StreetPlanner = require('../src/streetplanner');
 var streetPlanner = new StreetPlanner(layout2015);
 

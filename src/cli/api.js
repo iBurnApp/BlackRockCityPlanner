@@ -1,6 +1,6 @@
 var Geocoder = require("../geocoder/geocoder.js");
 var fs = require('fs');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 var nopt = require("nopt"),
     path = require("path"),

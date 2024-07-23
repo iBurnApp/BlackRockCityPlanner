@@ -1,7 +1,7 @@
 var Clock = require('../src/clock.js');
 var test = require('tape');
 var layout = require('./layout2015.json');
-var turf = require('turf');
+var turf = require('@turf/turf');
 var Time = require('../src/time.js');
 
 var timeDict = {
