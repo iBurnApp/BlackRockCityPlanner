@@ -1,7 +1,7 @@
 
 fs = require('fs');
 wiki = require('./wiki.js')
-turf = require('turf');
+turf = require('@turf/turf');
 
 /**
 node unofficial.js -w ../../data/2015/unofficial/unofficial-wiki.geojson -p ../../data/2015/camp.json -h ../../data/2015/unofficial/wiki_handcoded.json > ../../data/2015/unofficial/unofficial-wiki_matched.geojson

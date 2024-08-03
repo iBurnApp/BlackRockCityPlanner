@@ -3,7 +3,7 @@ var ToiletParser = require('../src/toiletParser');
 var LayoutParser = require('../src/layoutParser');
 var toiletJSON = require('./toilets_layout_2015.json');
 var layoutJSON = require('./layout2015.json');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 var layoutParser = new LayoutParser(layoutJSON);
 

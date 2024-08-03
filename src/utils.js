@@ -1,4 +1,4 @@
-var turf  = require('turf');
+var turf  = require('@turf/turf');
 var Time = require('./time.js');
 
 

@@ -1,7 +1,6 @@
 var utils = require('./utils.js');
-var turf = require('turf');
+var turf = require('@turf/turf');
 turf.multilinestring = require('turf-multilinestring');
-turf.difference = require('turf-difference');
 var jsts = require("jsts");
 var fence = require('./fence.js');
 var Geo = require('./geo.js')

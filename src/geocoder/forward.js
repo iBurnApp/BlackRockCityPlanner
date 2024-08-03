@@ -1,5 +1,5 @@
 
-var turf  = require('turf');
+var turf  = require('@turf/turf');
 var utils = require('../utils.js');
 var Parser = require('./geocodeParser.js');
 var leven = require('levenshtein');
@@ -68,7 +68,7 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
     });
     var timeRoad = timeArray[0];
     if (timeRoad) {
-      var intersection = turf.intersect(timeRoad,bestGuessFeature);
+      var intersection = turf.intersect(turf.featureCollection([timeRoad,bestGuessFeature]));
       if (intersection) {
         return intersection;
       }
@@ -130,7 +130,7 @@ function intersectingPoints(features1,features2) {
   //Compare all matching named features with eachother
   features1.map(function(item1){
     features2.map(function(item2){
-      var intersection = turf.intersect(item1,item2);
+      var intersection = turf.intersect(turf.featureCollection([item1,item2]));
       if (intersection != null) {
         intersections.push(intersection);
       }

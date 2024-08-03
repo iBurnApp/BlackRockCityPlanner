@@ -4,7 +4,7 @@
 var Distance = require('./distance.js');
 var Range = require('./range.js');
 var Time = require('./time');
-var turf = require('turf');
+var turf = require('@turf/turf');
 
 var Toilet = function(bearing, offset, distance, orientation){
     this.bearing = bearing;
