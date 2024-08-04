@@ -125,7 +125,7 @@ var generateRadialStreetPoints = function(center,bearing,segments){
   segments.forEach(function(distanceList){
     var points = [];
     distanceList.forEach(function(distance){
-      var point = turf.destination(center, distance, bearing, 'miles');
+      var point = turf.destination(center, distance, bearing, {units: 'miles'});
       point.properties.distance = distance;
       point.properties.bearing = bearing;
       point.properties.units = 'miles';

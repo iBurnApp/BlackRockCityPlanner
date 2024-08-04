@@ -36,7 +36,7 @@ Clock.prototype.point = function(hour,minute,distance,units) {
 Clock.prototype.pointFromDegrees = function(compassDegrees,distance,units) {
 
   //calculate destination
-  var destination = turf.destination(this.center, distance, compassDegrees, units);
+  var destination = turf.destination(this.center, distance, compassDegrees, {units: units});
   return destination;
 };
 
@@ -56,7 +56,7 @@ Clock.arcDegrees = function(startBearing,endBearing,bearingFrequency) {
 
   var currentBearing = startBearing;
   while (Utils.bearingCompare(endBearing, currentBearing)) {
-    var currentPoint = turf.destination(center,distance,currentBearing,units);
+    var currentPoint = turf.destination(center,distance,currentBearing,{units: units});
     points.push(currentPoint.geometry.coordinates);
 
     currentBearing += bearingFrequency;

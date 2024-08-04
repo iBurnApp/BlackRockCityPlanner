@@ -97,7 +97,7 @@ exports.plazas = function(streetPlanner) {
       var hour = timeArray[0];
       var minute = timeArray[1];
       var bearing = utils.timeToCompassDegrees(hour,minute,cityBearing);
-      point = turf.destination(cityCenter,distance,bearing,'miles');
+      point = turf.destination(cityCenter,distance,bearing,{units: 'miles'});
     }
 
     var radius = utils.feetToMiles(item.diameter)/2.0;
@@ -147,7 +147,7 @@ exports.portals = function(streetPlanner) {
       "ref":item.ref
     };
 
-    var start = turf.destination(cityCenter,distance,timeBearing,units);
+    var start = turf.destination(cityCenter,distance,timeBearing,{units: units});
 
     //flip bearing around
     portalBearing = 180 - Math.abs(timeBearing);
@@ -158,8 +158,8 @@ exports.portals = function(streetPlanner) {
     firstBearing = portalBearing - angle/2;
     secondBearing = portalBearing + angle/2;
 
-    var firstPoint = turf.destination(start,0.5,firstBearing,'miles');
-    var secondPoint = turf.destination(start,0.5,secondBearing,'miles');
+    var firstPoint = turf.destination(start,0.5,firstBearing,{units: 'miles'});
+    var secondPoint = turf.destination(start,0.5,secondBearing,{units: 'miles'});
 
     var triangle = turf.polygon([[start.geometry.coordinates,firstPoint.geometry.coordinates,secondPoint.geometry.coordinates,start.geometry.coordinates]]);
     

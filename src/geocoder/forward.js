@@ -29,7 +29,7 @@ Geocoder.prototype.timeDistanceToLatLon = function(time, distance, units) {
 
   var compassDegrees = utils.timeStringToCompassDegress(time, this.cityBearing);
 
-  var destination = turf.destination(this.centerPoint, distance, compassDegrees, units);
+  var destination = turf.destination(this.centerPoint, distance, compassDegrees, {units: units});
   return destination;
 };
 

@@ -83,7 +83,7 @@ CenterCampStreetPlanner.prototype.generateARoad = function () {
     var distance = Utils.feetToMiles(this.centerCampPlazaCenterlineDistance());
     this.ABearingArray.forEach(function(bearing){
         //Create point on center camp centerline
-        var point = turf.destination(this.center,distance,bearing,'miles');
+        var point = turf.destination(this.center,distance,bearing,{units: 'miles'});
         this.grid.saveWithBearing(bearing,distance,point.geometry.coordinates);
     },this);
 };

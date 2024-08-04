@@ -58,7 +58,7 @@ Grid.prototype.pointWithBearing = function(bearing,distance) {
   var location = this.fetchWithBearing(bearing,distance)
   if (!location) {
 
-    location = turf.destination(this.layout.center, distance, bearing, 'miles');
+    location = turf.destination(this.layout.center, distance, bearing, {units: 'miles'});
     location.geometry.coordinates = location.geometry.coordinates.map(function(x) {
       return parseFloat(x.toFixed(6));
     });
