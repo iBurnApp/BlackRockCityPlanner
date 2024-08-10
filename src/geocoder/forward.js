@@ -90,7 +90,7 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
     console.log("no intersections: " + JSON.stringify(intersections));
     return undefined;
   } else {
-    console.log("found intersections: " + JSON.stringify(intersections[0]));
+    console.log("found intersections: " + timeString + " " + featureName + " " + JSON.stringify(intersections[0]));
     return intersections[0];
   }
 };
@@ -135,7 +135,7 @@ function intersectingPoints(features1,features2) {
     features2.map(function(item2){
       var fc = turf.featureCollection([item1, item2]);
       var intersection = turf.lineIntersect(item1,item2);
-      if (intersection != null) {
+      if (intersection != null && intersection.features.length > 0) {
         intersections.push(intersection);
       } else {
         console.log("no intersection of items: " + JSON.stringify(fc));

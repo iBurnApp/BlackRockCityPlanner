@@ -18,6 +18,7 @@ var nopt = require("nopt"),
     },
     parsed = nopt(knownOpts, shortHands, process.argv, 2);
 
+console.log("parsed.layout: " + parsed.layout);
 var layout = JSON.parse(fs.readFileSync(parsed.layout, 'utf8'));
 var art = JSON.parse(fs.readFileSync(parsed.file, 'utf8'));
 var key = parsed.key;
@@ -46,6 +47,7 @@ art.map(function(item) {
             } else {
                 console.log('non-number result ' + item.name + ' @ ' + item[key] + ': ' + item.location.gps_latitude + ' /// ' + item.location.gps_longitude);
             }
+            console.log('geocoded ' + item.name + ': ' + item[key] + " " +  JSON.stringify(item.location));
         } else {
             console.log("failing point: " + JSON.stringify(point));
             console.log('could not geocode ' + item.name + ': ' + item[key]);
