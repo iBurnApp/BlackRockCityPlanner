@@ -7,6 +7,7 @@ var streets = require('./streets.js');
 var points = require('./points.js');
 var fence = require('./fence.js');
 var Geo = require('./geo');
+var lineToPolygon = require('turf-line-to-polygon');
 
 exports.innerPlaya = function(streetPlanner) {
   var rodPoly = exports.centerCampPolygon(streetPlanner);
@@ -15,7 +16,10 @@ exports.innerPlaya = function(streetPlanner) {
   var linestring = Geo.arc(streetPlanner.layoutFile.center,distance,'miles',0,360,streetPlanner.bearingFrequency);
   var innerPolygon = turf.polygon([linestring.geometry.coordinates]);
 
-  var polygon = turf.difference(innerPolygon,rodPoly);
+  var polygon = innerPolygon;
+  if (rodPoly) {
+    polygon = turf.difference(innerPolygon,rodPoly);
+  }
   polygon.properties = {'ref':'innerPlaya','name':'Inner Playa'};
 
   return polygon;
@@ -24,7 +28,10 @@ exports.innerPlaya = function(streetPlanner) {
 exports.outerPlaya = function(streetPlanner) {
   var polygon = turf.polygon([fence.fence(streetPlanner.layoutFile).features[0].geometry.coordinates])
   polygon = turf.difference(polygon,exports.streetsArea(streetPlanner));
-  polygon = turf.difference(polygon,exports.centerCampPolygon(streetPlanner));
+  var centerCampPolygon = exports.centerCampPolygon(streetPlanner);
+  if (centerCampPolygon) {
+    polygon = turf.difference(polygon, centerCampPolygon);
+  }
   polygon = turf.difference(polygon,exports.innerPlaya(streetPlanner));
 
   polygon.properties = {'ref':'outerPlaya','name':'Outer Playa'}
@@ -33,8 +40,10 @@ exports.outerPlaya = function(streetPlanner) {
 }
 
 exports.centerCampPolygon = function(streetPlanner) {
-  var rodRoad = streetPlanner.centerCampStreetPlanner.getRodRoad()
-
+  var rodRoad = streetPlanner.centerCampStreetPlanner.getRodRoad();
+  if(!rodRoad) {
+    return null;
+  }
   var rodPoly = turf.polygon([rodRoad.geometry.coordinates]);
   return rodPoly;
 }
@@ -61,7 +70,9 @@ exports.streetsArea = function(streetPlanner) {
 
   var poly = turf.polygon([points]);
   var centerCamp = exports.centerCampPolygon(streetPlanner);
-  poly = turf.union(poly,centerCamp);
+  if (centerCamp) {
+    poly = turf.union(poly,centerCamp);
+  }
   poly.properties = {'ref':'streets'}
   return poly
 }
@@ -105,8 +116,14 @@ exports.portals = function(streetPlanner) {
 
   var cityStreets = streetPlanner.getAllCityStreets();
   var esplanade = utils.filter(cityStreets.features,"ref","esplanade")[0];
+  // Use frontage arc or rods road
   var rodRoad = utils.filter(cityStreets.features,"ref","rod")[0];
-  rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
+  if(rodRoad == undefined) {
+    rodRoad =  utils.filter(cityStreets.features,"ref","frontage_arc")[0];
+    rodRoad = lineToPolygon(rodRoad);
+  } else {
+    rodRoad = turf.polygon([rodRoad.geometry.coordinates]);
+  }
 
   var features = [];
   portalsInfoList.forEach(function(item){

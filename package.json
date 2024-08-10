@@ -13,6 +13,7 @@
     "request": "^2.87.0",
     "turf": "^3.0.14",
     "turf-difference": "^3.0.12",
+    "turf-line-to-polygon": "github:Turfjs/turf-line-to-polygon#master",
     "turf-meta": "^3.0.12",
     "turf-multilinestring": "^1.0.2"
   },

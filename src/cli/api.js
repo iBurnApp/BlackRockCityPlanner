@@ -39,11 +39,18 @@ art.map(function(item) {
         if (point) {
             var lat = point.geometry.coordinates[1];
             var lon = point.geometry.coordinates[0];
+            if (typeof lat != "number" ||
+                typeof lon != "number") {
+                    // when there are multiple matches, pick the outer
+                lon = lat[0];
+                lat = lat[1];
+            }
             if (typeof lat == "number" &&
                 typeof lon == "number") {
                 item.location.gps_latitude = lat;
                 item.location.gps_longitude = lon;
             } else {
+                console.log("type " + typeof lat);
                 console.log('non-number result ' + item.name + ' @ ' + item[key] + ': ' + item.location.gps_latitude + ' /// ' + item.location.gps_longitude);
             }
         } else {
