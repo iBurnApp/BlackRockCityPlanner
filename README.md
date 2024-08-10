@@ -51,7 +51,7 @@ This geocodes the a string in an API JSON file and outputs full API result + lat
 `node src/cli/api.js -l [layout file] -f [API JSON] -k [key string to geocode] -o [output file]`
 e.g.
 ```
-node src/cli/api.js -l ../../data/2022/layouts/layout-single-letter.json -f ../../data/2022/APIData/camp.json -k location_string -o ../../data/2022/APIData/camp-location.json
+node src/cli/api.js -l ../../data/2024/layouts/layout.json -f ../../data/2024/APIData/camp.json -k location_string -o ../../data/2024/APIData/camp-location.json
 ```
 
 ### [Geocoder](src/geocoder/readme.md)
