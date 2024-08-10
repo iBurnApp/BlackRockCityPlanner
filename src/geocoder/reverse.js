@@ -64,7 +64,7 @@ var streetResult = function(point,features) {
     }
 
     if (!result.point) {
-      result.point = turf.pointOnLine(result.street,point)
+      result.point = turf.nearestPointOnLine(result.street,point)
     }
 
     if (result.point.properties.dist < bestDistance) {

@@ -36,7 +36,7 @@ Clock.prototype.point = function(hour,minute,distance,units) {
 Clock.prototype.pointFromDegrees = function(compassDegrees,distance,units) {
 
   //calculate destination
-  var destination = turf.destination(this.center, distance, compassDegrees, {units: units});
+  var destination = turf.destination(this.center, distance, compassDegrees, {"units": units});
   return destination;
 };
 

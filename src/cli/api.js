@@ -47,7 +47,7 @@ art.map(function(item) {
                 console.log('non-number result ' + item.name + ' @ ' + item[key] + ': ' + item.location.gps_latitude + ' /// ' + item.location.gps_longitude);
             }
         } else {
-            // console.log("point: " + JSON.stringify(point));
+            console.log("failing point: " + JSON.stringify(point));
             console.log('could not geocode ' + item.name + ': ' + item[key]);
         }
     } else {

@@ -80,14 +80,17 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
   }
 
   var imaginaryTimeStreet = clock.line(hour,minute,5,'miles');
+  // console.log("imaginaryTimeStreet" + JSON.stringify(imaginaryTimeStreet));
   var radial = [imaginaryTimeStreet];
 
   var intersections = intersectingPoints(radial,[bestGuessFeature]);
 
 
-  if (intersections.length === 0) {
+  if (intersections[0].features.length === 0) {
+    console.log("no intersections: " + JSON.stringify(intersections));
     return undefined;
   } else {
+    console.log("found intersections: " + JSON.stringify(intersections[0]));
     return intersections[0];
   }
 };
@@ -130,9 +133,12 @@ function intersectingPoints(features1,features2) {
   //Compare all matching named features with eachother
   features1.map(function(item1){
     features2.map(function(item2){
+      var fc = turf.featureCollection([item1, item2]);
       var intersection = turf.lineIntersect(item1,item2);
       if (intersection != null) {
         intersections.push(intersection);
+      } else {
+        console.log("no intersection of items: " + JSON.stringify(fc));
       }
     });
   });
