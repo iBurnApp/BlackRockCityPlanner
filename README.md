@@ -30,6 +30,7 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 $ node src/cli/generate_all.js -d ../../data/2024
 $ node src/cli/api.js -l ../../data/2024/layouts/layout.json -f ../../data/2024/APIData/camp.json -k location_string -o ../../data/2024/APIData/camp-location.json
 $ mv ../../data/2024/APIData/camp-location.json ../../data/2024/APIData/camp.json
+$ browserify src/geocoder/index.js -o ../../data/2024/geocoder/bundle.js
 ```
 ##### Streets
 
