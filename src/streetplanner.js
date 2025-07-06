@@ -7,7 +7,6 @@ var turf = require('@turf/turf');
 var Geo = require('./geo.js');
 var Fence = require('./fence');
 var CenterCampStreetPlanner = require('./centercampstreetplanner.js');
-turf.multilinestring = require('turf-multilinestring');
 
 var StreetPlanner = function(jsonFile) {
     this.layoutFile = jsonFile;
@@ -15,7 +14,7 @@ var StreetPlanner = function(jsonFile) {
 
     var distance = Utils.feetToMiles(this.layoutFile.center_camp.distance);
     var bearing = this.grid.clock.bearing(6,0);
-    var centerCampCenter = turf.destination(this.layoutFile.center, distance, bearing, 'miles');
+    var centerCampCenter = turf.destination(this.layoutFile.center, distance, bearing, {units: 'miles'});
 
     this.streetLookup = {};
     var ARoadName = null;
@@ -116,8 +115,8 @@ StreetPlanner.prototype.generateCenterCampPlazaIntersections = function() {
     var distance1 = Utils.feetToMiles(this.layoutFile.center_camp.distance + centerCampdistance);
     var distance2 = Utils.feetToMiles(this.layoutFile.center_camp.distance - centerCampdistance);
     var bearing = this.grid.clock.bearing(6,0);
-    var point1 = turf.destination(this.layoutFile.center, distance1, bearing, 'miles');
-    var point2 = turf.destination(this.layoutFile.center, distance2, bearing, 'miles');
+    var point1 = turf.destination(this.layoutFile.center, distance1, bearing, {units: 'miles'});
+    var point2 = turf.destination(this.layoutFile.center, distance2, bearing, {units: 'miles'});
     this.grid.saveWithBearing(bearing,distance1,point1.geometry.coordinates);
     this.grid.saveWithBearing(bearing,distance2,point2.geometry.coordinates);
 }
@@ -163,8 +162,8 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var bearing1 = this.layoutFile.bearing + entranceRoadAngle/2;
     var bearing2 = this.layoutFile.bearing - entranceRoadAngle/2;
     //temp roads to find intersections;
-    var entrance1 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing1,'miles').geometry.coordinates]);
-    var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,'miles').geometry.coordinates]);
+    var entrance1 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing1,{units: 'miles'}).geometry.coordinates]);
+    var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,{units: 'miles'}).geometry.coordinates]);
     //most outer street
     var outerStreet = Utils.filter(this.getArcStreets().features,'ref','k')[0];
     var intersectionPoint1 = turf.lineIntersect(outerStreet,entrance1).features[0];
@@ -178,7 +177,7 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     segments.push([splitPoint.geometry.coordinates,intersectionPoint1.geometry.coordinates]);
     segments.push([splitPoint.geometry.coordinates,intersectionPoint2.geometry.coordinates]);
 
-    return turf.multilinestring(segments,{
+    return turf.multiLineString(segments,{
         'ref': 'entrance',
         'name': 'Entrance Road'
     });
@@ -200,7 +199,7 @@ StreetPlanner.prototype.getArcStreets = function() {
         if (points.length === 1) {
             lineString = turf.lineString(points[0]);
         } else {
-            lineString = turf.multilinestring(points);
+            lineString = turf.multiLineString(points);
         }
         lineString.properties = {ref:street.ref,name:street.name,type:"arc"};
 
@@ -237,7 +236,7 @@ StreetPlanner.prototype.getRadialStreets = function() {
             if (points.length === 1) {
                 lineString = turf.lineString(points[0]);
             } else {
-                lineString = turf.multilinestring(points);
+                lineString = turf.multiLineString(points);
             }
 
             lineString.properties = {type:'radial',name:time};

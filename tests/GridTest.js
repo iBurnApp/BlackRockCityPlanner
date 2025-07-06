@@ -3,7 +3,7 @@ var Grid = require('../src/grid.js');
 var test = require('tape');
 var Time = require('../src/time.js')
 var testUtils = require('./testUtils.js');
-var turf = require('turf')
+var turf = require('@turf/turf')
 
 test('Grid-Save', function(t) {
 

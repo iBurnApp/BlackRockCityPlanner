@@ -8,7 +8,7 @@ var verifyArc = function(t,arc,coordinatesCount,distanceExpected) {
     t.ok(arc,"Created arc");
     t.equal(arc.geometry.type ,'LineString',"Correct geometry type");
     t.equal(arc.geometry.coordinates.length, coordinatesCount,"Correct number of points")
-    var distance = turf.lineDistance(arc,'miles');
+    var distance = turf.length(arc,{units: 'miles'});
     var error = Math.abs(distance - distanceExpected);
     t.ok(error < .001,"Correct Length");
 };

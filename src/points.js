@@ -6,7 +6,7 @@ exports.centerCampCenter = function(jsonFile) {
   var cityCenter = jsonFile.center;
   var centerCampDistance = utils.feetToMiles(jsonFile.center_camp.distance);
   var bearing = utils.timeToCompassDegrees("6","0",cityBearing);
-  var ccc = turf.destination(cityCenter,centerCampDistance,bearing,'miles');
+  var ccc = turf.destination(cityCenter,centerCampDistance,bearing,{units: 'miles'});
 
   return ccc;
 }
@@ -19,6 +19,6 @@ exports.temple = function(jsonFile) {
   })[0];
   var distance = utils.feetToMiles(espInfo.distance);
 
-  var temple = turf.destination(cityCenter,distance,cityBearing,'miles')
+  var temple = turf.destination(cityCenter,distance,cityBearing,{units: 'miles'})
   return temple;
 }

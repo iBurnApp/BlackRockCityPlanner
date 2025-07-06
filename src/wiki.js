@@ -13,7 +13,7 @@ const CONFIDENT_MATCH_THRESHOLD = .9;
 const POSSIBLE_MATCH_THRESHOLD = .51;
 
 module.exports.fixCoordinate = function(coordinates) {
-  return turf.destination(turf.point(coordinates),distance,bearing,'kilometers').geometry.coordinates;
+  return turf.destination(turf.point(coordinates),distance,bearing,{units: 'kilometers'}).geometry.coordinates;
 }
 
 module.exports.findPlayaEventsId = function(wikiItem, playaEvntsJSON,hardcodedJSON, callback) {

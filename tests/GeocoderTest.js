@@ -136,7 +136,7 @@ test('reverseGeocode',function(t) {
 test('dmzArc', function(t){
     //https://eplaya.burningman.com/viewtopic.php?f=65&t=74372
     var dmzGeo = dmz.frontArc(layout2015);
-    var distance = turf.lineDistance(dmzGeo,'miles');
+    var distance = turf.length(dmzGeo,{units: 'miles'});
     t.ok(Math.abs(distance - 0.3309) < .1,"Should have correct arc distance " + distance);
     t.end();
 });

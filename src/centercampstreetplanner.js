@@ -83,7 +83,7 @@ CenterCampStreetPlanner.prototype.generateARoad = function () {
     var distance = Utils.feetToMiles(this.centerCampPlazaCenterlineDistance());
     this.ABearingArray.forEach(function(bearing){
         //Create point on center camp centerline
-        var point = turf.destination(this.center,distance,bearing,'miles');
+        var point = turf.destination(this.center,distance,bearing,{units: 'miles'});
         this.grid.saveWithBearing(bearing,distance,point.geometry.coordinates);
     },this);
 };
@@ -169,7 +169,7 @@ CenterCampStreetPlanner.prototype.getARoad = function() {
         name: this.ARoadName,
         type: 'arc'
     };
-    return turf.multilinestring(points,properties);
+    return turf.multiLineString(points,properties);
 }
 
 CenterCampStreetPlanner.prototype.get66Road = function() {
@@ -196,7 +196,7 @@ CenterCampStreetPlanner.prototype.get66Road = function() {
         "name":"Route 66",
         "width":this.centerCampInfo.six_six_width
     };
-    return turf.multilinestring(points,properties);
+    return turf.multiLineString(points,properties);
 }
 
 CenterCampStreetPlanner.prototype.getAllStreets = function() {

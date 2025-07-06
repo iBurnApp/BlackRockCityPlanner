@@ -4271,16 +4271,6 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-turf-meta@^3.0.12:
-  version "3.0.12"
-  resolved "https://registry.npmjs.org/turf-meta/-/turf-meta-3.0.12.tgz"
-  integrity sha512-B3YSKMpWGx1WYE8IM62pzOA0kqjrGjd/ZkSyrD5WXnrrpPfAUl0yBoZCJYL5IQcOwLqfd5xZt3HJnNH9cFiG7A==
-
-turf-multilinestring@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/turf-multilinestring/-/turf-multilinestring-1.0.2.tgz"
-  integrity sha512-sTs3SNUN4VULxnV5qqmzvttcj7PPRbjGpYW9j+MbRh4bk2I4dnalJa8Qo2+gCm8c5L6K8wIwoXfhSjBtWdD5IA==
-
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz"

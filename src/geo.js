@@ -26,7 +26,7 @@ var arcPoints = function(center, distance, units, startBearing, endBearing, bear
 
     var currentBearing = startBearing;
     while (Utils.bearingCompare(endBearing, currentBearing)) {
-        var currentPoint = turf.destination(center,distance,currentBearing,units);
+        var currentPoint = turf.destination(center,distance,currentBearing,{units: units});
         currentPoint.properties['distance'] = distance;
         currentPoint.properties['bearing'] = currentBearing;
         currentPoint.properties['units'] = units;
@@ -39,14 +39,14 @@ var arcPoints = function(center, distance, units, startBearing, endBearing, bear
     }
 
     //One more for the end
-    var currentPoint = turf.destination(center,distance,endBearing,units);
+    var currentPoint = turf.destination(center,distance,endBearing,{units: units});
     currentPoint.properties['distance'] = distance;
     currentPoint.properties['bearing'] = endBearing;
     currentPoint.properties['units'] = units;
     points.push(currentPoint);
     if(endsAtZero || fullCircle) {
         var nextBearing = endBearing+bearingFrequency
-        var currentPoint = turf.destination(center,distance,nextBearing,units);
+        var currentPoint = turf.destination(center,distance,nextBearing,{units: units});
         currentPoint.properties['distance'] = distance;
         currentPoint.properties['bearing'] = nextBearing;
         currentPoint.properties['units'] = units;

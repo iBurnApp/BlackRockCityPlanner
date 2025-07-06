@@ -1,6 +1,5 @@
 var utils = require('./utils.js');
 var turf = require('@turf/turf');
-turf.multilinestring = require('turf-multilinestring');
 var jsts = require("jsts");
 var fence = require('./fence.js');
 var Geo = require('./geo.js')
@@ -76,7 +75,7 @@ var generateArcStreet = function(center, distance, segments,frequency) {
     var lineString = Geo.arc(center,distance,'miles',startBearing,endBearing,frequency);
     points.push(lineString.geometry.coordinates);
   });
-  return turf.multilinestring(points);
+  return turf.multiLineString(points);
 };
 
 var generateArcStreetPoints = function(center, distance, segments, frequency) {
@@ -125,7 +124,7 @@ var generateRadialStreetPoints = function(center,bearing,segments){
   segments.forEach(function(distanceList){
     var points = [];
     distanceList.forEach(function(distance){
-      var point = turf.destination(center, distance, bearing, 'miles');
+      var point = turf.destination(center, distance, bearing, {units: 'miles'});
       point.properties.distance = distance;
       point.properties.bearing = bearing;
       point.properties.units = 'miles';

@@ -29,11 +29,11 @@ var parseToiletDict = function(bearing,item) {
 }
 
 var boxGeoJSON  = function(width,height,center,bearing,units) {
-    var halfSidePont = turf.destination(center,width/2.0,bearing-90,units);
-    var firstCorner = turf.destination(halfSidePont,height/2.0,bearing,units);
-    var secondCorner = turf.destination(firstCorner,width,bearing+90,units);
-    var thirdCorner = turf.destination(secondCorner,height,bearing+180,units);
-    var finalCorner = turf.destination(thirdCorner,width,bearing-90,units);
+    var halfSidePont = turf.destination(center,width/2.0,bearing-90,{units: units});
+    var firstCorner = turf.destination(halfSidePont,height/2.0,bearing,{units: units});
+    var secondCorner = turf.destination(firstCorner,width,bearing+90,{units: units});
+    var thirdCorner = turf.destination(secondCorner,height,bearing+180,{units: units});
+    var finalCorner = turf.destination(thirdCorner,width,bearing-90,{units: units});
     var points = [firstCorner,secondCorner,thirdCorner,finalCorner,firstCorner];
     points = points.map(function(item){
         return item.geometry.coordinates;
@@ -54,7 +54,7 @@ var toiletGeoJSON = function(layoutParser, width, height, toilet) {
         distance = distance.midPoint(layoutParser.streetLookupDistance);
     }
     var centerPoint = clock.pointFromDegrees(bearingNum,distance.toMiles(layoutParser.streetLookupDistance),'miles');
-    centerPoint = turf.destination(centerPoint,toilet.offset.toMiles(),bearingNum+90,'miles');
+    centerPoint = turf.destination(centerPoint,toilet.offset.toMiles(),bearingNum+90,{units: 'miles'});
 
     //Would be really great to have affine transform here
     //anyways here we go

@@ -12,8 +12,8 @@ test('creating an arc', function(t){
     t.equal(result.geometry.coordinates[1].length,181,"genearted 211 points");
     var arc1 = turf.lineString(result.geometry.coordinates[0]);
     var arc2 = turf.lineString(result.geometry.coordinates[1]);
-    var distance1 = turf.lineDistance(arc1,'miles');
-    var distance2 = turf.lineDistance(arc2,'miles');
+    var distance1 = turf.length(arc1,{units: 'miles'});
+    var distance2 = turf.length(arc2,{units: 'miles'});
     var error = Math.abs(distance1-distance2);
     t.ok(error < 0.001,"Equal distance with error");
     error = Math.abs(distance1 - Math.PI/2.0);

@@ -10,7 +10,7 @@ exports.fence = function(jsonFile) {
   var bearing = 0;
   var points = [];
   while(bearing < 365) {
-    var vertex = turf.destination(cityCenter, fenceVertexDistance, bearing + cityBearing, 'miles')
+    var vertex = turf.destination(cityCenter, fenceVertexDistance, bearing + cityBearing, {units: 'miles'})
     points.push(vertex);
     bearing += 360/5;
   }
