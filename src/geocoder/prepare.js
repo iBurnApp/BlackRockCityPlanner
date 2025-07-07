@@ -29,6 +29,13 @@ module.exports = function(layoutFile) {
 
   var centerCampCenter = streetPlanner.centerCampGrid.layout.center;
 
+  // Create hardcoded locations for special places
+  var hardcodedLocations = {
+    "Center Camp Plaza": turf.point(centerCampCenter.geometry.coordinates),
+    "Café": turf.point(centerCampCenter.geometry.coordinates), // Café is at center camp center
+    "Rod's Road": turf.point(centerCampCenter.geometry.coordinates) // Rod's Road reference point
+  };
+
   return {
     "center":layoutFile.center,
     "centerCamp":centerCampCenter,
@@ -36,6 +43,7 @@ module.exports = function(layoutFile) {
     "reversePolygons":fc,
     "reverseStreets":turf.featureCollection(st),
     "forwardPolygons":polygons.allPolygons(streetPlanner),
-    "forwardStreets":allStreets
+    "forwardStreets":allStreets,
+    "hardcodedLocations":hardcodedLocations
   }
 }

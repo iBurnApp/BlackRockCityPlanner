@@ -97,8 +97,9 @@ StreetPlanner.prototype.generateRodRoadIntersections = function() {
     var finalIntersections = [];
     arcStreets.features.forEach(function(item){
         var intersections = turf.lineIntersect(rodRoad,item);
-        if (intersections) {
-            intersections.geometry.coordinates.forEach(function(coordinate){
+        if (intersections && intersections.features && intersections.features.length > 0) {
+            intersections.features.forEach(function(intersection){
+                var coordinate = intersection.geometry.coordinates;
                 var point =  turf.point(coordinate,{ref:item.properties.ref});
                 finalIntersections.push(point);
                 var bearing = turf.bearing(this.layoutFile.center,point)
@@ -154,7 +155,11 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
 
     //Create Straight segment
     var longSix = turf.lineString([this.layoutFile.center.geometry.coordinates,this.grid.clock.point(6,0,5,'miles').geometry.coordinates])
-    var intersectionPoint = turf.lineIntersect(fence,longSix).features[0];
+    var fenceIntersection = turf.lineIntersect(fence,longSix);
+    if (!fenceIntersection || !fenceIntersection.features || fenceIntersection.features.length === 0) {
+        throw new Error('No intersection found between fence and center line');
+    }
+    var intersectionPoint = fenceIntersection.features[0];
     var splitPoint = turf.destination(intersectionPoint,entranceRoadLength,this.layoutFile.bearing,{units: 'miles'});
     var segments = [[intersectionPoint.geometry.coordinates,splitPoint.geometry.coordinates]];
 
@@ -166,8 +171,16 @@ StreetPlanner.prototype.generateEntranceRoad = function() {
     var entrance2 = turf.lineString([splitPoint.geometry.coordinates,turf.destination(splitPoint,0.5,bearing2,{units: 'miles'}).geometry.coordinates]);
     //most outer street
     var outerStreet = Utils.filter(this.getArcStreets().features,'ref','k')[0];
-    var intersectionPoint1 = turf.lineIntersect(outerStreet,entrance1).features[0];
-    var intersectionPoint2 = turf.lineIntersect(outerStreet,entrance2).features[0];
+    var intersection1 = turf.lineIntersect(outerStreet,entrance1);
+    var intersection2 = turf.lineIntersect(outerStreet,entrance2);
+    if (!intersection1 || !intersection1.features || intersection1.features.length === 0) {
+        throw new Error('No intersection found between outer street and entrance1');
+    }
+    if (!intersection2 || !intersection2.features || intersection2.features.length === 0) {
+        throw new Error('No intersection found between outer street and entrance2');
+    }
+    var intersectionPoint1 = intersection1.features[0];
+    var intersectionPoint2 = intersection2.features[0];
     var bearing1 = turf.bearing(this.layoutFile.center,intersectionPoint1);
     var bearing2 = turf.bearing(this.layoutFile.center,intersectionPoint2);
     var distance = this.streetLookup['k']

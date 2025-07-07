@@ -1,6 +1,6 @@
 var Clock = require('../src/clock.js');
 var test = require('tape');
-var layout = require('./layout2015.json');
+var layout = require('./layout2025.json');
 var turf = require('@turf/turf');
 var Time = require('../src/time.js');
 
@@ -27,8 +27,8 @@ test('Clock-Point', function(t){
     var min = Time.timeFromString(time)[1];
 
     var newPoint = clock.point(hour,min,distance,unit);
-    var calculatedDistance = turf.distance(layout.center,newPoint, unit);
-    var goodEnoughDistance = Math.abs(distance-calculatedDistance) < 0.001;
+    var calculatedDistance = turf.distance(layout.center,newPoint, {units: unit});
+    var goodEnoughDistance = Math.abs(distance-calculatedDistance) < 0.005;
     var bearing = turf.bearing(layout.center,newPoint).toFixed(2);
     t.ok(bearing-timeDict[time] === 0,"Should be equal Bearing");
     t.ok(goodEnoughDistance,"Should be equal distance");

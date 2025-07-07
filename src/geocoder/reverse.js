@@ -19,16 +19,16 @@ var reverseGeocoder = function(cityCenter,centerCampCenter,cityBearing,polygons,
 reverseGeocoder.prototype.geocode = function(lat, lon) {
   var point = turf.point([lon, lat]);
 
-  if (turf.inside(point,this.centerPlaza)) {
+  if (turf.booleanPointInPolygon(point,this.centerPlaza)) {
     return this.centerPlaza.properties.name;
-  } else if (turf.inside(point,this.cafe)){
+  } else if (turf.booleanPointInPolygon(point,this.cafe)){
     return this.cafe.properties.name;
-  } else if (turf.inside(point,this.innerPlaya)) {
+  } else if (turf.booleanPointInPolygon(point,this.innerPlaya)) {
     return this.playaResult(point,this.innerPlaya);
 
-  } else if (turf.inside(point,this.outerPlaya)) {
+  } else if (turf.booleanPointInPolygon(point,this.outerPlaya)) {
     return this.playaResult(point,this.outerPlaya);
-  } else if (turf.inside(point,this.streetsArea)) {
+  } else if (turf.booleanPointInPolygon(point,this.streetsArea)) {
     var result = streetResult(point,this.arcStreets);
     var time = this.timeForStreet(result.point,result.street);
     return time + ' & ' + result.street.properties.name;
@@ -64,7 +64,7 @@ var streetResult = function(point,features) {
     }
 
     if (!result.point) {
-      result.point = turf.pointOnLine(result.street,point)
+      result.point = turf.nearestPointOnLine(result.street,point)
     }
 
     if (result.point.properties.dist < bestDistance) {

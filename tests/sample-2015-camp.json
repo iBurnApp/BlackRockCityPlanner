@@ -1,0 +1,360 @@
+[
+  {
+    "uid": "a1Xd0000000Mw8HEAS",
+    "year": 2015,
+    "name": "Dusty Cobra Art Car / UCBR",
+    "url": "http://www.dustycobra.com",
+    "contact_email": "unitedcampsbrc@gmail.com",
+    "hometown": "Truckee",
+    "description": "Come learn more about our exciting Art Car and Camp!\r\nwww.DustyCobra.com",
+    "location": {
+      "string": "G & 9:15",
+      "frontage": "G",
+      "intersection": "9:15",
+      "intersection_type": "&",
+      "gps_latitude": 40.79590937698613,
+      "gps_longitude": -119.21614798813796
+    },
+    "location_string": "G & 9:15"
+  },
+  {
+    "uid": "a1Xd0000000Mw8WEAS",
+    "year": 2015,
+    "name": "Misfit Island",
+    "url": "https://www.facebook.com/misfitburner",
+    "contact_email": null,
+    "hometown": "redding",
+    "description": null,
+    "location": {
+      "string": "2:30 & E",
+      "frontage": "2:30",
+      "intersection": "E",
+      "intersection_type": "&",
+      "gps_latitude": 40.7810512935475,
+      "gps_longitude": -119.19428097835979
+    },
+    "location_string": "2:30 & E"
+  },
+  {
+    "uid": "a1Xd0000000Mw8bEAC",
+    "year": 2015,
+    "name": "Mama's Whore's and S'mores",
+    "url": null,
+    "contact_email": null,
+    "hometown": null,
+    "description": null,
+    "location": {
+      "string": "7:30 & H",
+      "frontage": "7:30",
+      "intersection": "H",
+      "intersection_type": "&",
+      "gps_latitude": 40.7863931045399,
+      "gps_longitude": -119.22322033877259
+    },
+    "location_string": "7:30 & H"
+  },
+  {
+    "uid": "a1Xd0000000Mw8lEAC",
+    "year": 2015,
+    "name": "Gypsy Witch Camp",
+    "url": "https://www.facebook.com/td.lowery.3?fref=ts",
+    "contact_email": "iluvkitees@yahoo.com",
+    "hometown": "Portland Reno Oklahoma City",
+    "description": "Gypsy Witch Camp brings in virgin burners and lone travelers and we offer survival help, games, homemade salsa and chips and witches brew and juice",
+    "location": {
+      "string": "5:00 & B",
+      "frontage": "5:00",
+      "intersection": "B",
+      "intersection_type": "&",
+      "gps_latitude": 40.777982369784404,
+      "gps_longitude": -119.20947568790783
+    },
+    "location_string": "5:00 & B"
+  },
+  {
+    "uid": "a1Xd0000000MwANEA0",
+    "year": 2015,
+    "name": "Pretty Pickle Camp",
+    "url": "http://www.prettypicklecamp.tk/",
+    "contact_email": "prettypicklecamp@p1r8.net",
+    "hometown": "Black Rock City",
+    "description": "A relaxed outpost on the road to nowhere featuring cold pickle service to passers by 12pm-2pm daily. Also offering hand-crafted pickle warmers, pickle pasties, and pickle rings, stickers, and bottle cap pins while supplies last!",
+    "location": {
+      "string": "B & 8:15",
+      "frontage": "B",
+      "intersection": "8:15",
+      "intersection_type": "&",
+      "gps_latitude": 40.789726983918506,
+      "gps_longitude": -119.21712560342257
+    },
+    "location_string": "B & 8:15"
+  },
+  {
+    "uid": "a1Xd0000000MwASEA0",
+    "year": 2015,
+    "name": "\"Scar Bar\" aka Bermuda Triangle",
+    "url": null,
+    "contact_email": "burnerscarbar@gmail.com",
+    "hometown": "Los Angeles",
+    "description": "You will be rewarded greatly for showing us your scars! Talk, drink, relax, and brag at the Scar Bar!",
+    "location": {
+      "string": "I & 8:45",
+      "frontage": "I",
+      "intersection": "8:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.79449365253768,
+      "gps_longitude": -119.22044809933982
+    },
+    "location_string": "I & 8:45"
+  },
+  {
+    "uid": "a1Xd0000000MwAwEAK",
+    "year": 2015,
+    "name": "Tropical Treehouse",
+    "url": null,
+    "contact_email": "tropicaltreehouse.burningman@gmail.com",
+    "hometown": "San Francisco",
+    "description": "A verdant home alive with the warmth of aloha!  Castaways welcomed to paddle up to the tiki lights and toast the night with a Mai Thai.",
+    "location": {
+      "string": "A & 7:45",
+      "frontage": "A",
+      "intersection": "7:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.78744619547171,
+      "gps_longitude": -119.21704019743798
+    },
+    "location_string": "A & 7:45"
+  },
+  {
+    "uid": "a1Xd0000000MwBBEA0",
+    "year": 2015,
+    "name": "BAR MACTROPOLIS",
+    "url": null,
+    "contact_email": "stuartmacintyre11@gmail.com",
+    "hometown": "Oakland Ca.",
+    "description": "BAR MACTROPLIS the disco shower bar at 3 o'clock and K plaza THE BEST BAR ON THE PLAYA open day and night for your pleasure A TRUE OASIS IN BLACK ROCK CITY welcome!",
+    "location": {
+      "string": "3:00 Public Plaza @ 10:00",
+      "frontage": "3:00 Public Plaza",
+      "intersection": "10:00",
+      "intersection_type": "@"
+    },
+    "location_string": "3:00 Public Plaza @ 10:00"
+  },
+  {
+    "uid": "a1Xd0000000MwBGEA0",
+    "year": 2015,
+    "name": "the ministry of douchebaggery!",
+    "url": null,
+    "contact_email": null,
+    "hometown": "nevada city",
+    "description": null,
+    "location": {
+      "string": "K & 9:15",
+      "frontage": "K",
+      "intersection": "9:15",
+      "intersection_type": "&",
+      "gps_latitude": 40.79799369095462,
+      "gps_longitude": -119.21826268360888
+    },
+    "location_string": "K & 9:15"
+  },
+  {
+    "uid": "a1Xd0000000MwBLEA0",
+    "year": 2015,
+    "name": "Shamandome Camp",
+    "url": "http://shamandome.org",
+    "contact_email": "barnabyruhe@gmail.com",
+    "hometown": "New York City",
+    "description": "SHAMANDOME CAMP birthed out of Heebeegeebee Healers Camp in 2006.  40 workshops, healing 1200 burners by core shamanism drumming journies. Our Find Your Power Animal workshop twice daily across the week  trances to DIRECT ACCESS TO SOURCE. and Wake Up the Shaman in You. We address war, sustainability, individual crises, harem management, soulretrival, extraction of neg energies, by CHANGING YOUR DREAM. We get you back on playa opened to epiphanies you flew in for.",
+    "location": {
+      "string": "7:00 & B",
+      "frontage": "7:00",
+      "intersection": "B",
+      "intersection_type": "&",
+      "gps_latitude": 40.78413999424761,
+      "gps_longitude": -119.21761478248493
+    },
+    "location_string": "7:00 & B"
+  },
+  {
+    "uid": "a1Xd0000000MwBQEA0",
+    "year": 2015,
+    "name": "Lip Bomb",
+    "url": "http://www.booms-box.com",
+    "contact_email": "lipbomb69@yahoo.com",
+    "hometown": "Murrieta",
+    "description": "Lip Bomb is about the celebration of celebration in all of its naughty light heartedness. We do this through a chill environment of deep house, Down tempo, chill and fun lounge house music. Our camp is open daily for our coffee and tea social and our bar is open nightly for our signature drink The cherry Lip Bomb.",
+    "location": {
+      "string": "C & 7:45",
+      "frontage": "C",
+      "intersection": "7:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.78761700442283,
+      "gps_longitude": -119.21876106138517
+    },
+    "location_string": "C & 7:45"
+  },
+  {
+    "uid": "a1Xd0000000MwBVEA0",
+    "year": 2015,
+    "name": "Dragon Camp Armory",
+    "url": null,
+    "contact_email": "dragoncamparmory@gmail.com",
+    "hometown": "Fountain Valley",
+    "description": "Make your own Bikini Armor!",
+    "location": {
+      "string": "7:00 & C",
+      "frontage": "7:00",
+      "intersection": "C",
+      "intersection_type": "&",
+      "gps_latitude": 40.783969430150904,
+      "gps_longitude": -119.21845362231204
+    },
+    "location_string": "7:00 & C"
+  },
+  {
+    "uid": "a1Xd0000000MwBaEAK",
+    "year": 2015,
+    "name": "Twisted Swan",
+    "url": null,
+    "contact_email": "kildare97309@gmail.com",
+    "hometown": "Apache Junction",
+    "description": "Stop in for a cold draught beer, fine Irish whiskey, hot Irish coffee, and wonderful Celtic music. Recite a limerick and get a Guinness, get your \r\nWho on at our Doctor Who night or show your best knees on Kilted Thursday, and thrill to our music seisiun featuring the playa's finest celtic musicians!",
+    "location": {
+      "string": "C & 4:45",
+      "frontage": "C",
+      "intersection": "4:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.77711712770311,
+      "gps_longitude": -119.20811234079945
+    },
+    "location_string": "C & 4:45"
+  },
+  {
+    "uid": "a1Xd0000000MwBpEAK",
+    "year": 2015,
+    "name": "STAMP IT! CAMP",
+    "url": null,
+    "contact_email": null,
+    "hometown": "Pittsburg",
+    "description": "STAMP IT! Camp is back to for the third year.  Come get your Burning Man 2015 souvenir stamped on any item or body part of your choice.",
+    "location": {
+      "string": "C & 3:45",
+      "frontage": "C",
+      "intersection": "3:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.77774859012316,
+      "gps_longitude": -119.20177224387113
+    },
+    "location_string": "C & 3:45"
+  },
+  {
+    "uid": "a1Xd0000000MwBuEAK",
+    "year": 2015,
+    "name": "Sun Guardians",
+    "url": "http://www.sunguardians.net",
+    "contact_email": "info@sunguardians.net",
+    "hometown": "San Francisco",
+    "description": "A spiritual temple honoring Hanuman: \"House of Tea and Yoga\" taking you on a journey of your past, present and future. Your soul is timeless and our space is awesome.",
+    "location": {
+      "string": "7:00 & D",
+      "frontage": "7:00",
+      "intersection": "D",
+      "intersection_type": "&",
+      "gps_latitude": 40.78379886638746,
+      "gps_longitude": -119.21929246050018
+    },
+    "location_string": "7:00 & D"
+  },
+  {
+    "uid": "a1Xd0000000MwBzEAK",
+    "year": 2015,
+    "name": "Northwest Mist",
+    "url": "http://www.northwestmist.com",
+    "contact_email": "mistme@northwestmist.com",
+    "hometown": "Greater Portland/Vancouver area",
+    "description": "Providing a soothing Northwest atmosphere to escape the mid-day heat with misting, music and body paint artists. Step through the Northwest Mist portal and transcend the heat of the day for a momentary refreshing encounter.",
+    "location": {
+      "string": "3:00 & E",
+      "frontage": "3:00",
+      "intersection": "E",
+      "intersection_type": "&",
+      "gps_latitude": 40.778839122242324,
+      "gps_longitude": -119.1965255537397
+    },
+    "location_string": "3:00 & E"
+  },
+  {
+    "uid": "a1Xd0000000MwCEEA0",
+    "year": 2015,
+    "name": "Declusterfuqerization",
+    "url": null,
+    "contact_email": "declusterization@gmail.com",
+    "hometown": "Reno",
+    "description": "Here at Declusterfuqerization we strive to fuq your burn! Fuq it long and hard and straight and true. Any way you like. Soft and cuddly, we've got you. Hard and vigorous, you are at the right place. Dirt nasty? Always. Dirt stars? Yes please.  Fuq yer b3rn.",
+    "location": {
+      "string": "C & 3:45",
+      "frontage": "C",
+      "intersection": "3:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.77774859012316,
+      "gps_longitude": -119.20177224387113
+    },
+    "location_string": "C & 3:45"
+  },
+  {
+    "uid": "a1Xd0000000MwCJEA0",
+    "year": 2015,
+    "name": "Kampersia",
+    "url": null,
+    "contact_email": "kevinbo03@gmail.com",
+    "hometown": "San Jose",
+    "description": "Kampersia melds traditional persian culture with modern burner ideas. Like tea and middle eastern food? We got you covered. How about traditional rose tobacco hookah and live acoustic music? Us too. We love persian culture, but we'd really love it if we could share it with you!",
+    "location": {
+      "string": "Esplanade & 4:00",
+      "frontage": "Esplanade",
+      "intersection": "4:00",
+      "intersection_type": "&",
+      "gps_latitude": 40.77978236220423,
+      "gps_longitude": -119.20416062130757
+    },
+    "location_string": "Esplanade & 4:00"
+  },
+  {
+    "uid": "a1Xd0000000MwG7EAK",
+    "year": 2015,
+    "name": "Club Neu Verboten",
+    "url": null,
+    "contact_email": "clubneu@aol.com",
+    "hometown": "reno",
+    "description": "Club Neu Verboten provides our usual retro avant garde parties under the massive star tent.Depeche Mode Night returns! See you all there and thanks to those who made 2014 our best year ever.",
+    "location": {
+      "string": "Esplanade & 4:30 Portal",
+      "frontage": "Esplanade",
+      "intersection": "4:30 Portal",
+      "intersection_type": "&",
+      "gps_latitude": 40.779549320160925,
+      "gps_longitude": -119.2065
+    },
+    "location_string": "Esplanade & 4:30 Portal"
+  },
+  {
+    "uid": "a1Xd0000000MwJfEAK",
+    "year": 2015,
+    "name": "Front Porch Sitters",
+    "url": null,
+    "contact_email": "frontporchsitters@att.net",
+    "hometown": "Louisville",
+    "description": "Come learn a new Ballet (dance beginners encouraged).  We will perform it for the city on Thursday and Saturday. All day parent / child classes on TuTuesday.",
+    "location": {
+      "string": "I & 7:45",
+      "frontage": "I",
+      "intersection": "7:45",
+      "intersection_type": "&",
+      "gps_latitude": 40.788129433849754,
+      "gps_longitude": -119.2239236791549
+    },
+    "location_string": "I & 7:45"
+  }
+]

@@ -67,10 +67,14 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
       return item.properties.name === timeString
     });
     var timeRoad = timeArray[0];
-    if (timeRoad) {
-      var intersection = turf.intersect(turf.featureCollection([timeRoad,bestGuessFeature]));
-      if (intersection) {
-        return intersection;
+    if (timeRoad && bestGuessFeature) {
+      try {
+        var intersection = turf.intersect(timeRoad,bestGuessFeature);
+        if (intersection) {
+          return intersection;
+        }
+      } catch (e) {
+        // Fall through to the fake time street creation below
       }
     }
 
@@ -130,9 +134,61 @@ function intersectingPoints(features1,features2) {
   //Compare all matching named features with eachother
   features1.map(function(item1){
     features2.map(function(item2){
-      var intersection = turf.intersect(turf.featureCollection([item1,item2]));
-      if (intersection != null) {
-        intersections.push(intersection);
+      if (item1 && item2) {
+        try {
+          // Handle different geometry types for intersection
+          var intersection = null;
+          
+          if (item1.geometry.type === 'LineString' && item2.geometry.type === 'LineString') {
+            // Line to line intersection
+            var lineIntersections = turf.lineIntersect(item1, item2);
+            if (lineIntersections.features.length > 0) {
+              intersection = lineIntersections.features[0]; // Take first intersection point
+            }
+          } else if (item1.geometry.type === 'LineString' && item2.geometry.type === 'MultiLineString') {
+            // Line to MultiLineString intersection
+            for (var i = 0; i < item2.geometry.coordinates.length; i++) {
+              var line2 = turf.lineString(item2.geometry.coordinates[i]);
+              var lineIntersections = turf.lineIntersect(item1, line2);
+              if (lineIntersections.features.length > 0) {
+                intersection = lineIntersections.features[0];
+                break;
+              }
+            }
+          } else if (item1.geometry.type === 'MultiLineString' && item2.geometry.type === 'LineString') {
+            // MultiLineString to Line intersection
+            for (var j = 0; j < item1.geometry.coordinates.length; j++) {
+              var line1 = turf.lineString(item1.geometry.coordinates[j]);
+              var lineIntersections = turf.lineIntersect(line1, item2);
+              if (lineIntersections.features.length > 0) {
+                intersection = lineIntersections.features[0];
+                break;
+              }
+            }
+          } else if (item1.geometry.type === 'MultiLineString' && item2.geometry.type === 'MultiLineString') {
+            // MultiLineString to MultiLineString intersection
+            for (var k = 0; k < item1.geometry.coordinates.length && !intersection; k++) {
+              var line1 = turf.lineString(item1.geometry.coordinates[k]);
+              for (var l = 0; l < item2.geometry.coordinates.length; l++) {
+                var line2 = turf.lineString(item2.geometry.coordinates[l]);
+                var lineIntersections = turf.lineIntersect(line1, line2);
+                if (lineIntersections.features.length > 0) {
+                  intersection = lineIntersections.features[0];
+                  break;
+                }
+              }
+            }
+          } else {
+            // Fallback to original polygon intersection for other geometry types
+            intersection = turf.intersect(item1,item2);
+          }
+          
+          if (intersection != null) {
+            intersections.push(intersection);
+          }
+        } catch (e) {
+          // Ignore invalid intersections
+        }
       }
     });
   });

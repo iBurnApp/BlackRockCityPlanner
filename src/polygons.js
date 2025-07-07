@@ -164,7 +164,15 @@ exports.portals = function(streetPlanner) {
     
     var result;
     if (timeString === "6:00") {
-      result = turf.intersect(turf.featureCollection([triangle, rodRoad]));
+      if (rodRoad && triangle) {
+        try {
+          result = turf.intersect(triangle, rodRoad);
+        } catch (e) {
+          result = triangle; // fallback to just the triangle
+        }
+      } else {
+        result = triangle; // fallback to just the triangle if no rodRoad
+      }
     } else {
       //For all other take convex hull of esplanade (the open playa) and find difference with expanded triangle
       var fc = turf.featureCollection([triangle,turf.convex(esplanade)])

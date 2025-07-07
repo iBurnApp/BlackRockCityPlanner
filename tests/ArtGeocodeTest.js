@@ -4,8 +4,8 @@ var Geocoder = require('../src/geocoder/geocoder');
 var Parser = require('../src/geocoder/geocodeParser.js');
 var Utils = require('../src/utils');
 
-var artJSON = require('./new-2015-art.json');
-var layout = require('./layout2015.json');
+var artJSON = require('./sample-2015-art.json');
+var layout = require('./layout2025.json');
 var centerPoint = layout.center;
 
 
@@ -50,8 +50,8 @@ test('geocodingArtStringJSON', function(t) {
 				var testError = {};
 				testError.id = item.uid;
 				testError.locationString = item.location.string;
-				testError.calculatedDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,point,'miles')));
-				testError.theirDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,realPoint,'miles')));
+				testError.calculatedDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,point,{units: 'miles'})));
+				testError.theirDistanceFeet = Math.round(Utils.milesToFeet(turf.distance(centerPoint,realPoint,{units: 'miles'})));
 				testError.ourBearing = turf.bearing(centerPoint,point).toFixed(2);
 				testError.theirBearing = turf.bearing(centerPoint,realPoint).toFixed(2);
 				testError.timeString = Utils.degreesToTime(testError.theirBearing,layout.bearing);
