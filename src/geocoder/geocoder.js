@@ -5,7 +5,7 @@ var prepare = require('./prepare.js');
 var Geocoder = function(layoutFile) {
   var dict = prepare(layoutFile);
   this.reverseCoder = new reverseGeocoder(dict.center,dict.centerCamp,dict.bearing,dict.reversePolygons,dict.reverseStreets);
-  this.forwardCoder = new forwardGeocoder(dict.center,dict.centerCamp,dict.bearing,dict.forwardStreets,dict.forwardPolygons);
+  this.forwardCoder = new forwardGeocoder(dict.center,dict.centerCamp,dict.bearing,dict.forwardStreets,dict.forwardPolygons,dict.hardcodedLocations);
 };
 
 // Legacy Android (pre 4.4) Javascript bridge only accepts primitives

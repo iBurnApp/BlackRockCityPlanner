@@ -24,10 +24,13 @@ test("Center Camp Plaza Geocode",function(t){
 test("Center Camp Plaza Geocode",function(t){
 
 	var coder = new Geocoder(layout);
-	// Center Camp Plaza geocoding needs specific hardcoded location setup
-	// For now test a simple time/distance geocode that should work
-	var point = coder.forward("12:00 0'");
-	t.ok(point,"found center geocode point");
+	// Test hardcoded Center Camp Plaza location
+	var point = coder.forward("Center Camp Plaza");
+	t.ok(point,"found center camp plaza geocode point");
+	
+	// Also test basic time/distance geocode works
+	var centerPoint = coder.forward("12:00 0'");
+	t.ok(centerPoint,"found center geocode point");
 
 	t.end();
 });

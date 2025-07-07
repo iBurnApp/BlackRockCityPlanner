@@ -78,12 +78,22 @@ Clock.arcTimes = function(startHour,startMinute,endHour,endMinute, minFrequency)
   var endDouble  = endHour + endMinute/60.0;
   var result = [];
   if(endDouble < startDouble) {
-    //Remove last one so there are no duplicates
-    //TODO: Fix so that frequency maintains over 12:00 border
-    //Example if frequency is 3 and we get 11:59 then the next should 00:02 not 00:00
+    //Fixed: Maintain frequency across 12:00 border
+    //Calculate what the next time should be after crossing midnight
+    var nextMinute = startMinute + minFrequency;
+    var nextHour = startHour + parseInt(nextMinute / 60.0);
+    nextMinute = nextMinute % 60;
+    
+    // Get first part up to 12:00
     result = this.arcTimes(startHour,startMinute,12,0,minFrequency);
-    result.pop();
-    result = result.concat(this.arcTimes(0,0,endHour,endMinute,minFrequency));
+    result.pop(); // Remove 12:00 duplicate
+    
+    // Calculate the offset for the second part to maintain frequency
+    var offsetMinute = nextMinute % minFrequency;
+    
+    // Get second part from proper offset to end
+    var secondPart = this.arcTimes(0,offsetMinute,endHour,endMinute,minFrequency);
+    result = result.concat(secondPart);
   } else {
     var currentHour = startHour;
     var currentMinute = startMinute;
