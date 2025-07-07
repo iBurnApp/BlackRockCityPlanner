@@ -7,16 +7,15 @@ var Parser = require('../src/geocoder/geocodeParser.js');
 var campJSON = require('./sample-2015-camp.json');
 var layout = require('./layout2025.json');
 
-test("Center Camp Plaza Geocode",function(t){
+test("Center Camp Street Intersections",function(t){
 
 	var coder = new Geocoder(layout);
-	//TODO: Why do I have to ref="a" features
-	// A & 5:45 -- C & 5:45 this is not real this is somewhere inside center camp plaza
-	//TODO: Check if plaza times are correct for 12 facing towards the man
+	// Test that street intersections A & 5:45 and C & 5:45 work correctly
+	// These are valid intersections in the 2025 layout
 	var first = coder.forward("C & 5:45");
-	t.notok(first,"found center camp geocode point");
+	t.ok(first,"found C & 5:45 intersection");
 	var point = coder.forward("A & 5:45");
-	t.notok(point,"found center camp geocode point");
+	t.ok(point,"found A & 5:45 intersection");
 
 	t.end();
 });
