@@ -67,10 +67,14 @@ Geocoder.prototype.streetIntersectionToLatLon = function(timeString, featureName
       return item.properties.name === timeString
     });
     var timeRoad = timeArray[0];
-    if (timeRoad) {
-      var intersection = turf.intersect(turf.featureCollection([timeRoad,bestGuessFeature]));
-      if (intersection) {
-        return intersection;
+    if (timeRoad && bestGuessFeature) {
+      try {
+        var intersection = turf.intersect(timeRoad,bestGuessFeature);
+        if (intersection) {
+          return intersection;
+        }
+      } catch (e) {
+        // Fall through to the fake time street creation below
       }
     }
 
@@ -130,9 +134,15 @@ function intersectingPoints(features1,features2) {
   //Compare all matching named features with eachother
   features1.map(function(item1){
     features2.map(function(item2){
-      var intersection = turf.intersect(turf.featureCollection([item1,item2]));
-      if (intersection != null) {
-        intersections.push(intersection);
+      if (item1 && item2) {
+        try {
+          var intersection = turf.intersect(item1,item2);
+          if (intersection != null) {
+            intersections.push(intersection);
+          }
+        } catch (e) {
+          // Ignore invalid intersections
+        }
       }
     });
   });

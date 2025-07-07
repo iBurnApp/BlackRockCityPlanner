@@ -21,7 +21,7 @@
     "tape": "^5.6.0"
   },
   "scripts": {
-    "test": "tap tests/*.js --cov"
+    "test": "tap tests/*.js --cov --lines=85 --functions=85 --branches=75 --statements=85"
   },
   "author": "",
   "license": "ISC",

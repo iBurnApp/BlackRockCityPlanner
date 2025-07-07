@@ -1,0 +1,582 @@
+[
+  {
+    "uid": "a2Id0000000UpvtEAC",
+    "year": 2015,
+    "name": "Papillon",
+    "url": "http://explorerphoto.com/p403123195",
+    "contact_email": "jan@delanoconsulting.com",
+    "hometown": "Alameda, CA",
+    "description": "Papillon.\r\nMosaic of mirrors reflecting a transformation to True Spirit.",
+    "artist": "Trinity Group",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "7:15 800'",
+      "hour": 7,
+      "minute": 15,
+      "distance": 800,
+      "category": null,
+      "gps_latitude": 40.786113813522,
+      "gps_longitude": -119.20937066261
+    },
+    "location_string": "7:15 800'",
+    "images": [
+      {
+        "gallery_ref": 74464,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74464_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UpwNEAS",
+    "year": 2015,
+    "name": "multi-sensory environment",
+    "url": null,
+    "contact_email": "ifrias@ausu.edu",
+    "hometown": "Tempe, AZ",
+    "description": "Primordial Egg- Light, sound and space environment. Transport yourself.",
+    "artist": "Ines Frias",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "5:30 2000'",
+      "hour": 5,
+      "minute": 30,
+      "distance": 2000,
+      "category": null,
+      "gps_latitude": 40.781653502304,
+      "gps_longitude": -119.210119048747
+    },
+    "location_string": "5:30 2000'",
+    "images": [
+      {
+        "gallery_ref": 74402,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74402_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq2yEAC",
+    "year": 2015,
+    "name": "Playa Girl",
+    "url": null,
+    "contact_email": null,
+    "hometown": "laguna beach, CA",
+    "description": "Playa Girl is hand carved from a recycled, laminated pine wood beam.  The art on the pedestal stands 8 feet. With her hands over her head and her head high in the nude, she represents all that Burning Man stands for, freedom of expression, beauty, love and strength of each person to move forward in life, head high, reaching for their future.",
+    "artist": "Jan Nichols",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "5:45 1100'",
+      "hour": 5,
+      "minute": 45,
+      "distance": 1100,
+      "category": null,
+      "gps_latitude": 40.784268466656,
+      "gps_longitude": -119.209315070135
+    },
+    "location_string": "5:45 1100'",
+    "images": [
+      {
+        "gallery_ref": 74679,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74679_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq33EAC",
+    "year": 2015,
+    "name": "METAHEART",
+    "url": "http://metaheart.toddmoyer.net/",
+    "contact_email": null,
+    "hometown": "Los Angeles, CA",
+    "description": "METAHEART: a mirror-clad, 3D form that rises 23' from the desert floor. With its 3 arching support arms, the heart motif can be recognized from any direction. In the center (the heart of the heart), dwells a geometric jungle gym, that rotates under human power, while the 3-tier base supports the structure with minimal \r\nimpact to the Playa (no holes!). METAHEART is about discovery. Exploration reveals different aspects of the geometry, as the shape appears to change depending on \r\nthe viewpoint. Interaction brings the sculpture to life, as its sub-powered heartbeat keeps pace with its rotating centerpiece. At night there is more to discovered.Computer-driven LEDs pulsate to the beat, and 3 red lasers, each at a 33 degree angle atop the sculpture, sweep in synchronization. A next level of audio-reactive \r\nlight shows is unlocked only by the proximity of a sufficiently loud art car.",
+    "artist": "Jonathan Hamilton",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "12:05 900'",
+      "hour": 12,
+      "minute": 5,
+      "distance": 900,
+      "category": null,
+      "gps_latitude": 40.787814594126,
+      "gps_longitude": -119.203831656409
+    },
+    "location_string": "12:05 900'",
+    "images": [
+      {
+        "gallery_ref": 74686,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74686_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq38EAC",
+    "year": 2015,
+    "name": "Flow And Wonder",
+    "url": null,
+    "contact_email": "gregory.schlomoff@gmail.com",
+    "hometown": "San Francisco, CA",
+    "description": "Flow And Wonder is 8 feet tall wooden sculpture in the shape of a tree, covered with 800 RGB LEDs. Around the structure, 4 stands with hand motion sensors translate the hand gestures from the participants into patterns of light flowing from the roots of the tree all the way to the branches.\r\n\r\nAt most 4 participants can interact with the installation at the same time, leading to interesting effects as they synchronize their movements.\r\n\r\nIt is meant to be a beautiful, colorful installation that inspires a sense of awe and wonder.",
+    "artist": "Gregory Schlomoff",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "4:00 2200'",
+      "hour": 4,
+      "minute": 0,
+      "distance": 2200,
+      "category": null,
+      "gps_latitude": 40.780422782491,
+      "gps_longitude": -119.205460781821
+    },
+    "location_string": "4:00 2200'",
+    "images": [
+      {
+        "gallery_ref": 74673,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74673_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq3hEAC",
+    "year": 2015,
+    "name": "The Man's Tutu",
+    "url": null,
+    "contact_email": "fergstrick@hotmail.com",
+    "hometown": "Fort Lauderdale, CA",
+    "description": "Is that the top of a carnival tent? No, it's the World's Largest tutu Fit for only the man himself. A 15ft tutu made up of 2000 colorful individual tutus that would be the perfect fit for our center main man. The Burning Man's Tutu.",
+    "artist": "Fergus Strickland",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "5:55 700'",
+      "hour": 5,
+      "minute": 55,
+      "distance": 700,
+      "category": null,
+      "gps_latitude": 40.784985704103,
+      "gps_longitude": -119.208211581597
+    },
+    "location_string": "5:55 700'",
+    "images": [
+      {
+        "gallery_ref": 74743,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74743_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq59EAC",
+    "year": 2015,
+    "name": "Akle' the Dragon",
+    "url": "http://www.swigmiller.wix.com/dragon",
+    "contact_email": "swigmiller@gmail.com",
+    "hometown": "Santa Monica, CA",
+    "description": "Akle' the Dragon will be watching over the Playa this year.  She's a majestic white dragon, almost 50' in length with magnificent wings reaching up 20' in the air.  She's sitting sitting like a lion or dog atop a large red boulder with her tail winding over two more.  She's made of smooth cool concrete to give a feeling of solidity and endurance.\r\n\r\nAkle' represents the guardian nature of dragons, that of spiritual beings watching over us.  Akle' was born as a tribute to the artist's dog Elka who past away during the construction of this project.",
+    "artist": "Swig Miller",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "8:55 1800'",
+      "hour": 8,
+      "minute": 55,
+      "distance": 1800,
+      "category": null,
+      "gps_latitude": 40.79017855063,
+      "gps_longitude": -119.210687841003
+    },
+    "location_string": "8:55 1800'",
+    "images": [
+      {
+        "gallery_ref": null,
+        "thumbnail_url": null
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq5EEAS",
+    "year": 2015,
+    "name": "Super Pool",
+    "url": "http://jenlewinstudio.com/community-sculpture/super-pool/",
+    "contact_email": "info@jenlewinstudio.com",
+    "hometown": "New York, NY",
+    "description": "The Super Pool is an environment of giant, concentric circles created from interactive circular pads. By entering the pool, you enter a world where play and collaborative movement create swirling effects of light and color. Imagine a giant canvas where you can paint and splash light collaboratively. \r\n\r\nThis years The Super Pool will be part of the amazing Mayan Warrior camp. Come find us nightly, as part of the Mayan Warrior's incredible interactive dance floor.",
+    "artist": "Jen Lewin",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "1:45 2400'",
+      "hour": 1,
+      "minute": 45,
+      "distance": 2400,
+      "category": null,
+      "gps_latitude": 40.785541227158,
+      "gps_longitude": -119.197888086408
+    },
+    "location_string": "1:45 2400'",
+    "images": [
+      {
+        "gallery_ref": 74669,
+        "thumbnail_url": null
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq5iEAC",
+    "year": 2015,
+    "name": "Shining Desert",
+    "url": null,
+    "contact_email": "chris.bauer@widewalls.ch",
+    "hometown": "London, England, Great Britain",
+    "description": "The mirror shows the viewer future and past, present and awareness.",
+    "artist": "Chris Bauer",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "11:15 6300', Open Playa",
+      "hour": 11,
+      "minute": 15,
+      "distance": 6300,
+      "category": "Open Playa",
+      "gps_latitude": 40.802349769759,
+      "gps_longitude": -119.197772094987
+    },
+    "location_string": "11:15 6300', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74481,
+        "thumbnail_url": null
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Uq8rEAC",
+    "year": 2015,
+    "name": "Got Framed",
+    "url": "https://www.facebook.com/ArtInstallationGotFramed",
+    "contact_email": "findingnino@yahoo.com",
+    "hometown": "Los Angeles, CA",
+    "description": "Got Framed is an inviting, playful and highly interactive art piece that supports and promotes community participation, encouraging passersby to BE THE ART. Step up, climb on, take a photograph, ‘monkey around’, change the image, and invite others to join in. Have fun interacting with a large scale art piece and make a memory to take with you! \r\n\r\nThe interactivity inside is designed to be discovered. Solar powered, touch sensitive pads will be placed throughout the frame. As people interact with the frame, the sound and lighting activate, encouraging contact, imagination and exploration. \r\n\r\nThis piece is in honor of my Abuela, Rosamelia, and is an opportunity to acknowledge the incredible support that I am so grateful to have had growing up and to pass it on. To inspire self expression, to call up the performer, the artist, the brown sheep and the nut. I imagine the joy that will happen as a result of Got Framed to be a mirror of her gifts to us.",
+    "artist": "NiNO Alicea",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "10:45 900', Open Playa",
+      "hour": 10,
+      "minute": 45,
+      "distance": 900,
+      "category": "Open Playa",
+      "gps_latitude": 40.788782282182,
+      "gps_longitude": -119.205656898638
+    },
+    "location_string": "10:45 900', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74615,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74615_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqF9EAK",
+    "year": 2015,
+    "name": "CuddleLingus Treasure Box",
+    "url": "https://www.facebook.com/CuddleLingusTreasureBox",
+    "contact_email": null,
+    "hometown": "Las Vegas, NV",
+    "description": "Pssst...In the deep playa lies the CuddleLingus Treasure Box! Take a peek inside and you will discover a myriad of wooly, warm, and wondrous supplies for the chilly traveler. Adorn yourself in argyle, flit about in fuzzy furs, and, once you are looking fabulous, leave a message to your fellow travelers! Prepare to be marked by the Warm & Fuzzies!",
+    "artist": "The Warm & Fuzzies",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "1:30 4400', Open Playa",
+      "hour": 1,
+      "minute": 30,
+      "distance": 4400,
+      "category": "Open Playa",
+      "gps_latitude": 40.784825094077,
+      "gps_longitude": -119.190711661938
+    },
+    "location_string": "1:30 4400', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74421,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74421_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqH5EAK",
+    "year": 2015,
+    "name": "Dino-LIGHT!!!",
+    "url": "http://mantisproject.net/",
+    "contact_email": "info@mantisgarden.net",
+    "hometown": "Philadelphia, PA",
+    "description": "DINO-light\r\nCreated with the talent of 1000's of painters, this 26' fossil remnant of the please-a-saur dinsosaur glows sharply in the night, calling forth all mystical and magical creatures. Its skin is an ultraviolet storybook of endless evenings and days of dance celebrations and gatherings where rhythm and rhyme became encased in colour and design.",
+    "artist": "Mantis Garden",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "11:45 4700', Open Playa",
+      "hour": 11,
+      "minute": 45,
+      "distance": 4700,
+      "category": "Open Playa",
+      "gps_latitude": 40.796617680292,
+      "gps_longitude": -119.196142921036
+    },
+    "location_string": "11:45 4700', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74425,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74425_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqISEA0",
+    "year": 2015,
+    "name": "House of Lights: Maze of Wonders",
+    "url": null,
+    "contact_email": "vico@vicodesigns.com",
+    "hometown": "Arcata, CA",
+    "description": "\"House of Lights: Maze of Wonders\" is an interactive fun & quirky take on this years theme. Visually this will be a treat to burners who venture out deep playa. Participants will be able to spot the installation from far away as a bright glimmering light and as they make their trek out to deep playa the maze will begin to materialize out of thin air & suddenly they will be confronted with with a dazzling house of lights. This Maze of wonders will be a treat to the eyes, the color combinations and depth the lit up walkways, helium balloons and the 20'x20' back-lit centerpiece theater are sure to amaze carnival goers! The theater in the center will be showcasing a fine selection of classic era carnival flicks along with a random dash of psychedelic projections. But before being able to rest to watch a flick with their burner buddies or bunnies House of light attendees must first decipher their way into the center piece and it will be not be an easy feat for those who lack the patience..",
+    "artist": "Victor Hernandez",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "12:15 6500', Open Playa",
+      "hour": 12,
+      "minute": 15,
+      "distance": 6500,
+      "category": "Open Playa",
+      "gps_latitude": 40.79724195803,
+      "gps_longitude": -119.18783291956
+    },
+    "location_string": "12:15 6500', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74702,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74702_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqImEAK",
+    "year": 2015,
+    "name": "Zooplankton",
+    "url": "http://www.zooplanktonproject.com",
+    "contact_email": "zooplanktonproject@gmail.com",
+    "hometown": "Portland, OR",
+    "description": "Zooplankton is an art gallery and science lecture hall in Black Rock City. A skeleton of an ancient protozoa, a jelly-like plankton creature that once floated in our seas, Zooplankton shows us that science can be the basis of art.  Based on sketches of Cyrotidea drawn in 1904 by German biologist Ernst Haeckel, Zooplankton is an interactive art installation that beckons visitors inside to experience art and science together. By day visitors can enjoy the biological art of Ernst Haeckel etched into the walls of the Zooplankton. Workshops and lectures will turn Zooplankton into a scientific classroom. By night the Zooplankton will charm visitors with its dazzling bioluminescence, triggered by body heat of those who venture inside.",
+    "artist": "becca priddy",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "3:45 1700'",
+      "hour": 3,
+      "minute": 45,
+      "distance": 1700,
+      "category": null,
+      "gps_latitude": 40.782095981237,
+      "gps_longitude": -119.204145569321
+    },
+    "location_string": "3:45 1700'",
+    "images": [
+      {
+        "gallery_ref": 74599,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74599_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqgFEAS",
+    "year": 2015,
+    "name": "Black Rock City Time Out Corner",
+    "url": null,
+    "contact_email": null,
+    "hometown": "Chicago, IL",
+    "description": "Black Rock City Time Out Corner.  \r\nHave you had transgressions? Displayed unburnerlike behavior? Someone in your camp not wash their dishes? Spill bacon grease on the playa?  Send them to the Time Out Corner, so they see the error of their ways, refocus, reflect and do penance",
+    "artist": "Ski Patrol",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "11:55 7475', Open Playa",
+      "hour": 11,
+      "minute": 55,
+      "distance": 7475,
+      "category": "Open Playa",
+      "gps_latitude": 40.799565125338,
+      "gps_longitude": -119.185771076449
+    },
+    "location_string": "11:55 7475', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74472,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74472_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqgZEAS",
+    "year": 2015,
+    "name": "Pinea Arbori",
+    "url": null,
+    "contact_email": null,
+    "hometown": "Las Vegas, NV",
+    "description": "Pinea Arbori is a sculpture that investigates the energies in the brains of beings. In particular the piece is a representation of a pineal gland enclosed in a mutant brain like tree. The piece studies the energies of the brain and through the use of automation, a Tesla coil, the activation of the Pineal Gland and the opening of the Third Eye. Through this expression, Pinea Arbori is meant to generate conversation on the energies of the universe as well as those inside our own brains.",
+    "artist": "BoKo Fine Art",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "12:30 4600', Open Playa",
+      "hour": 12,
+      "minute": 30,
+      "distance": 4600,
+      "category": "Open Playa",
+      "gps_latitude": 40.792701928481,
+      "gps_longitude": -119.192080335615
+    },
+    "location_string": "12:30 4600', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74398,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74398_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000UqhNEAS",
+    "year": 2015,
+    "name": "Include the Cleu",
+    "url": "http://www.cleu.org",
+    "contact_email": "querys@cleu.org",
+    "hometown": null,
+    "description": "Include the Cleu seeks to provide a moment to fully experience what it means to be a conscious being on planet Earth. The labyrinth provides a contemplative experience on the playa, a special place where participants can take as long as they like to walk individually or with others on the intertwining circular paths representing the miraculous synchronicities of Consciousness, Life, Earth, Universe. The swirling colors and sounds of the playa just beyond the colorful paths and flags of the labyrinth make a backdrop for the fascinating panoply of creativity on the playa. Within the labyrinth, participants find a calm center, a space for musing and meditation, or a peaceful moment of At-Onement. In a magical box at the base of a large Cleu, participants may find a clue to their own lives or even be led to CleuCamp where they can get a Cleu brainwashing and copper Cleu pendant. Like the rube at a carnival, Include the Cleu simply offers a fresh perspective, inspiring wonder and delight.",
+    "artist": "Gian Anello, Cleu Camp",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "4:00 1100', Open Playa",
+      "hour": 4,
+      "minute": 0,
+      "distance": 1100,
+      "category": "Open Playa",
+      "gps_latitude": 40.783411392411,
+      "gps_longitude": -119.205980367529
+    },
+    "location_string": "4:00 1100', Open Playa",
+    "images": [
+      {
+        "gallery_ref": 74403,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74403_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Ur1hEAC",
+    "year": 2015,
+    "name": "Sassie's Chuppah",
+    "url": null,
+    "contact_email": null,
+    "hometown": null,
+    "description": "A chuppah is a sacred shelter, a temporary home in the desert traditionally used in Jewish weddings. Traditionally the chuppah is open on all four sides to symbolize the hospitality of the home and the covering  represents the presence of the divine over the people in its shelter. This chuppah's covering is made from heirloom linens handed down from female ancestors. \r\nThis chuppah is a microcosm of Burning Man, an inclusive, welcoming temporary home for everyone.",
+    "artist": "Janet Miller",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "8:45 2200'",
+      "hour": 8,
+      "minute": 45,
+      "distance": 2200,
+      "category": null,
+      "gps_latitude": 40.790069922551,
+      "gps_longitude": -119.212817406284
+    },
+    "location_string": "8:45 2200'",
+    "images": [
+      {
+        "gallery_ref": 74643,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74643_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Ur9HEAS",
+    "year": 2015,
+    "name": "DREAM",
+    "url": null,
+    "contact_email": "jcliffsea@earthlink.net",
+    "hometown": "Reno, NV",
+    "description": "DREAM is a 12 foot tall steel sculpture that will be a gathering place and land mark for the citizens of black rock city.",
+    "artist": "Jeff Schomberg and Laura Kimpton",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "1:53 1100'",
+      "hour": 1,
+      "minute": 53,
+      "distance": 1100,
+      "category": null,
+      "gps_latitude": 40.785418547826,
+      "gps_longitude": -119.202735721012
+    },
+    "location_string": "1:53 1100'",
+    "images": [
+      {
+        "gallery_ref": 74826,
+        "thumbnail_url": "http://galleries.burningman.org/include/../filestore/tmp/api_resource_cache/74826_8fe92287b623757df9699089a5d52a39.jpg"
+      }
+    ]
+  },
+  {
+    "uid": "a2Id0000000Ur9MEAS",
+    "year": 2015,
+    "name": "Fire Kettle",
+    "url": "http://biodieseldirigible.com/fire_table.html",
+    "contact_email": null,
+    "hometown": "Denver, CO",
+    "description": "A hammered copper basin that is full of sand.  When the sand is lit, it burns in the valleys, as if fire  follows one's fingers.  The fire burns in pulses, like lightning strikes made of fire.",
+    "artist": "Ashton Honnecke",
+    "category": "Open Playa",
+    "program": null,
+    "donation_link": null,
+    "location": {
+      "string": "11:15 2500', Open Playa",
+      "hour": 11,
+      "minute": 15,
+      "distance": 2500,
+      "category": "Open Playa",
+      "gps_latitude": 40.792729352412,
+      "gps_longitude": -119.20303704749
+    },
+    "location_string": "11:15 2500', Open Playa",
+    "images": [
+      {
+        "gallery_ref": null,
+        "thumbnail_url": null
+      }
+    ]
+  }
+]
