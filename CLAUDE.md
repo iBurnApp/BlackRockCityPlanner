@@ -19,16 +19,36 @@ BlackRockCityPlanner is a Node.js geospatial data generation tool that creates G
 ### Main Generation Workflow
 ```bash
 # Generate all geometric data for a year
-node src/cli/generate_all.js -d ../../data/2024
+node src/cli/generate_all.js -d ../../data/2025
 
 # Geocode API data (camps/art) with coordinates
-node src/cli/api.js -l ../../data/2024/layouts/layout.json -f ../../data/2024/APIData/camp.json -k location_string -o ../../data/2024/APIData/camp-location.json
+node src/cli/api.js -l ../../data/2025/layouts/layout.json -f ../../data/2025/APIData/Resources/camp.json -k location_string -o ../../data/2025/APIData/Resources/camp-location.json
 
 # Replace original with geocoded version
-mv ../../data/2024/APIData/camp-location.json ../../data/2024/APIData/camp.json
+mv ../../data/2025/APIData/Resources/camp-location.json ../../data/2025/APIData/Resources/camp.json
 
 # Bundle geocoder for browser use
-browserify src/geocoder/index.js -o ../../data/2024/geocoder/bundle.js
+browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
+```
+
+### Vector Tile Generation
+After generating GeoJSON files, create vector tiles for efficient mobile rendering:
+
+```bash
+# Install tippecanoe (macOS)
+brew install tippecanoe
+
+# Generate vector tiles from all GeoJSON files
+tippecanoe --output=../../data/2025/Map/Resources/map.mbtiles -f \
+  -L fence:../../data/2025/geo/fence.geojson \
+  -L outline:../../data/2025/geo/outline.geojson \
+  -L polygons:../../data/2025/geo/polygons.geojson \
+  -L streets:../../data/2025/geo/streets.geojson \
+  -L toilets:../../data/2025/geo/toilets.geojson \
+  -L dmz:../../data/2025/geo/dmz.geojson \
+  -z 14 \
+  -Z 4 \
+  -B0
 ```
 
 ### Individual Generation Commands
