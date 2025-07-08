@@ -1,4 +1,4 @@
-## Black Rock City Planner [![Tests](https://github.com/iBurnApp/BlackRockCityPlanner/workflows/Tests/badge.svg)](https://github.com/iBurnApp/BlackRockCityPlanner/actions)
+## Black Rock City Planner [![Tests](https://github.com/iBurnApp/BlackRockCityPlanner/workflows/Tests/badge.svg?branch=master)](https://github.com/iBurnApp/BlackRockCityPlanner/actions)
 
 This is a collection of command line tools and scripts that generate [GeoJSON](http://geojson.org/). The GeoJSON is then used in the [iBurn](https://iburnapp.com/) app.
 
