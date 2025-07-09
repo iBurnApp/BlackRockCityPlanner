@@ -49,6 +49,10 @@ for (var index in poiLayout) {
   var poi = poiLayout[index];
   var point = geocoder.forwardTimeDistance(poi.address.time,poi.address.distance / 5280.0,'miles');
   point.properties = poi.properties;
+  // Add uppercase NAME property for MapLibre style compatibility
+  if (poi.properties.name) {
+    point.properties.NAME = poi.properties.name;
+  }
   features.push(point);
 }
 
