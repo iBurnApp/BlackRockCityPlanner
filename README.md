@@ -54,4 +54,44 @@ e.g.
 node src/cli/api.js -l ../../data/2025/layouts/layout.json -f ../../data/2025/APIData/Resources/camp.json -k location_string -o ../../data/2025/APIData/Resources/camp-location.json
 ```
 
+#### Mock Locations (During Embargo Periods)
+
+When official location data is embargoed but development/testing needs location coordinates, this tool can copy location strings from a previous year and geocode them with the current year's layout for maximum accuracy.
+
+**Recommended (with geocoding):**
+```bash
+node src/cli/mock_locations.js \
+  --source ../../data/2024/APIData/camp.json \
+  --target ../../data/2025/APIData/APIData.bundle/camp.json \
+  --layout ../../data/2025/layouts/layout.json \
+  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --type camp
+```
+
+**Legacy mode (copy GPS coordinates directly):**
+```bash
+node src/cli/mock_locations.js \
+  --source ../../data/2024/APIData/camp.json \
+  --target ../../data/2025/APIData/APIData.bundle/camp.json \
+  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --use-geocoding false \
+  --type camp
+```
+
+**Options:**
+- `-s, --source` - Source JSON file with location data (e.g., 2024 camp.json)
+- `-t, --target` - Target JSON file without location data (e.g., 2025 camp.json)  
+- `-l, --layout` - Layout JSON file for geocoding (required for geocoding mode)
+- `-o, --output` - Output file path for enhanced data
+- `-m, --match-threshold` - Similarity score for fuzzy matching (0-1, default: 0.8)
+- `-g, --use-geocoding` - Use geocoding instead of copying GPS coordinates (default: true)
+- `--type` - Data type (supports: camp, art, event)
+
+**Features:**
+- **Geocoding Mode**: Copies location strings and geocodes with current year's layout
+- **Intelligent Fallback**: Falls back to original coordinates when geocoding fails
+- **Fuzzy Matching**: Uses Levenshtein distance for name matching
+- **Comprehensive Reporting**: Statistics on both matching and geocoding success rates
+- **Unit Tested**: Full test coverage with real data samples
+
 ### [Geocoder](src/geocoder/readme.md)

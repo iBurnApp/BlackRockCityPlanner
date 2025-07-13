@@ -35,26 +35,48 @@ browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
 When official location data is embargoed but development/testing needs location coordinates:
 
 ```bash
-# Mock 2025 camp locations from 2024 data
+# Mock 2025 camp locations with geocoding (recommended)
+node src/cli/mock_locations.js \
+  --source ../../data/2024/APIData/camp.json \
+  --target ../../data/2025/APIData/APIData.bundle/camp.json \
+  --layout ../../data/2025/layouts/layout.json \
+  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --type camp
+
+# Legacy mode (copy GPS coordinates directly)
 node src/cli/mock_locations.js \
   --source ../../data/2024/APIData/camp.json \
   --target ../../data/2025/APIData/APIData.bundle/camp.json \
   --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --use-geocoding false \
   --type camp
 
 # Mock with different matching threshold (more permissive)
-node src/cli/mock_locations.js -s 2024/camp.json -t 2025/camp.json -o 2025/camp-mocked.json --match-threshold 0.7
+node src/cli/mock_locations.js \
+  -s ../../data/2024/APIData/camp.json \
+  -t ../../data/2025/APIData/APIData.bundle/camp.json \
+  -l ../../data/2025/layouts/layout.json \
+  -o ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --match-threshold 0.7
 
 # Works with art and event data too
-node src/cli/mock_locations.js -s 2024/art.json -t 2025/art.json -o 2025/art-mocked.json --type art
+node src/cli/mock_locations.js \
+  -s ../../data/2024/APIData/art.json \
+  -t ../../data/2025/APIData/APIData.bundle/art.json \
+  -l ../../data/2025/layouts/layout.json \
+  -o ../../data/2025/APIData/APIData.bundle/art-mocked.json \
+  --type art
 ```
 
 **Key Features**:
-- Exact name matching with fuzzy fallback using Levenshtein distance
-- Adds `location_mock: true` flag to identify simulated data
-- Preserves original target year metadata (uid, description, etc.)
-- Reports matching statistics and unmatched items
-- Configurable similarity threshold for matching tolerance
+- **Geocoding Mode (Default)**: Copies location strings and geocodes them with current year's layout for maximum accuracy
+- **Legacy Mode**: Optionally copies GPS coordinates directly from source year (`--use-geocoding false`)
+- **Intelligent Fallback**: Falls back to original coordinates when geocoding fails
+- **Fuzzy Matching**: Uses Levenshtein distance for name matching with configurable threshold
+- **Comprehensive Reporting**: Detailed statistics on both name matching and geocoding success rates
+- **Mock Data Flags**: Adds `location_mock: true` and geocoding metadata for debugging
+- **Coordinate Validation**: Ensures geocoded coordinates fall within Black Rock City bounds
+- **Unit Tested**: Full test coverage with real data samples (`MockLocationsTest.js`)
 
 ### Vector Tile Generation
 After generating GeoJSON files, create vector tiles for efficient mobile rendering:
@@ -84,8 +106,11 @@ node src/cli/layout.js -f [layout.json] -o [output.geojson] -t [streets|polygons
 # Generate toilets
 node src/cli/toilet.js -f [layout.json] -t [toilet.json] -o [output.geojson]
 
-# Mock location data from previous year (during embargo periods)
-node src/cli/mock_locations.js -s [source.json] -t [target.json] -o [output.json] --type camp
+# Mock location data with geocoding (recommended during embargo periods)
+node src/cli/mock_locations.js -s [source.json] -t [target.json] -l [layout.json] -o [output.json] --type camp
+
+# Mock location data with direct coordinate copying (legacy mode)
+node src/cli/mock_locations.js -s [source.json] -t [target.json] -o [output.json] --use-geocoding false --type camp
 ```
 
 ## Architecture Overview
@@ -102,7 +127,7 @@ node src/cli/mock_locations.js -s [source.json] -t [target.json] -o [output.json
 - `generate_all.js` - Master orchestration script for all city geometry
 - `api.js` - Processes API JSON to add geocoded coordinates to records
 - `layout.js` - Individual geometry type generation
-- `mock_locations.js` - Mock location data from previous year for testing during embargo periods
+- `mock_locations.js` - Enhanced location mocking with geocoding support for embargo periods
 
 **Geocoding System (`src/geocoder/`)**
 - `geocoder.js` - Main geocoder with forward/reverse capabilities
@@ -139,6 +164,7 @@ The geocoder handles Burning Man's unique addressing:
 - Comprehensive geocoding tests with known coordinate pairs
 - Distance-based assertions using Turf.js measurements
 - Test data includes realistic layout configurations
+- **Mock Location Testing**: `MockLocationsTest.js` validates geocoding accuracy, coordinate bounds, fuzzy matching, and fallback behavior using real camp data samples
 
 ### Data Formats
 **Input**: JSON layout files with city parameters, toilet/POI placement data, API data with location strings
