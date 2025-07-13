@@ -31,6 +31,31 @@ mv ../../data/2025/APIData/Resources/camp-location.json ../../data/2025/APIData/
 browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
 ```
 
+### Location Data Mocking (During Embargo Periods)
+When official location data is embargoed but development/testing needs location coordinates:
+
+```bash
+# Mock 2025 camp locations from 2024 data
+node src/cli/mock_locations.js \
+  --source ../../data/2024/APIData/camp.json \
+  --target ../../data/2025/APIData/APIData.bundle/camp.json \
+  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --type camp
+
+# Mock with different matching threshold (more permissive)
+node src/cli/mock_locations.js -s 2024/camp.json -t 2025/camp.json -o 2025/camp-mocked.json --match-threshold 0.7
+
+# Works with art and event data too
+node src/cli/mock_locations.js -s 2024/art.json -t 2025/art.json -o 2025/art-mocked.json --type art
+```
+
+**Key Features**:
+- Exact name matching with fuzzy fallback using Levenshtein distance
+- Adds `location_mock: true` flag to identify simulated data
+- Preserves original target year metadata (uid, description, etc.)
+- Reports matching statistics and unmatched items
+- Configurable similarity threshold for matching tolerance
+
 ### Vector Tile Generation
 After generating GeoJSON files, create vector tiles for efficient mobile rendering:
 
@@ -58,6 +83,9 @@ node src/cli/layout.js -f [layout.json] -o [output.geojson] -t [streets|polygons
 
 # Generate toilets
 node src/cli/toilet.js -f [layout.json] -t [toilet.json] -o [output.geojson]
+
+# Mock location data from previous year (during embargo periods)
+node src/cli/mock_locations.js -s [source.json] -t [target.json] -o [output.json] --type camp
 ```
 
 ## Architecture Overview
@@ -74,6 +102,7 @@ node src/cli/toilet.js -f [layout.json] -t [toilet.json] -o [output.geojson]
 - `generate_all.js` - Master orchestration script for all city geometry
 - `api.js` - Processes API JSON to add geocoded coordinates to records
 - `layout.js` - Individual geometry type generation
+- `mock_locations.js` - Mock location data from previous year for testing during embargo periods
 
 **Geocoding System (`src/geocoder/`)**
 - `geocoder.js` - Main geocoder with forward/reverse capabilities
