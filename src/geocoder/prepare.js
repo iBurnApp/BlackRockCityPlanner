@@ -44,6 +44,7 @@ module.exports = function(layoutFile) {
     "reverseStreets":turf.featureCollection(st),
     "forwardPolygons":polygons.allPolygons(streetPlanner),
     "forwardStreets":allStreets,
-    "hardcodedLocations":hardcodedLocations
+    "hardcodedLocations":hardcodedLocations,
+    "layoutFile":layoutFile
   }
 }

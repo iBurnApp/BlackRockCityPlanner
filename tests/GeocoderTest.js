@@ -58,7 +58,11 @@ test("geocode",function(t){
         // Working hardcoded locations 
         turf.point([ -119.21067070108234, 40.781144870450696],{first:"Center Camp Plaza",second:"",type:""}),
         turf.point([ -119.21067070108234, 40.781144870450696],{first:"Café",second:"",type:""}),
-        turf.point([ -119.21067070108234, 40.781144870450696],{first:"Rod's Road",second:"",type:""})
+        turf.point([ -119.21067070108234, 40.781144870450696],{first:"Rod's Road",second:"",type:""}),
+        
+        // Plaza + time test cases - coordinates are on plaza perimeter, not exact points
+        turf.point([ -119.21127932628995, 40.78182829562119],{first:"Center Camp Plaza",second:"7:30",type:"@", tolerance: 0.1}),
+        turf.point([ -119.21019518741666, 40.781854531091085],{first:"Center Camp Plaza",second:"10:30",type:"@", tolerance: 0.1})
         
         // TODO: Support geocoding two streets where one is not a time street
         //turf.point([ -119.213835, 40.780169 ],{first:"Rod\'s Road",second:"C",type:"&"}),
@@ -66,8 +70,6 @@ test("geocode",function(t){
         // turf.point([ -119.212253,  40.778853],{first:"5:30", second:"B",type:"&"}), //Normal time street and circlular street
         // turf.point([ -119.212253,  40.778853],{first:"B",second:"5:30",type:"&"}),
         // turf.point([ -119.2139388, 40.7787117],{first:"Rod's Road",second:"4:30",type:"@"}), // Special center camp addresss, time starts from center camp Center
-        // turf.point([ -119.2145218, 40.7922306],{first:"9:00 Plaza",second:"1:00",type:"@"}), // Special case time starts from plaza
-        // turf.point([ -119.202994, 40.786958],{first:"Center Camp Plaza",second:"9:15",type:"@"}),
         // turf.point([ -119.195000, 40.795000],{first:"9:00 portal",second:"",type:""})
     ];
 
@@ -87,12 +89,14 @@ test("geocode",function(t){
 
         if (fullStringIntersection) {
             var fullStringDistance = turf.distance(item,fullStringIntersection);
-            t.ok(fullStringDistance < 0.001, "Full string intersection should be close "+fullStringDistance+ " "+JSON.stringify(fullStringIntersection));
+            var tolerance = item.properties.tolerance || 0.001;
+            t.ok(fullStringDistance < tolerance, "Full string intersection should be close "+fullStringDistance+ " "+JSON.stringify(fullStringIntersection));
         }
 
         if (twoStringIntersection) {
             var twoStringDistace = turf.distance(item,twoStringIntersection);
-            t.ok(twoStringDistace < 0.001, "Two string intersection should be close "+twoStringDistace+ " "+JSON.stringify(twoStringIntersection));
+            var tolerance = item.properties.tolerance || 0.001;
+            t.ok(twoStringDistace < tolerance, "Two string intersection should be close "+twoStringDistace+ " "+JSON.stringify(twoStringIntersection));
         }
 
     });
@@ -128,6 +132,71 @@ test ('parseStreetTime', function(t) {
     var result = Parser.parse(campString);
     t.ok(result.time === '5:15' ,"Time string should be equal")
     t.ok(result.feature === 'cinnamon', "Street should be equal")
+    t.end();
+});
+
+test('plazaTimeGeocoding', function(t) {
+    var coder = new Geocoder(layout2025);
+    var centerCampCenter = turf.point([-119.21067070108234, 40.781144870450696]);
+    var plazaRadius = 0.0606; // 320 feet in miles
+    
+    // Test Center Camp Plaza with various time positions
+    var plazaTests = [
+        { address: "Center Camp Plaza @ 12:00", expectedBearing: 45 }, // North
+        { address: "Center Camp Plaza @ 3:00", expectedBearing: 135 }, // East
+        { address: "Center Camp Plaza @ 6:00", expectedBearing: -135 }, // South
+        { address: "Center Camp Plaza @ 9:00", expectedBearing: -45 }, // West
+        { address: "Center Camp Plaza @ 7:30", expectedBearing: -90 }, // SW
+        { address: "Center Camp Plaza & 7:30", expectedBearing: -90 }, // Test & separator
+        { address: "center camp plaza @ 4:30", expectedBearing: 180 }, // Test case insensitive
+    ];
+    
+    plazaTests.forEach(function(test) {
+        var result = coder.forward(test.address);
+        t.ok(result, "Should geocode: " + test.address);
+        
+        if (result) {
+            // Check distance from center - should be plaza radius
+            var distance = turf.distance(centerCampCenter, result, {units: 'miles'});
+            t.ok(Math.abs(distance - plazaRadius) < 0.001, 
+                test.address + " should be at plaza radius. Distance: " + distance + ", Expected: " + plazaRadius);
+            
+            // Check bearing is correct
+            var actualBearing = turf.bearing(centerCampCenter, result);
+            var bearingDiff = Math.abs(actualBearing - test.expectedBearing);
+            // Handle wrap-around at 180/-180
+            if (bearingDiff > 180) bearingDiff = 360 - bearingDiff;
+            t.ok(bearingDiff < 1, 
+                test.address + " should be at correct bearing. Actual: " + actualBearing + ", Expected: " + test.expectedBearing);
+        }
+    });
+    
+    // Test other plaza formats from layout
+    var otherPlazaTests = [
+        "3:00 B Plaza @ 5:00",
+        "9:00 G Plaza @ 2:30", 
+        "7:30 B Plaza @ 10:45",
+        "4:30 G Plaza @ 8:15",
+        "6:00 G Plaza @ 11:00"
+    ];
+    
+    otherPlazaTests.forEach(function(address) {
+        var result = coder.forward(address);
+        t.ok(result, "Should geocode: " + address);
+        
+        if (result) {
+            // Just verify it returns valid coordinates within city bounds
+            t.ok(result.geometry.coordinates[0] < -119.19 && result.geometry.coordinates[0] > -119.22, 
+                address + " longitude should be within city bounds");
+            t.ok(result.geometry.coordinates[1] > 40.77 && result.geometry.coordinates[1] < 40.80, 
+                address + " latitude should be within city bounds");
+        }
+    });
+    
+    // Test invalid plaza
+    var invalidResult = coder.forward("Nonexistent Plaza @ 6:00");
+    t.notOk(invalidResult, "Should return undefined for non-existent plaza");
+    
     t.end();
 });
 
