@@ -17,18 +17,38 @@ BlackRockCityPlanner is a Node.js geospatial data generation tool that creates G
 - `tap tests/*.js --cov` - Run tests with coverage directly
 
 ### Main Generation Workflow
+
+#### API Data Sync (Fetch Latest from Burning Man API)
+```bash
+# Set your API key (get from api.burningman.org)
+export BMORG_API_KEY=your-api-key-here
+
+# Fetch all data and geocode camps for 2025
+node src/cli/fetch_and_geocode.js \
+  --year 2025 \
+  --layout ../../data/2025/layouts/layout.json \
+  --output ../../data/2025/APIData/APIData.bundle
+
+# Short version
+node src/cli/fetch_and_geocode.js -y 2025 -l ../../data/2025/layouts/layout.json -o ../../data/2025/APIData/APIData.bundle
+```
+
+#### Geometry Generation
 ```bash
 # Generate all geometric data for a year
 node src/cli/generate_all.js -d ../../data/2025
 
+# Bundle geocoder for browser use
+browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
+```
+
+#### Manual Geocoding (if needed)
+```bash
 # Geocode API data (camps/art) with coordinates
 node src/cli/api.js -l ../../data/2025/layouts/layout.json -f ../../data/2025/APIData/Resources/camp.json -k location_string -o ../../data/2025/APIData/Resources/camp-location.json
 
 # Replace original with geocoded version
 mv ../../data/2025/APIData/Resources/camp-location.json ../../data/2025/APIData/Resources/camp.json
-
-# Bundle geocoder for browser use
-browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
 ```
 
 ### Location Data Mocking (During Embargo Periods)
@@ -100,6 +120,9 @@ tippecanoe --output=../../data/2025/Map/Resources/map.mbtiles -f \
 
 ### Individual Generation Commands
 ```bash
+# Fetch and geocode API data
+node src/cli/fetch_and_geocode.js -y [year] -l [layout.json] -o [output-dir]
+
 # Generate specific geometry types
 node src/cli/layout.js -f [layout.json] -o [output.geojson] -t [streets|polygons|outline|fence|dmz]
 

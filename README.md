@@ -44,7 +44,36 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 - toilet layout file: path to the [toilet layout file](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/layouts/toilet.json).
 - output file: (optional) The output GeoJSON destination. Here are results for [2016](https://github.com/Burning-Man-Earth/iBurn-Data/blob/master/data/2016/geo/toilets.geojson)
 
-#### API
+#### API Data Sync
+
+##### Fetch and Geocode Latest Data
+
+This fetches the latest data from the Burning Man API and geocodes camp locations:
+
+```bash
+# Set your API key (get from api.burningman.org)
+export BMORG_API_KEY=your-api-key-here
+
+# Fetch all data and geocode camps
+node src/cli/fetch_and_geocode.js \
+  --year 2025 \
+  --layout ../../data/2025/layouts/layout.json \
+  --output ../../data/2025/APIData/APIData.bundle
+```
+
+**Options:**
+- `-y, --year` - Year to fetch data for (e.g., 2025)
+- `-l, --layout` - Path to layout.json file for geocoding
+- `-o, --output` - Output directory for API data files
+
+**What it does:**
+1. Fetches camps, art, and events from api.burningman.org
+2. Geocodes camps using their `location_string` field
+3. Saves art and events as-is (already have coordinates)
+4. Creates `update.json` with timestamps
+5. Provides summary statistics
+
+##### Manual Geocoding
 
 This geocodes the a string in an API JSON file and outputs full API result + lat/lon.
 
