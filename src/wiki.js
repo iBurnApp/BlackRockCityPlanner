@@ -4,7 +4,7 @@ var leven = require('levenshtein');
 var lastYearCenter = [-119.20315, 40.78880];
 var thisYearCenter = [-119.2065, 40.7864];
 
-var distance = turf.distance(turf.point(lastYearCenter),turf.point(thisYearCenter),'kilometers');
+var distance = turf.distance(turf.point(lastYearCenter),turf.point(thisYearCenter),{units: 'kilometers'});
 var bearing = turf.bearing(turf.point(lastYearCenter),turf.point(thisYearCenter));
 
 // Loose string match score above this value results in auto-match

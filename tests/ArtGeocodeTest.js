@@ -44,7 +44,7 @@ test('geocodingArtStringJSON', function(t) {
 
 
 
-	        var distance = turf.distance(point,realPoint);
+	        var distance = turf.distance(point,realPoint, {units: 'kilometers'});
 	        //t.ok(distance < .001, "Distance is close enough "+ (distance*1000.0) +" meters");
 			if (distance > .001) {
 				var testError = {};

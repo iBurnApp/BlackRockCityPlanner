@@ -34,7 +34,7 @@ request(dataUrl1, function (error1, response1, body1) {
         var goldenSpike2 = extractGoldenSpike(parsed2.data);
         //var pentagon2 = extractPentagon(parsed2.data);
 
-        var translation = turf.distance(goldenSpike1, goldenSpike2, 'miles');
+        var translation = turf.distance(goldenSpike1, goldenSpike2, {units: 'miles'});
         console.log('Golden spike offset ' + translation + ' miles');
         console.log('Golden spike lat delt: ' + (goldenSpike2.geometry.coordinates[1] - goldenSpike1.geometry.coordinates[1]));
         console.log('Golden spike lon delt: ' + (goldenSpike2.geometry.coordinates[0] - goldenSpike1.geometry.coordinates[0]));
