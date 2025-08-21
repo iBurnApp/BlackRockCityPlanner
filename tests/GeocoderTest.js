@@ -28,7 +28,7 @@ test ('StreetIntersection', function(t) {
             t.fail("No intersection found for " + testIntersection.properties.time + " & " + testIntersection.properties.street);
             continue;
         }
-        var distanceDifference = turf.distance(intersection,testIntersection);
+        var distanceDifference = turf.distance(intersection,testIntersection, {units: 'kilometers'});
         t.ok(distanceDifference < 0.001, "Intersection should be close "+distanceDifference+" expected: "+testIntersection.geometry.coordinates+" got: "+intersection.geometry.coordinates);
 
         intersection = coder.forward(testIntersection.properties.street +' & '+testIntersection.properties.time);
@@ -36,7 +36,7 @@ test ('StreetIntersection', function(t) {
             t.fail("No intersection found for forward: " + testIntersection.properties.street +' & '+testIntersection.properties.time);
             continue;
         }
-        distanceDifference = turf.distance(intersection,testIntersection);
+        distanceDifference = turf.distance(intersection,testIntersection, {units: 'kilometers'});
         t.ok(distanceDifference < 0.001, "Intersection should be close "+distanceDifference);
 
         intersection = coder.forward(testIntersection.properties.time +' & '+testIntersection.properties.street);
@@ -44,7 +44,7 @@ test ('StreetIntersection', function(t) {
             t.fail("No intersection found for forward: " + testIntersection.properties.time +' & '+testIntersection.properties.street);
             continue;
         }
-        distanceDifference = turf.distance(intersection,testIntersection);
+        distanceDifference = turf.distance(intersection,testIntersection, {units: 'kilometers'});
         t.ok(distanceDifference < 0.001, "Intersection should be close "+testIntersection.properties.street+" "+distanceDifference);
     }
 
@@ -88,13 +88,13 @@ test("geocode",function(t){
         t.ok(twoStringIntersection, "Checking valid intersection returned for: "+JSON.stringify(item.properties));
 
         if (fullStringIntersection) {
-            var fullStringDistance = turf.distance(item,fullStringIntersection);
+            var fullStringDistance = turf.distance(item,fullStringIntersection, {units: 'kilometers'});
             var tolerance = item.properties.tolerance || 0.001;
             t.ok(fullStringDistance < tolerance, "Full string intersection should be close "+fullStringDistance+ " "+JSON.stringify(fullStringIntersection));
         }
 
         if (twoStringIntersection) {
-            var twoStringDistace = turf.distance(item,twoStringIntersection);
+            var twoStringDistace = turf.distance(item,twoStringIntersection, {units: 'kilometers'});
             var tolerance = item.properties.tolerance || 0.001;
             t.ok(twoStringDistace < tolerance, "Two string intersection should be close "+twoStringDistace+ " "+JSON.stringify(twoStringIntersection));
         }
@@ -211,13 +211,13 @@ test('reverseGeocode',function(t) {
     t.equal(result,"10:30 & 0' Inner Playa","Center coordinates test");
     
     result = coder.reverse(40.787858, -119.204994);
-    t.equal(result,"8:31 & 1034' Inner Playa","Inner Playa coordinates test");
+    t.equal(result,"8:31 & 643' Inner Playa","Inner Playa coordinates test");
     
     result = coder.reverse(40.78518066835633, -119.21173504230462);
-    t.equal(result,"7:00 & 4023' Inner Playa","Esplanade intersection test");
+    t.equal(result,"7:00 & 2500' Inner Playa","Esplanade intersection test");
     
     result = coder.reverse(40.79, -119.2);
-    t.equal(result,"11:43 & 2227' Inner Playa","Northern area test");
+    t.equal(result,"11:43 & 1384' Inner Playa","Northern area test");
     
     result = coder.reverse(40.78, -119.22);
     t.equal(result,"6:33 & Ishiguro","Street intersection test");

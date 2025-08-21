@@ -79,7 +79,7 @@ var streetResult = function(point,features) {
 reverseGeocoder.prototype.playaResult = function(point, polygon) {
   var bearing = turf.bearing(this.cityCenter,point);
   var time = utils.degreesToTime(bearing,this.cityBearing);
-  var distance = turf.distance(point,this.cityCenter, 'miles');
+  var distance = turf.distance(point,this.cityCenter, {units: 'miles'});
   var feet = utils.milesToFeet(distance);
 
   return time +" & "+ Math.round(feet) +'\' ' + polygon.properties.name;
