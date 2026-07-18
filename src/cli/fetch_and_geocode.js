@@ -38,7 +38,8 @@ if (!apiKey) {
 const endpoints = {
     camp: `https://api.burningman.org/api/camp?year=${parsed.year}`,
     art: `https://api.burningman.org/api/art?year=${parsed.year}`,
-    event: `https://api.burningman.org/api/event?year=${parsed.year}`
+    event: `https://api.burningman.org/api/event?year=${parsed.year}`,
+    mv: `https://api.burningman.org/api/mv?year=${parsed.year}`
 };
 
 /**
@@ -248,6 +249,24 @@ async function main() {
         results.events = 'failed';
     }
 
+    // Fetch mutant vehicles
+    try {
+        console.log('\nFetching mutant vehicles...');
+        const vehicles = await fetchFromAPI(endpoints.mv);
+        console.log(`✓ Fetched ${vehicles.length} mutant vehicles`);
+
+        // Save vehicles as-is
+        const mvFile = path.join(parsed.output, 'mv.json');
+        saveToFile(mvFile, vehicles);
+        console.log(`✓ Saved mutant vehicles to ${mvFile}`);
+
+        results.mv = vehicles.length;
+        timestamps.mv = new Date().toISOString();
+    } catch (error) {
+        console.error(`✗ Failed to fetch mutant vehicles: ${error.message}`);
+        results.mv = 'failed';
+    }
+
     // Format timestamp for Pacific Time with proper timezone offset
     function formatTimestamp(isoString) {
         const date = isoString ? new Date(isoString) : new Date();
@@ -293,6 +312,10 @@ async function main() {
         events: {
             file: "event.json",
             updated: formatTimestamp(timestamps.events)
+        },
+        mv: {
+            file: "mv.json",
+            updated: formatTimestamp(timestamps.mv)
         }
     };
 
@@ -305,6 +328,7 @@ async function main() {
     console.log(`Camps: ${results.camps === 'failed' ? 'Failed' : results.camps + ' (geocoded)'}`);
     console.log(`Art: ${results.art === 'failed' ? 'Failed' : results.art}`);
     console.log(`Events: ${results.events === 'failed' ? 'Failed' : results.events}`);
+    console.log(`Mutant Vehicles: ${results.mv === 'failed' ? 'Failed' : results.mv}`);
     console.log(`\nAll data saved to: ${parsed.output}`);
 }
 
