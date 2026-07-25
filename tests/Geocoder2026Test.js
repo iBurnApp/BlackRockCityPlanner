@@ -27,7 +27,7 @@ test('reverse2026StreetIntersections', function(t) {
         [40.78145698, -119.21667355, "7:00 & Esplanade"],   // nudged 20' out from ESP centerline
         [40.77755093, -119.20039075, "3:00 & Ararat"],
         [40.78948685, -119.21609378, "9:00 & Bodhi"],
-        [40.77845054, -119.19695545, "2:30 & Chomolungma"],
+        [40.77845054, -119.19695545, "2:30 & Ceiba"],
         [40.78324664, -119.22151539, "7:30 & Delphi"],
         [40.77210389, -119.20788409, "4:30 & Eternal"],
         [40.77847258, -119.19272273, "2:15 & Fulcrum"],
@@ -68,24 +68,24 @@ test('reverse2026Landmarks', function(t) {
     t.end();
 });
 
-test('reverse2026RodsRoad', function(t) {
+test('reverse2026CenterCampFrontageArc', function(t) {
     var coder = new Geocoder(layout2026);
 
-    // The Center Camp frontage arc is Rod's Road in 2026 (BMorg "Rods Road",
-    // ring radius ~777' from Center Camp center, spanning the Man-facing arc).
-    // Its clock time is computed from Center Camp center, 12:00 toward the Man.
+    // 2026 has no Rod's Road (BMorg removed it; the GIS drop's "Rods Road"
+    // features are legacy carryover). The layout's frontage_arc is therefore
+    // unnamed, and unnamed streets are excluded from reverse candidates —
+    // points near the arc must resolve to a real named street, never
+    // "undefined" and never a retired name.
     var ccCenter = turf.point([-119.21554727164684, 40.77742887048405]);
     var arcDistanceMiles = layout2026.center_camp.frontage_arc.distance / 5280;
 
-    // True bearing 90° (due east of Center Camp) = 1:30 on the city clock
-    var p = turf.destination(ccCenter, arcDistanceMiles, 90, {units: 'miles'});
-    var result = coder.reverse(p.geometry.coordinates[1], p.geometry.coordinates[0]);
-    t.equal(result, "1:30 & Rod's Road", "East point of frontage arc: " + result);
-
-    // True bearing 0° (due north) = 10:30 on the city clock
-    p = turf.destination(ccCenter, arcDistanceMiles, 0, {units: 'miles'});
-    result = coder.reverse(p.geometry.coordinates[1], p.geometry.coordinates[0]);
-    t.equal(result, "10:30 & Rod's Road", "North point of frontage arc: " + result);
+    [0, 90, 315].forEach(function(bearing) {
+        var p = turf.destination(ccCenter, arcDistanceMiles, bearing, {units: 'miles'});
+        var result = coder.reverse(p.geometry.coordinates[1], p.geometry.coordinates[0]);
+        t.ok(result && result.indexOf("undefined") < 0,
+            "No undefined at arc bearing " + bearing + ": " + result);
+        t.ok(result.indexOf("Rod") < 0, "No Rod's Road at arc bearing " + bearing + ": " + result);
+    });
 
     t.end();
 });
