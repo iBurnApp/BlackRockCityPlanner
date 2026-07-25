@@ -1,6 +1,6 @@
 var fs = require('fs');
 var levenshtein = require('levenshtein');
-var Geocoder = require('../geocoder/geocoder.js');
+var geocoderFactory = require('../orggeocoder/factory.js');
 
 var nopt = require("nopt"),
     path = require("path"),
@@ -91,8 +91,7 @@ try {
     // Initialize geocoder if using geocoding mode
     if (useGeocoding) {
         layoutData = JSON.parse(fs.readFileSync(parsed.layout, 'utf8'));
-        geocoder = new Geocoder(layoutData);
-        console.log('Geocoder initialized with layout file:', parsed.layout);
+        geocoder = geocoderFactory.forLayout(parsed.layout, layoutData);
     }
 } catch (error) {
     console.error('Error reading input files:', error.message);

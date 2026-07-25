@@ -1,5 +1,5 @@
 var turf = require('@turf/turf');
-var Geocoder = require('../geocoder/geocoder.js');
+var geocoderFactory = require('../orggeocoder/factory.js');
 var fs = require('fs')
   , Generate = require('../generate.js')
   , nopt = require("nopt")
@@ -44,7 +44,7 @@ if (toiletResult) {
 
 /** Generate POI GEOJSON*/
 var features = [];
-var geocoder = new Geocoder(layout);
+var geocoder = geocoderFactory.forLayout(layoutPath, layout);
 for (var index in poiLayout) {
   var poi = poiLayout[index];
   var point = geocoder.forwardTimeDistance(poi.address.time,poi.address.distance / 5280.0,'miles');

@@ -38,8 +38,10 @@ node src/cli/fetch_and_geocode.js -y 2026 -l ../../data/2026/layouts/layout.json
 # Generate all geometric data for a year
 node src/cli/generate_all.js -d ../../data/2026
 
-# Bundle geocoder for browser use
-browserify src/geocoder/index.js -o ../../data/2026/geocoder/bundle.js
+# Bundle the geocoder for the apps, from BMorg's official GeoJSON
+node src/cli/build_geocoder_data.js --data-root ../../ --year 2026 \
+  --output ../../data/2026/geocoder/geocoder-data.json
+browserify src/orggeocoder/index.js -o ../../data/2026/geocoder/bundle.js
 ```
 
 #### Manual Geocoding (if needed)
@@ -152,7 +154,15 @@ node src/cli/mock_locations.js -s [source.json] -t [target.json] -o [output.json
 - `layout.js` - Individual geometry type generation
 - `mock_locations.js` - Enhanced location mocking with geocoding support for embargo periods
 
-**Geocoding System (`src/geocoder/`)**
+**Geocoding System — official data (`src/orggeocoder/`)** — the default
+- Source of truth is BMorg's `bmorg/innovate-GIS-data/<year>/GeoJSON` (street centerlines, plazas, CPNs, trash fence), plus a ~20-line per-year `data/<year>/geocoder/config.json` supplying what the GIS drop doesn't state: the letter -> themed street-name map, the city bearing, and which CPN names the Center Camp keyhole.
+- `schema.js` absorbs BMorg's year-to-year schema drift (2024/2025 use `{type, width}` and themed street names; 2026 uses `{source, kind, width_ft}` and letters).
+- `reverse.js` — fence -> plaza polygons -> nearest ring within the street band -> open playa, sampling each ring's real centerline radius at the point's bearing.
+- `forward.js` — street intersections, time+distance, plaza perimeters, portals and named landmarks.
+- `factory.js` — used by the CLI tools: org-backed when the year has GIS data, legacy layout-driven otherwise.
+
+**Geocoding System — legacy (`src/geocoder/`)** — fallback for pre-GIS years
+
 - `geocoder.js` - Main geocoder with forward/reverse capabilities
 - `forward.js` - Address string → coordinates with fuzzy matching
 - `reverse.js` - Coordinates → address string

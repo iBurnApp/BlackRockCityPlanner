@@ -1,4 +1,4 @@
-var Geocoder = require("../geocoder/geocoder.js");
+var geocoderFactory = require("../orggeocoder/factory.js");
 var fs = require('fs');
 var turf = require('@turf/turf');
 
@@ -22,7 +22,7 @@ var layout = JSON.parse(fs.readFileSync(parsed.layout, 'utf8'));
 var art = JSON.parse(fs.readFileSync(parsed.file, 'utf8'));
 var key = parsed.key;
 
-var coder = new Geocoder(layout);
+var coder = geocoderFactory.forLayout(parsed.layout, layout);
 
 var result = [];
 art.map(function(item) {

@@ -4,7 +4,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const nopt = require('nopt');
-const Geocoder = require('../geocoder/geocoder.js');
+const geocoderFactory = require('../orggeocoder/factory.js');
 
 // Parse command line arguments
 const knownOpts = {
@@ -82,8 +82,8 @@ function fetchFromAPI(url) {
 /**
  * Geocode camps using the layout file
  */
-function geocodeCamps(camps, layoutData) {
-    const geocoder = new Geocoder(layoutData);
+function geocodeCamps(camps, layoutData, layoutPath) {
+    const geocoder = geocoderFactory.forLayout(layoutPath, layoutData);
     let geocodedCount = 0;
     let failedCount = 0;
     const failedCamps = [];
@@ -199,7 +199,7 @@ async function main() {
         console.log(`✓ Fetched ${camps.length} camps`);
         
         // Geocode camps
-        const geocodedCamps = geocodeCamps(camps, layoutData);
+        const geocodedCamps = geocodeCamps(camps, layoutData, parsed.layout);
         
         // Save camps
         const campFile = path.join(parsed.output, 'camp.json');
