@@ -137,6 +137,9 @@ CenterCampStreetPlanner.prototype.getFrontageRoad = function() {
     var properties = {
         "ref": "frontage_arc"
     };
+    if (this.centerCampInfo.frontage_arc.name) {
+        properties.name = this.centerCampInfo.frontage_arc.name;
+    }
     return turf.lineString(first_points.concat(second_points),properties);
 };
 

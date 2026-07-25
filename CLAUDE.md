@@ -23,68 +23,68 @@ BlackRockCityPlanner is a Node.js geospatial data generation tool that creates G
 # Set your API key (get from api.burningman.org)
 export BMORG_API_KEY=your-api-key-here
 
-# Fetch all data and geocode camps for 2025
+# Fetch all data and geocode camps for 2026
 node src/cli/fetch_and_geocode.js \
-  --year 2025 \
-  --layout ../../data/2025/layouts/layout.json \
-  --output ../../data/2025/APIData/APIData.bundle
+  --year 2026 \
+  --layout ../../data/2026/layouts/layout.json \
+  --output ../../data/2026/APIData/APIData.bundle
 
 # Short version
-node src/cli/fetch_and_geocode.js -y 2025 -l ../../data/2025/layouts/layout.json -o ../../data/2025/APIData/APIData.bundle
+node src/cli/fetch_and_geocode.js -y 2026 -l ../../data/2026/layouts/layout.json -o ../../data/2026/APIData/APIData.bundle
 ```
 
 #### Geometry Generation
 ```bash
 # Generate all geometric data for a year
-node src/cli/generate_all.js -d ../../data/2025
+node src/cli/generate_all.js -d ../../data/2026
 
 # Bundle geocoder for browser use
-browserify src/geocoder/index.js -o ../../data/2025/geocoder/bundle.js
+browserify src/geocoder/index.js -o ../../data/2026/geocoder/bundle.js
 ```
 
 #### Manual Geocoding (if needed)
 ```bash
 # Geocode API data (camps/art) with coordinates
-node src/cli/api.js -l ../../data/2025/layouts/layout.json -f ../../data/2025/APIData/Resources/camp.json -k location_string -o ../../data/2025/APIData/Resources/camp-location.json
+node src/cli/api.js -l ../../data/2026/layouts/layout.json -f ../../data/2026/APIData/Resources/camp.json -k location_string -o ../../data/2026/APIData/Resources/camp-location.json
 
 # Replace original with geocoded version
-mv ../../data/2025/APIData/Resources/camp-location.json ../../data/2025/APIData/Resources/camp.json
+mv ../../data/2026/APIData/Resources/camp-location.json ../../data/2026/APIData/Resources/camp.json
 ```
 
 ### Location Data Mocking (During Embargo Periods)
 When official location data is embargoed but development/testing needs location coordinates:
 
 ```bash
-# Mock 2025 camp locations with geocoding (recommended)
+# Mock 2026 camp locations with geocoding (recommended)
 node src/cli/mock_locations.js \
   --source ../../data/2024/APIData/camp.json \
-  --target ../../data/2025/APIData/APIData.bundle/camp.json \
-  --layout ../../data/2025/layouts/layout.json \
-  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --target ../../data/2026/APIData/APIData.bundle/camp.json \
+  --layout ../../data/2026/layouts/layout.json \
+  --output ../../data/2026/APIData/APIData.bundle/camp-mocked.json \
   --type camp
 
 # Legacy mode (copy GPS coordinates directly)
 node src/cli/mock_locations.js \
   --source ../../data/2024/APIData/camp.json \
-  --target ../../data/2025/APIData/APIData.bundle/camp.json \
-  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --target ../../data/2026/APIData/APIData.bundle/camp.json \
+  --output ../../data/2026/APIData/APIData.bundle/camp-mocked.json \
   --use-geocoding false \
   --type camp
 
 # Mock with different matching threshold (more permissive)
 node src/cli/mock_locations.js \
   -s ../../data/2024/APIData/camp.json \
-  -t ../../data/2025/APIData/APIData.bundle/camp.json \
-  -l ../../data/2025/layouts/layout.json \
-  -o ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  -t ../../data/2026/APIData/APIData.bundle/camp.json \
+  -l ../../data/2026/layouts/layout.json \
+  -o ../../data/2026/APIData/APIData.bundle/camp-mocked.json \
   --match-threshold 0.7
 
 # Works with art and event data too
 node src/cli/mock_locations.js \
   -s ../../data/2024/APIData/art.json \
-  -t ../../data/2025/APIData/APIData.bundle/art.json \
-  -l ../../data/2025/layouts/layout.json \
-  -o ../../data/2025/APIData/APIData.bundle/art-mocked.json \
+  -t ../../data/2026/APIData/APIData.bundle/art.json \
+  -l ../../data/2026/layouts/layout.json \
+  -o ../../data/2026/APIData/APIData.bundle/art-mocked.json \
   --type art
 ```
 
@@ -106,13 +106,13 @@ After generating GeoJSON files, create vector tiles for efficient mobile renderi
 brew install tippecanoe
 
 # Generate vector tiles from all GeoJSON files
-tippecanoe --output=../../data/2025/Map/Resources/map.mbtiles -f \
-  -L fence:../../data/2025/geo/fence.geojson \
-  -L outline:../../data/2025/geo/outline.geojson \
-  -L polygons:../../data/2025/geo/polygons.geojson \
-  -L streets:../../data/2025/geo/streets.geojson \
-  -L toilets:../../data/2025/geo/toilets.geojson \
-  -L dmz:../../data/2025/geo/dmz.geojson \
+tippecanoe --output=../../data/2026/Map/Resources/map.mbtiles -f \
+  -L fence:../../data/2026/geo/fence.geojson \
+  -L outline:../../data/2026/geo/outline.geojson \
+  -L polygons:../../data/2026/geo/polygons.geojson \
+  -L streets:../../data/2026/geo/streets.geojson \
+  -L toilets:../../data/2026/geo/toilets.geojson \
+  -L dmz:../../data/2026/geo/dmz.geojson \
   -z 14 \
   -Z 4 \
   -B0

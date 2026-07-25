@@ -26,7 +26,7 @@ This is a collection of command line tools and scripts that generate [GeoJSON](h
 
 ##### Generate all the files at once
 
-`node src/cli/generate_all.js -d [SOMETHING]/iBurn-Data/data/2025`
+`node src/cli/generate_all.js -d [SOMETHING]/iBurn-Data/data/2026`
 
 ##### Streets
 
@@ -56,13 +56,13 @@ export BMORG_API_KEY=your-api-key-here
 
 # Fetch all data and geocode camps
 node src/cli/fetch_and_geocode.js \
-  --year 2025 \
-  --layout ../../data/2025/layouts/layout.json \
-  --output ../../data/2025/APIData/APIData.bundle
+  --year 2026 \
+  --layout ../../data/2026/layouts/layout.json \
+  --output ../../data/2026/APIData/APIData.bundle
 ```
 
 **Options:**
-- `-y, --year` - Year to fetch data for (e.g., 2025)
+- `-y, --year` - Year to fetch data for (e.g., 2026)
 - `-l, --layout` - Path to layout.json file for geocoding
 - `-o, --output` - Output directory for API data files
 
@@ -80,7 +80,7 @@ This geocodes the a string in an API JSON file and outputs full API result + lat
 `node src/cli/api.js -l [layout file] -f [API JSON] -k [key string to geocode] -o [output file]`
 e.g.
 ```
-node src/cli/api.js -l ../../data/2025/layouts/layout.json -f ../../data/2025/APIData/Resources/camp.json -k location_string -o ../../data/2025/APIData/Resources/camp-location.json
+node src/cli/api.js -l ../../data/2026/layouts/layout.json -f ../../data/2026/APIData/Resources/camp.json -k location_string -o ../../data/2026/APIData/Resources/camp-location.json
 ```
 
 #### Mock Locations (During Embargo Periods)
@@ -91,9 +91,9 @@ When official location data is embargoed but development/testing needs location 
 ```bash
 node src/cli/mock_locations.js \
   --source ../../data/2024/APIData/camp.json \
-  --target ../../data/2025/APIData/APIData.bundle/camp.json \
-  --layout ../../data/2025/layouts/layout.json \
-  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --target ../../data/2026/APIData/APIData.bundle/camp.json \
+  --layout ../../data/2026/layouts/layout.json \
+  --output ../../data/2026/APIData/APIData.bundle/camp-mocked.json \
   --type camp
 ```
 
@@ -101,15 +101,15 @@ node src/cli/mock_locations.js \
 ```bash
 node src/cli/mock_locations.js \
   --source ../../data/2024/APIData/camp.json \
-  --target ../../data/2025/APIData/APIData.bundle/camp.json \
-  --output ../../data/2025/APIData/APIData.bundle/camp-mocked.json \
+  --target ../../data/2026/APIData/APIData.bundle/camp.json \
+  --output ../../data/2026/APIData/APIData.bundle/camp-mocked.json \
   --use-geocoding false \
   --type camp
 ```
 
 **Options:**
 - `-s, --source` - Source JSON file with location data (e.g., 2024 camp.json)
-- `-t, --target` - Target JSON file without location data (e.g., 2025 camp.json)  
+- `-t, --target` - Target JSON file without location data (e.g., 2026 camp.json)  
 - `-l, --layout` - Layout JSON file for geocoding (required for geocoding mode)
 - `-o, --output` - Output file path for enhanced data
 - `-m, --match-threshold` - Similarity score for fuzzy matching (0-1, default: 0.8)
