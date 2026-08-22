@@ -173,6 +173,67 @@ test('orgForwardAddressFormats2026', function(t) {
     t.end();
 });
 
+test('orgForwardDecoratedLandmarks2026', function(t) {
+    if (!orgDataAvailable(2026)) {
+        t.skip('iBurn-Data org GeoJSON not available');
+        return t.end();
+    }
+    var coder = coderFor(2026);
+    var man = coder.dict.center;
+
+    // The airport-village camps publish "Airport Road" as their address. BMorg
+    // names no such street, so the year's config supplies the point: on the
+    // hand-authored Airport Road line, up the road from the trash fence toward
+    // the city, which is where those camps actually sit. Plain "Airport" stays
+    // the surveyed CPN, ~210 m east past the fence corner.
+    var airportCpn = coder.forward('Airport');
+    t.ok(airportCpn, 'Airport resolves to the CPN');
+
+    var roadPoint = null;
+    ['Airport Road', 'Airport Rd', 'airport road', 'AIRPORT ROAD'].forEach(function(address) {
+        var point = coder.forward(address);
+        if (!point) {
+            return t.fail('no forward result for ' + address);
+        }
+        if (!roadPoint) {
+            roadPoint = point;
+        }
+        t.ok(turf.distance(point, roadPoint, {units: 'miles'}) * 5280 < 1,
+            address + ' resolves to the same point as "Airport Road"');
+    });
+
+    var metersFromCpn = turf.distance(roadPoint, airportCpn, {units: 'kilometers'}) * 1000;
+    t.ok(metersFromCpn > 1, 'Airport Road is not the Airport CPN itself');
+    t.ok(metersFromCpn < 250, 'Airport Road is at the airport (' + Math.round(metersFromCpn) + ' m from the CPN)');
+    t.ok(turf.distance(roadPoint, man, {units: 'kilometers'})
+        < turf.distance(airportCpn, man, {units: 'kilometers'}),
+        'Airport Road sits city-side of the Airport CPN');
+
+    // ... and it sits on the road the map draws.
+    var roadPath = path.join(DATA_ROOT, 'data', '2026', 'geo', 'airport_road.geojson');
+    if (fs.existsSync(roadPath)) {
+        var road = JSON.parse(fs.readFileSync(roadPath, 'utf8')).features[0];
+        var offRoad = turf.pointToLineDistance(roadPoint, road, {units: 'kilometers'}) * 1000;
+        t.ok(offRoad < 5, 'Airport Road point lies on the Airport Road line (' + offRoad.toFixed(1) + ' m off)');
+    }
+
+    // Retired streets stay retired: the decoration strip must not resurrect
+    // them, or match them onto some unrelated landmark.
+    ["Rod's Road", 'Rods Road', 'Route 66'].forEach(function(address) {
+        t.notOk(coder.forward(address), address + ' still does not resolve (retired for 2026)');
+    });
+
+    // Street addresses are unaffected — a clock token never reaches the
+    // decoration-stripping landmark path.
+    var esplanade = coder.forward('6:30 & Esplanade');
+    var esplanadeSt = coder.forward('6:30 & Esplanade St');
+    t.ok(esplanade && esplanadeSt, 'decorated street intersections resolve');
+    t.ok(turf.distance(esplanade, esplanadeSt, {units: 'miles'}) * 5280 < 1,
+        '"Esplanade" and "Esplanade St" agree');
+
+    t.end();
+});
+
 test('orgNeverUndefined2026', function(t) {
     if (!orgDataAvailable(2026)) {
         t.skip('iBurn-Data org GeoJSON not available');

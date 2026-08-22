@@ -40,6 +40,16 @@ var OrgForwardGeocoder = function(dict) {
       this.landmarks[key] = dict.cpnByName[name];
     }
   }, this);
+
+  // Places the GIS drop doesn't name but the API's addresses do — e.g. 2026's
+  // "Airport Road", the frontage the airport-village camps publish. Each is
+  // {coordinates: [lon, lat], note} in the year's geocoder config, and wins over
+  // a same-named plaza or CPN so a hand-surveyed point beats a generic one.
+  var extra = (dict.config && dict.config.extra_landmarks) || {};
+  Object.keys(extra).forEach(function(name) {
+    var coordinates = extra[name].coordinates || extra[name];
+    this.landmarks[normalize(name)] = turf.point(coordinates);
+  }, this);
 };
 
 /** time string + distance -> point. units: 'miles' | 'feet' */
@@ -131,6 +141,16 @@ OrgForwardGeocoder.prototype.geocode = function(locationString1, locationString2
 
   // A bare landmark name ("Center Camp Plaza", "Playa Info", "1200 Promenade")
   var landmark = this.matchLandmark(input);
+  if (!landmark && !parts.time) {
+    // Burners and the BM API decorate landmark names with a street word the
+    // org data doesn't use: "Airport Road" is the "Airport" CPN. Only try this
+    // once the undecorated form has failed, and only for addresses with no
+    // clock token, so a real street address never falls in here.
+    var strippedInput = stripStreetDecorations(input);
+    if (strippedInput && strippedInput !== input) {
+      landmark = this.matchLandmark(strippedInput);
+    }
+  }
   if (landmark) {
     return landmark.geometry.type === 'Point' ? landmark : turf.centroid(landmark);
   }
