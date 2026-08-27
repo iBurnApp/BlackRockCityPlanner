@@ -234,6 +234,51 @@ test('orgForwardDecoratedLandmarks2026', function(t) {
     t.end();
 });
 
+test('orgForwardRepeatedPlazaTime2026', function(t) {
+    if (!orgDataAvailable(2026)) {
+        t.skip('iBurn-Data org GeoJSON not available');
+        return t.end();
+    }
+    var coder = coderFor(2026);
+
+    // The 2026 API writes a plaza-fronting camp's address as the radial plus the
+    // plaza's own (identically named) time: "10:00 & 10:00 B Plaza". The clock
+    // token is consumed as the intersection's time, leaving "B Plaza" — no ring,
+    // and too far from "10:00 b plaza" for the fuzzy landmark match. Re-attaching
+    // the time resolves it to the plaza itself.
+    [['10:00 & 10:00 B Plaza', '10:00 B Plaza'],
+     ['2:00 & 2:00 B Plaza', '2:00 B Plaza']].forEach(function(pair) {
+        var repeated = coder.forward(pair[0]);
+        var bare = coder.forward(pair[1]);
+        t.ok(repeated, pair[0] + ' resolves');
+        t.ok(bare, pair[1] + ' resolves');
+        t.ok(turf.distance(repeated, bare, {units: 'miles'}) * 5280 < 1,
+            pair[0] + ' resolves to the same point as "' + pair[1] + '"');
+    });
+
+    // The plain "<time> & <letter> Plaza" spelling reaches the same plaza.
+    var shortForm = coder.forward('10:00 & B Plaza');
+    t.ok(shortForm, '10:00 & B Plaza resolves');
+    t.ok(turf.distance(shortForm, coder.forward('10:00 B Plaza'), {units: 'miles'}) * 5280 < 1,
+        '"10:00 & B Plaza" is the 10:00 B Plaza');
+
+    // A plaza point is not the street intersection of the same name: the plaza
+    // perimeter/centroid sits off the ring centerline.
+    var ringCorner = coder.forward('10:00 & B');
+    t.ok(ringCorner, '10:00 & B resolves as a street intersection');
+    t.ok(turf.distance(ringCorner, coder.forward('10:00 B Plaza'), {units: 'kilometers'}) * 1000 > 5,
+        'the plaza and the 10:00 & B intersection stay distinct points');
+
+    // Regressions: the plaza-perimeter grammar and ordinary intersections are
+    // untouched, and a nonexistent plaza still fails rather than fuzzing onto one.
+    t.ok(coder.forward('3:00 B Plaza @ 11:00'), 'plaza-perimeter addresses still resolve');
+    t.ok(coder.forward('Center Camp Plaza @ 3:00'), 'Center Camp Plaza perimeter still resolves');
+    t.ok(coder.forward('6:15 & A'), 'ordinary street intersections still resolve');
+    t.notOk(coder.forward('Ceci Nest Pas Une Plaza'), 'an invented plaza name does not resolve');
+
+    t.end();
+});
+
 test('orgNeverUndefined2026', function(t) {
     if (!orgDataAvailable(2026)) {
         t.skip('iBurn-Data org GeoJSON not available');
