@@ -7,8 +7,7 @@
  *
  * Created by dbro on 7/31/15.
  */
-var parse = require('babyparse');
-var request = require('request');
+var parse = require('papaparse');
 var turf = require('@turf/turf');
 
 // Links to PlayaEvents City Data API. We'll extract Golden Spike plus Pentagon Coordinates
@@ -17,30 +16,33 @@ var dataUrl1 = 'http://innovate.burningman.com/wp-content/uploads/2014/06/2014-C
 // 2015 data
 var dataUrl2 = 'http://bm-innovate.s3.amazonaws.com/2015/2015-City-Map-Related-Data.csv';
 
-// Get 2014 City data
-request(dataUrl1, function (error1, response1, body1) {
-  if (!error1 && response1.statusCode == 200) {
+function getText(url) {
+  return fetch(url).then(function(response) {
+    if (!response.ok) {
+      throw new Error(url + ': ' + response.status);
+    }
+    return response.text();
+  });
+}
 
-    request(dataUrl2, function (error2, response2, body2) {
-      if (!error2 && response2.statusCode == 200) {
+// Fetch the 2014 and 2015 city data
+Promise.all([getText(dataUrl1), getText(dataUrl2)]).then(function(bodies) {
+  //console.log('Data Set 1');
+  var parsed1 = parse.parse(bodies[0]);
+  var goldenSpike1 = extractGoldenSpike(parsed1.data);
+  //var pentagon1 = extractPentagon(parsed1.data);
 
-        //console.log('Data Set 1');
-        var parsed1 = parse.parse(body1);
-        var goldenSpike1 = extractGoldenSpike(parsed1.data);
-        //var pentagon1 = extractPentagon(parsed1.data);
+  //console.log('Data Set 2');
+  var parsed2 = parse.parse(bodies[1]);
+  var goldenSpike2 = extractGoldenSpike(parsed2.data);
+  //var pentagon2 = extractPentagon(parsed2.data);
 
-        //console.log('Data Set 2');
-        var parsed2 = parse.parse(body2);
-        var goldenSpike2 = extractGoldenSpike(parsed2.data);
-        //var pentagon2 = extractPentagon(parsed2.data);
-
-        var translation = turf.distance(goldenSpike1, goldenSpike2, {units: 'miles'});
-        console.log('Golden spike offset ' + translation + ' miles');
-        console.log('Golden spike lat delt: ' + (goldenSpike2.geometry.coordinates[1] - goldenSpike1.geometry.coordinates[1]));
-        console.log('Golden spike lon delt: ' + (goldenSpike2.geometry.coordinates[0] - goldenSpike1.geometry.coordinates[0]));
-      }
-    });
-  }
+  var translation = turf.distance(goldenSpike1, goldenSpike2, {units: 'miles'});
+  console.log('Golden spike offset ' + translation + ' miles');
+  console.log('Golden spike lat delt: ' + (goldenSpike2.geometry.coordinates[1] - goldenSpike1.geometry.coordinates[1]));
+  console.log('Golden spike lon delt: ' + (goldenSpike2.geometry.coordinates[0] - goldenSpike1.geometry.coordinates[0]));
+}).catch(function(error) {
+  console.log(error.message);
 });
 
 var extractGoldenSpike = function(parsedData) {

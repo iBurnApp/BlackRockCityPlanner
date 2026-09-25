@@ -1,4 +1,3 @@
-var request = require('request');
 var fs = require('fs');
 
 var nopt = require("nopt"), 
@@ -21,19 +20,22 @@ var url = "https://api.burningman.org/api/v1/" + parsed.type + "?year=" + parsed
 console.log(url)
 
 
-request.get(url, {
-  'auth': {
-    'user': parsed.key,
-    'sendImmediately': false
+// Basic auth with the API key as the username (what `request`'s auth option sent).
+fetch(url, {
+  headers: {
+    'Authorization': 'Basic ' + Buffer.from(parsed.key + ':').toString('base64')
   }
-}, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    if (parsed.out) {
-        fs.writeFile(parsed.out,body,function(err){});
-    } else {
-        console.log(body);
+}).then(function(response) {
+  return response.text().then(function(body) {
+    if (!response.ok) {
+      throw new Error(response.status + ': ' + body);
     }
-  } else {
-    console.log(respnose.statusCode + ": " + error);
-  }
+    if (parsed.out) {
+      fs.writeFile(parsed.out, body, function(err) {});
+    } else {
+      console.log(body);
+    }
+  });
+}).catch(function(error) {
+  console.log(error.message);
 });
