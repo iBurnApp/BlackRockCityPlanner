@@ -9,7 +9,9 @@ BlackRockCityPlanner is a Node.js geospatial data generation tool that creates G
 ## Development Commands
 
 ### Setup
-- `npm install` - Install dependencies
+- Node.js 24 LTS (`.nvmrc`; `engines` requires >= 24 — jsts 2.x is ES modules that
+  `src/polygons.js` loads with `require()`)
+- `npm ci` - Install dependencies from the lockfile (npm only; there is no yarn.lock)
 - `npm install -g` - Install globally for CLI usage
 
 ### Testing
@@ -43,6 +45,9 @@ node src/cli/build_geocoder_data.js --data-root ../../ --year 2026 \
   --output ../../data/2026/geocoder/geocoder-data.json
 browserify src/orggeocoder/index.js -o ../../data/2026/geocoder/bundle.js
 ```
+
+`browserify` is a global install (17.0.1), not a devDependency: its crypto polyfills pull in
+`elliptic`, which has an advisory with no patched release, and the geocoder never uses them.
 
 #### Manual Geocoding (if needed)
 ```bash
@@ -187,8 +192,14 @@ The geocoder handles Burning Man's unique addressing:
 - **Distance-based**: "10:30 1200'" (direction with distance from center)
 
 ### Key Dependencies
-- **Turf.js v3.x** - Core geospatial processing and GeoJSON manipulation
-- **JSTS** - Advanced geometric operations and spatial analysis
+- **Turf.js v7.x** - Core geospatial processing and GeoJSON manipulation.
+  `package.json` `overrides` hold `@turf/union`, `@turf/difference` and `@turf/line-intersect`
+  at 7.1.0, the last releases whose output matches 7.0.0. From 7.2, union/difference use
+  `polyclip-ts` instead of `polygon-clipping` and line-intersect returns different points (7.4
+  drops `sweepline-intersections` entirely); both change the generated outline/polygons
+  (e.g. sliver MultiPolygons) and legacy-geocoder results. Lift an override only together with
+  regenerating and reviewing the outputs.
+- **JSTS v2.x** - Advanced geometric operations and spatial analysis (street buffers for the outline)
 - **Mathjs** - Mathematical calculations for coordinate transformations
 - **Levenshtein** - Fuzzy string matching for geocoding tolerance
 

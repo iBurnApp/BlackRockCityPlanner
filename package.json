@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "A basic geocoder for burning man",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
-    "@turf/turf": "^7.0.0",
-    "jsts": "^1.6.1",
+    "@turf/turf": "^7.4.0",
+    "jsts": "^2.12.1",
     "levenshtein": "^1.0.5",
-    "mathjs": "^5.0.0",
-    "nopt": "^4.0.1",
+    "mathjs": "^15.2.0",
+    "nopt": "^10.0.1",
     "papaparse": "^5.7.0"
   },
   "devDependencies": {
@@ -20,5 +23,10 @@
   },
   "author": "",
   "license": "ISC",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "overrides": {
+    "@turf/difference": "7.1.0",
+    "@turf/line-intersect": "7.1.0",
+    "@turf/union": "7.1.0"
+  }
 }

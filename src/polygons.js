@@ -1,6 +1,10 @@
 var turf = require('@turf/turf');
 var utils = require('./utils.js');
-var jsts = require("jsts");
+// jsts 2.x is ES modules with no package entry point; require the pieces we
+// use (Node >= 22 can require() ESM). monkey.js adds Geometry#buffer etc.
+var GeoJSONReader = require('jsts/org/locationtech/jts/io/GeoJSONReader.js').default;
+var GeoJSONWriter = require('jsts/org/locationtech/jts/io/GeoJSONWriter.js').default;
+require('jsts/org/locationtech/jts/monkey.js');
 var streets = require('./streets.js');
 var points = require('./points.js');
 var fence = require('./fence.js');
@@ -237,8 +241,8 @@ exports.streetsOutline = function(streetPlanner) {
   var defaultWidth = streetPlanner.layoutFile.road_width;
 
   var outline;
-  var reader = new jsts.io.GeoJSONReader();
-  var parser = new jsts.io.GeoJSONWriter();
+  var reader = new GeoJSONReader();
+  var parser = new GeoJSONWriter();
 
   s.features.forEach(function(item){
     var geo = reader.read(item).geometry;
