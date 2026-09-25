@@ -13,8 +13,8 @@ BlackRockCityPlanner is a Node.js geospatial data generation tool that creates G
 - `npm install -g` - Install globally for CLI usage
 
 ### Testing
-- `npm test` - Run all tests with coverage (uses TAP)
-- `tap tests/*.js --cov` - Run tests with coverage directly
+- `npm test` - Run all tests with coverage (tape + c8, with coverage thresholds)
+- `npx tape tests/SomeTest.js` - Run one test file
 
 ### Main Generation Workflow
 
@@ -193,7 +193,7 @@ The geocoder handles Burning Man's unique addressing:
 - **Levenshtein** - Fuzzy string matching for geocoding tolerance
 
 ### Testing Approach
-- **Tape.js** framework with TAP protocol and coverage reporting
+- **Tape.js** framework with TAP protocol; coverage via c8
 - Comprehensive geocoding tests with known coordinate pairs
 - Distance-based assertions using Turf.js measurements
 - Test data includes realistic layout configurations

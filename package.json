@@ -12,11 +12,11 @@
     "papaparse": "^5.7.0"
   },
   "devDependencies": {
-    "tap": "^16.3.0",
-    "tape": "^5.6.0"
+    "c8": "^12.0.0",
+    "tape": "^5.10.2"
   },
   "scripts": {
-    "test": "tap tests/*.js --cov --lines=85 --functions=85 --branches=75 --statements=85"
+    "test": "c8 --check-coverage --lines=85 --functions=85 --branches=75 --statements=85 tape \"tests/*.js\""
   },
   "author": "",
   "license": "ISC",
