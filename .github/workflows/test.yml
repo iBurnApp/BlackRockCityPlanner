@@ -32,6 +32,24 @@ jobs:
           /data/*/APIData/
           !/data/*/APIData/**/MediaFiles/
 
+    # OrgGeocoderTest reads Burning Man's GIS drop, which iBurn-Data carries as
+    # a submodule. Check it out at the commit iBurn-Data pins.
+    - name: Find the pinned innovate-GIS-data commit
+      id: gis
+      working-directory: iBurn-Data
+      run: echo "sha=$(git rev-parse HEAD:bmorg/innovate-GIS-data)" >> "$GITHUB_OUTPUT"
+
+    - name: Check out innovate-GIS-data (GeoJSON only)
+      uses: actions/checkout@v7
+      with:
+        repository: burningmantech/innovate-GIS-data
+        ref: ${{ steps.gis.outputs.sha }}
+        path: iBurn-Data/bmorg/innovate-GIS-data
+        filter: blob:none
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /*/GeoJSON/
+
     - name: Check out BlackRockCityPlanner
       uses: actions/checkout@v7
       with:
