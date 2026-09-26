@@ -9,18 +9,43 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
+    # The tests and geocoders read layouts, GIS and API data from the parent
+    # iBurn-Data repo (`../../data/<year>/...`), so check this repo out at the
+    # path it has as a submodule there: iBurn-Data/scripts/BlackRockCityPlanner.
+    defaults:
+      run:
+        working-directory: iBurn-Data/scripts/BlackRockCityPlanner
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Use Node.js from .nvmrc
-      uses: actions/setup-node@v4
+    - name: Check out iBurn-Data (test fixtures only)
+      uses: actions/checkout@v7
       with:
-        node-version-file: '.nvmrc'
-        cache: 'npm'
-    
+        repository: iBurnApp/iBurn-Data
+        path: iBurn-Data
+        filter: blob:none
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /data/*/layouts/
+          /data/*/geocoder/
+          /data/*/geo/
+          /data/*/APIData/
+          !/data/*/APIData/**/MediaFiles/
+
+    - name: Check out BlackRockCityPlanner
+      uses: actions/checkout@v7
+      with:
+        path: iBurn-Data/scripts/BlackRockCityPlanner
+
+    - name: Use Node.js from .nvmrc
+      uses: actions/setup-node@v7
+      with:
+        node-version-file: iBurn-Data/scripts/BlackRockCityPlanner/.nvmrc
+        cache: npm
+        cache-dependency-path: iBurn-Data/scripts/BlackRockCityPlanner/package-lock.json
+
     - name: Install dependencies
       run: npm ci
-    
+
     - name: Run tests
       run: npm test
