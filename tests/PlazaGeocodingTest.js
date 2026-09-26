@@ -1,4 +1,4 @@
-var test = require('tap').test;
+var test = require('tape');
 var Geocoder = require('../src/geocoder/geocoder.js');
 var turf = require('@turf/turf');
 var layout = require('../../../data/2025/layouts/layout.json');
